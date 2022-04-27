@@ -77,5 +77,17 @@
                 cursor: pointer;
             }
         }
+    @include phone{
+        .logo_copyrights{
+            width: 100%;
+        }
+        .about_us{
+            @include flexColumn(flex-start ,center );
+            padding: 20px;
+        }
+        .social{
+            width: 100%;
+        }
+    }
     }
 </style>

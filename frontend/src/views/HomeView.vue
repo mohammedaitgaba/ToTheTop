@@ -54,21 +54,17 @@ import the_footer from '@/components/the_footer.vue';
     <section class="generator">
         <div class="generator_head">
             <div class="titles_holder">
-            <div class="title1">Motivation &nbsp; </div>
-            <div class="title2">Quotes</div>
-            <div>
-                
+                <div class="title1">Motivation &nbsp; </div>
+                <div class="title2">Quotes</div>
             </div>
-            </div>
-            <p class="paragraph">
+            <div class="paragraph"><p >
                 Taking a  look at one or two random quotes each morning. 
-                can be a good exercise for journaling prompts.
-            </p>
+                can be a good exercise for journaling prompts.</p>
+            </div>
         </div>
         
         <div class="quote">
-            <label >   Taking a  look at one or two random quotes each morning. 
-            can be a good exercise for journaling prompts. </label>
+            <label > Taking a  look at one or two random quotes each morning.can be a good exercise for journaling prompts. </label>
         </div>
 
         <form action="">
@@ -117,10 +113,10 @@ import the_footer from '@/components/the_footer.vue';
 
     <section class="blogs_container">
         <div class="blogs_head">
-            <h1>Latest Articles</h1> 
+            Latest Articles
         </div>
         <div class="blogs_info">
-           <h3> Recent posts tackling problems in all areas of life</h3>
+           Recent posts tackling problems in all areas of life
         </div>
         <div class="blogs_body">
             <div>
@@ -199,6 +195,7 @@ import the_footer from '@/components/the_footer.vue';
         background-size: cover;
         background-repeat: no-repeat;
         background-position: top;
+        background-attachment: fixed;
         z-index: -1;
         width: 100%;
         height: 110vh;
@@ -214,6 +211,10 @@ import the_footer from '@/components/the_footer.vue';
         color: $white;
         font-weight: bold;
         font-size: 42px;
+        @include phone{
+            font-size: 32px;
+            width: 80%
+        } ;
     }
     .mid_heading{
         margin-top: 30px;
@@ -221,10 +222,11 @@ import the_footer from '@/components/the_footer.vue';
         font-size: 26px
     }
     .about_home{
-        @include flexRow('center','space between');
+        @include flexRow(center,space-between);
         padding: 95px;
         margin-top: 30px;
         width: 100%;
+      
         .about_img{
             width: 80%;
             margin-left: 20px;
@@ -236,7 +238,7 @@ import the_footer from '@/components/the_footer.vue';
         .about_text{
             width: 90%;
             margin-right: 20px;
-             .paragraph{
+            .paragraph{
                 margin: 15px 0 15px 0;
             }
             .big_title{
@@ -244,7 +246,21 @@ import the_footer from '@/components/the_footer.vue';
                 font-size: 28px;
             }
         }
+      @include phone{
+            padding: 45px 7px 30px 7px;
+            @include flexColumn(center,space-between);
+            font-size: 14px;
+        .about_img{
+            margin: 0;
+            }
+        .about_text{
+            margin: 0;
+            .big_title{
+                       font-size: 18px;
+                   }
 
+        }
+        };
     }
     .generator{
         background-color:$orange3;
@@ -253,7 +269,8 @@ import the_footer from '@/components/the_footer.vue';
         .generator_head{
             @include flexColumn(center,center);
             .paragraph{
-                font-size: 14px
+                font-size: 16px;
+                width: 85%;
             }
         }
         .titles_holder{
@@ -275,6 +292,17 @@ import the_footer from '@/components/the_footer.vue';
             background-color: $white;
             color: $orange1;
         }
+    
+    @include phone{
+        .quote{
+            font-size: 18px;
+        }
+        .generator_head{
+            .paragraph{
+            font-size: 14px;
+            }
+        }
+    }
     }
 
     .solutions_container{
@@ -282,10 +310,10 @@ import the_footer from '@/components/the_footer.vue';
         padding: 95px;
         width: 100%;
         height: 95vh;
-          .sol1{
+        .sol1{
                 margin-right: 25px
             }
-            .sol2{
+        .sol2{
                 margin-left: 25px
             }
         .solutions_head{
@@ -300,8 +328,7 @@ import the_footer from '@/components/the_footer.vue';
   
           
         }
-    }
-          .solution{
+        .solution{
                 width: 80%;
                 height: 100%;
                 position: relative;
@@ -341,13 +368,38 @@ import the_footer from '@/components/the_footer.vue';
             opacity: 0.3;
             }
         }
+    
+    @include phone{
+        padding: 30px 7px 30px 7px ;
+        height: auto;
+        .solutions_head{
+            text-align: center;
+        }
+        .sol1{
+            margin: 15px 0 10px 0;
+        }
+        .sol2{
+           margin: 15px 0 10px 0;
+        }
+        .solutions_body{
+            @include flexColumn(center,space-between);
+            .solution{
+                width: 100%;
+                img{
+                    width: 95%;
+                }
+            }
+        }
+    }
+    }
+        
     .blogs_container{
          @include flexColumn(center,space-evenly);
         background-color: #EEEEEE;
         margin-top: 40px;
         height: 75vh;
         .blogs_head{
-           font-size: 22px; 
+           font-size: 32px; 
         }
         .blogs_body{
             display: grid;
@@ -356,6 +408,21 @@ import the_footer from '@/components/the_footer.vue';
             text-align: center;
             width: 90%;
         }
+    @include phone{
+        height: auto;
+         .blogs_head{
+           font-size: 24px; 
+           padding: 8px;
+        }
+        .blogs_info{
+            width: 90%;
+            font-size: 18px;
+            padding: 8px;
+        }
+        .blogs_body{
+            grid-template-columns: 1fr;
+        }
+    }
     }
     .contact_us{
        @include flexColumn(center,space-evenly);
@@ -363,7 +430,7 @@ import the_footer from '@/components/the_footer.vue';
         form{
             @include flexColumn(center,space-evenly);
             background-color: $secondary;
-            // opacity: 0.5;
+            opacity: 0.8;
             width: 60%;
             height: 80%;
             border-radius: 10px;
@@ -395,7 +462,14 @@ import the_footer from '@/components/the_footer.vue';
         .contact_send{
             @include button;
         }
+    
+    @include phone{
+        form{
+            width: 90%;
+        }
     }
+    }
+
 
     
 </style>
