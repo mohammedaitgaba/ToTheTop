@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo&family=Barlow+Condensed&display=swap');
+// @import'assets/styles.css';
+
+$primaryfont : 'Arimo', sans-serif;
+$secondaryfont :'Barlow Condensed', sans-serif;
+$orange1 : #FF8C42;
+$orange2: #FCAF58;
+$orange3 : #F9C784;
+$secondary : #D6EFFF;
+$white : #ffff;
+
+$resposive : (
+        "phone" : 480px,
+        "tablet" : 720px,
+        "large-tablet" : 1100px
+);
+
+@mixin flexColumn($align , $justify) {
+    display: flex;
+    flex-direction: column;
+    align-items: $align;
+    justify-content: $justify;
+  }
+
+@mixin flexRow($align , $justify) {
+    display: flex;
+    flex-direction: row;
+    align-items: $align;
+    justify-content: $justify;
+  }
+@mixin button {
+  background-color: $orange2;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 25px;
+  color: $white;
+  font-size: 18px;
+  cursor: pointer;
+}
+@mixin  phone{
+    @media(max-width : map-get($resposive, "phone")){
+  
+      @content;
+    }
+  }
+  @mixin  tablet{
+    @media(max-width : map-get($resposive, "tablet")){
+      @content;
+    }
+  }
+  @mixin  large-tablet{
+    @media(max-width : map-get($resposive, "large-tablet")){
+      @content;
+    }
+  }
+  
+
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arimo', sans-serif;
+  }
+  body{
+      margin: 0;
+  }
