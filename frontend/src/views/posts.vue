@@ -74,7 +74,7 @@
                    </div>
                    <div class="comments">
                        <label for=""> med gaba </label>
-                       <label for=""> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
+                       <label for=""> Lorem ipsum dolor sit amet, consectetsfdfsdfsdfsdfsdfdsur adipisicing elit.</label>
                    </div>
                </div>
                <div class="show_more">
@@ -202,6 +202,53 @@ export default {
             .claps{
             @include flexColumn(center,flex-start);
 
+            }
+        }
+        .comments_container{
+            width: 100%;
+            @include flexColumn(center,flex-start);
+            .make_cmnt{
+                width: 90%;
+                padding: 10px 0 10px 0;
+                position: relative;
+                @include flexRow(center,center);
+                input{
+                    width: 100%;
+                    height: 40px;
+                    border-radius: 20px;
+                    padding: 10px;
+                }
+                button{
+                    position: absolute;
+                    right: 10px;
+                    border: none;
+                    background-color: $white;
+                    border-radius: 30px;
+                    img{
+                        width: 30px;
+                        height: 30px;
+                    }
+                } 
+
+            }
+            .all_cmnts{
+                @include flexRow(center,space-evenly);
+                width: 93%;
+                .cmnt_maker_pic{
+                    width: 60px;
+                    height: 55px;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                    }
+                }
+            }
+            .comments{
+                @include flexColumn(flex-start,center);
+                margin-left: 10px;
+                background-color: #EAEAEA;
+               
             }
         }
         }
