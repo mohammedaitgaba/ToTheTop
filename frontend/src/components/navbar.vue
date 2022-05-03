@@ -4,19 +4,30 @@
             <img src="../assets/images/logo/Group 16.png" alt="">
         </div>
         <div class="navlinks">
-
             <ul class="nav_items">
-                <li><a class="nav_item" href="">home</a></li>
+                <li><a class="nav_item" href="">Home</a></li>
                 <li><a class="nav_item" href="">Profile</a> </li>
-                <li><a class="nav_item" href="">messanger</a> </li>
+                <li><a class="nav_item" href="">Messanger</a> </li>
+                <li><a class="auth" href="" >Sign in </a> </li>
             </ul>
         </div>
-        <div class="auth">
+        <!-- <div class="auth">
+
+            <ul class="nav_auth">
+            </ul>
+        </div>    -->
+        <!-- <div class="auth">
 
             <ul class="nav_items">
-                <li><a href="">Sign in </a> </li>
-                <!-- <li><a href="">Logout</a></li> -->
+                <li><a href="">logout</a> </li>
             </ul>
+        </div> -->
+
+        <div  @click="navSlide" class="menu" >
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+            
         </div>
     </div>
 </template>
@@ -37,7 +48,7 @@
             width: 150px;
         }
         .navlinks{
-            width: 25%
+            width: 35%
         }
         .nav_items{
             @include flexRow(center,space-between);   
@@ -52,7 +63,7 @@
             padding-bottom: 0.25rem;
             position: relative;
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 500;
         }
         .nav_item::before{
             content:"";
@@ -65,7 +76,7 @@
             transition: width 0.35s ease-out;
         }
         .nav_item:hover::before{
-         width: 100%;
+         width: 60%;
 }
         }
         .auth{
@@ -75,15 +86,81 @@
             } 
             padding: 6px 10px;
         }
+
+        .menu {
+            margin: 8px;
+            cursor: pointer;
+            display:  none;
+
+            div{
+                background-color: #000000;
+                width: 28px;
+                height: 5px;
+                margin:4px;
+                border-radius: 10px;
+                transition: all 0.3s ease-in;
+
+            }
+        }
+    
     
     @include tablet{
-        .navlinks{
-            display: none;
+
+        .nav_items{
+            position: absolute;
+            @include flexColumn(center,center);
+            right: 0; 
+            top: 12vh;
+            background-color:$white;
+            height: 80vh;
+            width: 80vw;
+            transform: translateX(100%);
+            transition: 0.5s ease-in;
+            li{
+                margin: 15px;
+            }
         }
-        .auth{
-            display: none;
+        .nav_item {
+            z-index: 12;
         }
-    }
-    
-    }
+
+        .menu{
+    display: block;
+        }
+        .nav-active{
+            transform: translateX(0%) !important;           
+        }
+        .toggle .line1{
+            transform: rotate(-45deg) translate(-4px,6px);
+        }
+        .toggle .line2{
+            opacity: 0;
+        }
+        .toggle .line3{
+            transform: rotate(45deg) translate(-6px,-9px);
+        }
+            }
+            }
 </style>
+
+<script>
+export default {
+    methods: {
+
+        navSlide () {
+            // let menu = document.querySelector('.menu');
+        let nav = document.querySelector('.nav_links');
+
+                console.log(nav);
+        // nav.classList.toggle('nav-active');
+        // menu.addEventListener('click' , console.log("eee"))
+        // () => {;});
+    }
+        // navSlide(){
+        
+        // }
+        
+    },
+}
+    // navSlide();
+</script>

@@ -1,10 +1,3 @@
-<script setup>
-
-import navbar from '@/components/navbar.vue';
-import the_footer from '@/components/the_footer.vue';
-
-</script>
-
 <template>
 
     <navbar/>
@@ -119,17 +112,17 @@ import the_footer from '@/components/the_footer.vue';
            Recent posts tackling problems in all areas of life
         </div>
         <div class="blogs_body">
-            <div>
+            <div class="blog">
                 <img src="../assets/images/others/blog1.png" alt="">
                 <p>Here will be the subject of the post</p>
                 <p>Jhon snow</p>
             </div>
-            <div>
+            <div class="blog">
                 <img src="../assets/images/others/unsplash_U2eUlPEKIgU.png" alt="">
                 <p>Here will be the subject of the post</p>
                 <p>Jhon snow</p>
             </div>
-            <div>
+            <div class="blog">
                 <img src="../assets/images/others/blog3.png" alt="">
                 <p>Here will be the subject of the post</p>
                 <p>Jhon snow</p>
@@ -170,6 +163,13 @@ import the_footer from '@/components/the_footer.vue';
 </template>
 
 
+
+<script setup>
+
+import navbar from '@/components/navbar.vue';
+import the_footer from '@/components/the_footer.vue';
+
+</script>
 <!-- <script>
      
     //    var typed = new Typed(".auto_typed", {
@@ -246,19 +246,18 @@ import the_footer from '@/components/the_footer.vue';
                 font-size: 28px;
             }
         }
-      @include phone{
-            padding: 45px 7px 30px 7px;
-            @include flexColumn(center,space-between);
-            font-size: 14px;
+      @include tablet{
+        padding: 45px 7px 30px 7px;
+        @include flexColumn(center,space-between);
+        font-size: 14px;
         .about_img{
             margin: 0;
             }
         .about_text{
             margin: 0;
-            .big_title{
+        .big_title{
                        font-size: 18px;
                    }
-
         }
         };
     }
@@ -293,7 +292,7 @@ import the_footer from '@/components/the_footer.vue';
             color: $orange1;
         }
     
-    @include phone{
+    @include tablet{
         .quote{
             font-size: 18px;
         }
@@ -369,7 +368,7 @@ import the_footer from '@/components/the_footer.vue';
             }
         }
     
-    @include phone{
+    @include tablet{
         padding: 30px 7px 30px 7px ;
         height: auto;
         .solutions_head{
@@ -384,9 +383,19 @@ import the_footer from '@/components/the_footer.vue';
         .solutions_body{
             @include flexColumn(center,space-between);
             .solution{
-                width: 100%;
+                width: 80%;
                 img{
-                    width: 95%;
+                    width: 75%;
+                }
+            }
+        }
+    }
+    @include phone{
+         .solutions_body{
+            .solution{
+                width: 80%;
+                img{
+                    width: 100%;
                 }
             }
         }
@@ -394,7 +403,7 @@ import the_footer from '@/components/the_footer.vue';
     }
         
     .blogs_container{
-         @include flexColumn(center,space-evenly);
+        @include flexColumn(center,space-evenly);
         background-color: #EEEEEE;
         margin-top: 40px;
         height: 75vh;
@@ -408,7 +417,20 @@ import the_footer from '@/components/the_footer.vue';
             text-align: center;
             width: 90%;
         }
-    @include phone{
+    @include large-tablet{
+        height: auto;
+        .blogs_body{
+            grid-template-columns: 1fr;
+            .blog{
+                margin-top: 20px;
+                img{
+                    width: 60%;
+                }
+            }
+        }
+        }
+    @include tablet{
+        text-align: center;
         height: auto;
          .blogs_head{
            font-size: 24px; 
@@ -419,8 +441,12 @@ import the_footer from '@/components/the_footer.vue';
             font-size: 18px;
             padding: 8px;
         }
-        .blogs_body{
-            grid-template-columns: 1fr;
+         .blogs_body{
+            .blog{
+                img{
+                    width: 80%;
+                }
+            }
         }
     }
     }

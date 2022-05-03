@@ -11,13 +11,13 @@
             </div>
         </div>
         <div class="about_us">
-            <div >
+            <div class="info">
                 <img src="../assets/images/icons/clarity_email-line.png" alt="">We’re open for any suggestion  
             </div>
-            <div>
+            <div class="info">
                 <img src="../assets/images/icons/akar-icons_location.png" alt="">We’re open for any suggestion or just  
             </div>
-            <div>
+            <div class="info">
                 <img src="../assets/images/icons/phone.png" alt="">06503132112445 
             </div>
             
@@ -77,13 +77,17 @@
                 cursor: pointer;
             }
         }
-    @include phone{
+    @include tablet{
+        height: auto;
         .logo_copyrights{
             width: 100%;
         }
         .about_us{
-            @include flexColumn(flex-start ,center );
+            @include flexColumn(center,center);
             padding: 20px;
+            .info{
+                padding: 10px;
+            }
         }
         .social{
             width: 100%;
