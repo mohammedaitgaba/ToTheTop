@@ -1,6 +1,9 @@
 <template>
     <navbar/>
     <div class="container">
+
+        <!-- sidebar section  -->
+
        <section class="side_bar">
            <div class="helpers">
                <div class="add"><img src="../assets/images/icons/add.png" alt=""></div>
@@ -11,22 +14,31 @@
                 <img src="../assets/images/icons/dashicons_search.png" alt="">
            </div>
        </section>
+
+        <!-- posts section -->
+
        <section class="posts_container">
 
            <div class="user_info">
-               <div class="profile_pic">
-                   <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
-               </div>
-               <div class="username_time">
-                   <div>
-                       <label class="username">mohammed gaba</label>
+               <div class="post_head">
+                   <div class="profile_pic">
+                       <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
                    </div>
-                   <div class="time">
-                       <label > 20h Ago</label>
+                   <div class="username_time">
+                       <div>
+                           <label class="username">mohammed gaba</label>
+                       </div>
+                       <div class="time">
+                           <label > 20h Ago</label>
+                       </div>
                    </div>
                </div>
                
+                <div class="post_more">
+                    <img src="../assets/images/icons/ep_more-filled.png" alt="">
+                </div>
            </div>
+
            <div class="post_title">
                Lorem ipsum dolor sit amet consectetur
            </div>
@@ -50,23 +62,36 @@
 
                </div>
            </div>
-           <div class="comments">
 
+           <div class="comments_container">
+               <form class="make_cmnt">
+                   <input type="text" placeholder="Write a public comment">
+                   <button type="submit" name="submit"><img src="../assets/images/icons/send.png" alt=""></button>
+               </form>
+               <div class="all_cmnts">
+                   <div class="cmnt_maker_pic">
+                       <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
+                   </div>
+                   <div class="comments">
+                       <label for=""> med gaba </label>
+                       <label for=""> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
+                   </div>
+               </div>
+               <div class="show_more">
+                   <a href="">show more</a>
+               </div>
            </div>
 
        </section> 
     </div>
-    <the_footer/>
 </template>
 
 
 <script>
 import navbar from '@/components/navbar.vue';
-import the_footer from '@/components/the_footer.vue';
 export default {
     components :{
         navbar,
-        the_footer
     },
 }
 </script>
@@ -80,12 +105,12 @@ export default {
         padding: 90px;
         margin-top: 40px;
         position: relative;
-        background-color: #f1f1f1;
-        @include flexRow(center,space-around);
+        background-color: #F4F4F4;
+        @include flexRow(flex-start,space-around);
     .side_bar{
         position: sticky;
         background-color: $white;
-        width: 35%;
+        width: 30%;
         height: 220px;
         --header-height: 148px;
         top: calc(var(--header-height) + 12px);
@@ -125,48 +150,63 @@ export default {
         }
     }
     .posts_container{
-        @include flexColumn(center,space-evenly);
-        width: 50%;
-        background-color: $white;  
+        @include flexColumn(stretch,space-evenly);
+        width: 55%;
+        background-color: $white; 
+        .post_head{
+            @include flexRow(center,space-between);
+        }
+            .post_more{
+                cursor: pointer;
+            }
+        .user_info{
+            padding: 10px;
+            @include flexRow(center,space-between);
+            .profile_pic{
+                width: 60px;
+                height: 60px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            }
+            .username_time{
+                padding: 5px;
+                .time{
+                    color: rgb(100, 99, 99);
+                }
+            }
+        }
+         .post_title{
+        font-size: 20px;
+        @include flexRow(center,center);
+        width: 100%;
+
     }
-    .user_info{
-        padding: 10px;
-        @include flexRow(center,flex-start);
-        .profile_pic{
-            width: 20%;
-            border-radius: 50%;
+        .post_description{
+            padding: 10px 30px 5px 30px;
+            font-size: 16px;
+        }
+
+        .post_pic{
+            width: 100%;
+            padding: 5px;
             img{
                 width: 100%;
             }
         }
-        .username_time{
-            padding: 5px;
-            .time{
-                color: rgb(100, 99, 99);
+        .post_react{
+            padding-left: 20px;
+            @include flexRow(center,flex-start);
+            .claps{
+            @include flexColumn(center,flex-start);
+
             }
         }
-    }
-    .post_title{
-        font-size: 20px;
-    }
-    .post_description{
-        padding: 10px;
-        font-size: 16px;
-    }
-
-    .post_pic{
-        width: 95%;
-        img{
-            width: 100%;
         }
+                
     }
-    .post_react{
-        @include flexRow(center,flex-start);
-        .claps{
-           @include flexColumn(center,flex-start);
-
-        }
-    }
-    }
+   
 
 </style>
