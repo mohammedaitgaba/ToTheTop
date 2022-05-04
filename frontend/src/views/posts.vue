@@ -3,20 +3,9 @@
     <div class="container">
 
         <!-- sidebar section  -->
-
-       <section class="side_bar">
-           <div class="helpers">
-               <div class="add"><img src="../assets/images/icons/add.png" alt=""></div>
-               <div class="add"><img src="../assets/images/icons/home.png" alt=""></div>
-           </div>
-           <div class="search">
-                <input type="search" placeholder="search">
-                <img src="../assets/images/icons/dashicons_search.png" alt="">
-           </div>
-       </section>
+       <side_bar/>
 
         <!-- posts section -->
-
        <section class="posts_container">
 
            <div class="user_info">
@@ -73,7 +62,7 @@
                        <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
                    </div>
                    <div class="comments">
-                       <label for=""> med gaba </label>
+                       <label for="" class="name"> med gaba </label>
                        <label for=""> Lorem ipsum dolor sit amet, consectetsfdfsdfsdfsdfsdfdsur adipisicing elit.</label>
                    </div>
                </div>
@@ -89,9 +78,12 @@
 
 <script>
 import navbar from '@/components/navbar.vue';
+import side_bar from '@/components/side_bar.vue';
+
 export default {
     components :{
         navbar,
+        side_bar,
     },
 }
 </script>
@@ -107,57 +99,21 @@ export default {
         position: relative;
         background-color: #F4F4F4;
         @include flexRow(flex-start,space-around);
-    .side_bar{
-        position: sticky;
-        background-color: $white;
-        width: 30%;
-        height: 220px;
-        --header-height: 148px;
-        top: calc(var(--header-height) + 12px);
-        padding-bottom: 12px;
-        margin-left: 15px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border-radius: 8px;
-
-    }
-    .helpers{
-        @include flexRow(center,center);
-
-        .add {
-            padding: 10px;
-            img{
-                width: 30px;
-            }
-        }
-    }
-    .search{
-        @include flexRow(center,center);
-        position: relative;
-        width: 80%;
-        input{
-            width: 100%;
-            height: 33px;
-            border: 1px solid;
-            padding: 10px;
-            border-radius: 20px;
-        }
-        img{
-            position: absolute;
-            right: 3px;
-            width: 25px;
-        }
-    }
+    
     .posts_container{
         @include flexColumn(stretch,space-evenly);
         width: 55%;
         background-color: $white; 
-        .post_head{
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;        
+    .post_head{
             @include flexRow(center,space-between);
         }
             .post_more{
                 cursor: pointer;
+                img{
+                    width: 25px;
+                }
             }
         .user_info{
             padding: 10px;
@@ -214,9 +170,11 @@ export default {
                 @include flexRow(center,center);
                 input{
                     width: 100%;
-                    height: 40px;
+                    height: 50px;
                     border-radius: 20px;
                     padding: 10px;
+                    border: 1px solid;
+                    font-size: 16px;
                 }
                 button{
                     position: absolute;
@@ -248,9 +206,44 @@ export default {
                 @include flexColumn(flex-start,center);
                 margin-left: 10px;
                 background-color: #EAEAEA;
-               
+                border-radius: 10px;
+                padding: 7px;
+               .name{
+                   text-decoration: underline;
+                   cursor: pointer;
+               }
             }
         }
+        @include tablet {
+            width: 100%;
+            .post_title{
+                font-size: 16px;
+            }
+            .post_description{
+                font-size: 14px;
+                padding: 20px 10px 20px 10px;
+            }
+            .comments_container{
+                .make_cmnt{
+                    input{
+                        height: 40px;
+                    }
+                }
+                .all_cmnts{
+                    width: 98%;
+                    font-size: 14px;
+                    .comments{
+                        margin: 0;
+                    }
+                    .cmnt_maker_pic{
+                        height: 40px;
+                    }
+                }
+            }
+        }
+        }
+        @include phone{
+            padding: 90px 15px 70px 15px   ;
         }
                 
     }
