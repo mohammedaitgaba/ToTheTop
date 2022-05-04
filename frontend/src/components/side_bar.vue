@@ -97,6 +97,28 @@
             .posts_footer{
                 display: none;
             }
+            .search{
+                input{
+                    width: 90%;
+                }
+                img{
+                    right: 36px;
+                }
+            }
+        }
+        @include phone{
+            .search{
+                img{
+                    right: 20px;
+                }
+            }
+            .helpers{
+                .add{
+                    img{
+                        width: 25px;
+                    }
+                }
+            }
         }
 
     }

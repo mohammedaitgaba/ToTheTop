@@ -131,56 +131,27 @@
     </section>
 
     <!-- contact us section -->
-
-    <section class="contact_us">
-        <form action="">
-            <div class="title">
-                Send us a message
-            </div>
-            <div class="contact_inputs">
-                <div >
-                    <label for="">Full Name</label>
-                    <input class="input" type="text" name="fullname">
-                </div>
-                <div>
-                    <label for="">Email</label>
-                    <input class="input" type="email" name="email">
-                </div>
-                <div>
-                    <label for="">Message</label>
-                    <textarea class="input text" name="message" id="" ></textarea>
-                </div>
-
-               
-            </div>
-            <div >
-                <button class="contact_send" type="submit" name="submit">Send</button>
-            </div>
-        </form>
-    </section>
+    <contact/>
+    
     <the_footer/>
 
 </template>
 
 
 
-<script setup>
+<script>
 
 import navbar from '@/components/navbar.vue';
+import contact from '@/components/contact.vue';
 import the_footer from '@/components/the_footer.vue';
-
+export default {
+    components :{
+        navbar,
+        the_footer,
+        contact,
+    },
+}
 </script>
-<!-- <script>
-     
-    //    var typed = new Typed(".auto_typed", {
-    //     strings: ["Coding", "Sleeping", "Eating"],
-    //     typeSpeed: 150,
-    //     backSpeed: 150,
-    //     loop: true
-    //     })
-
-</script> -->
-
 <style lang="scss" scoped>
 @import '../assets/styles/config';
   
@@ -450,51 +421,7 @@ import the_footer from '@/components/the_footer.vue';
         }
     }
     }
-    .contact_us{
-       @include flexColumn(center,space-evenly);
-        height: 86vh;
-        form{
-            @include flexColumn(center,space-evenly);
-            background-color: $secondary;
-            opacity: 0.8;
-            width: 60%;
-            height: 80%;
-            border-radius: 10px;
-            box-shadow: rgb(0 0 0 / 3%) 5.4px 5.4px 3.2px;        
-            }
-        .contact_inputs{
-            width: 80%;
-        }
-        .title{
-            font-size: 20px;
-            font-weight: 600;
-        }
-        .input{
-            padding:8px;
-            display:block;
-            border:none;
-            background-color:$secondary ;
-            border-bottom:1px solid $orange1;
-            width:100%;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-        .input:focus{
-            outline: none;
-        }
-        .text{
-              resize: none;
-        }
-        .contact_send{
-            @include button;
-        }
     
-    @include phone{
-        form{
-            width: 90%;
-        }
-    }
-    }
 
 
     
