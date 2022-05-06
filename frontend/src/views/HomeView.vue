@@ -19,7 +19,7 @@
 <!-- about section -->
 
 
-    <section class="about_home">
+    <section class="about_home" >
 
         <div class="about_text">
             <h1 class="big_title">
@@ -144,6 +144,7 @@
 import navbar from '@/components/navbar.vue';
 import contact from '@/components/contact.vue';
 import the_footer from '@/components/the_footer.vue';
+
 export default {
     components :{
         navbar,
@@ -421,7 +422,15 @@ export default {
         }
     }
     }
-    
+    .before-enter{
+        opacity: 0;
+        transform: translateY(100px);
+        transition: all 2s ease-out;
+    }
+    .enter{
+        opacity: 1;
+        transform: translateY(0);
+    }
 
 
     

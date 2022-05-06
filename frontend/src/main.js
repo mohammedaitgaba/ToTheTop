@@ -1,6 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+// import ScrollAnimation from './directives/ScrollAnimation';
+
+// Vue.directives('scrollanimation',ScrollAnimation);
 // import Vue from 'vue'
 // import { VueTypedJs } from 'vue-typed-js'
  
