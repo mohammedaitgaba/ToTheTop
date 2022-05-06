@@ -1,15 +1,14 @@
 <template>
+    <registration>
     <section class="registration_container">
         <div class="title">
             Good to see you again
         </div>
         <form action="" class="registration">
-            <div class="back_home">
-                <a href="">
-                    <img src="../assets/images/icons/ri_arrow-go-back-fill.png" alt="">
-                    <label >Home</label> 
-                </a>
-            </div>
+            <router-link to="/" class="back_home">
+                <img src="../assets/images/icons/ri_arrow-go-back-fill.png" alt="">Home
+            </router-link>
+
             <div class="form_title">
                 Join Us Now
             </div>
@@ -25,15 +24,22 @@
 
 
             <button type="submit" name="submit" class="creat_acc">Sign in</button>
-            <div class="tosign_in">
-                <a href="">Don’t have an account</a>
-            </div>
+
+            <router-link to="/Registration" class="tosign_in">Don’t have an account</router-link>
+
         </form>
     </section>
+    </registration>
+
 </template>
 
 <script>
-
+import registration from '@/components/background.vue';
+export default {
+    components :{
+        registration
+    },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -45,6 +51,7 @@
         .title{
             font-size: 32px;
             padding: 30px;
+            color: $white;
         }
 
         .registration{
@@ -53,22 +60,20 @@
             border-radius: 15px;
             padding: 10px;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            background-color: $white;
             @include flexColumn(center,center);
-            .back_home
-                a{
-                    @include flexRow(center,center);
-                    position: absolute;
-                    top: 6px;
-                    left: 8px;
-                    text-decoration: none;
-                    color: black;
-                    img{
-                        width: 25px;
-                    }
-                    
+            .back_home{
+                @include flexRow(center,center);
+                position: absolute;
+                top: 6px;
+                left: 8px;
+                text-decoration: none;
+                color: black;
+                img{
+                    width: 25px;
                 }
-            
-            .back_home a :hover{
+            }
+            .back_home:hover{
                 color: $orange1;
             }
             .form_title{
@@ -95,9 +100,8 @@
             .tosign_in{
                 @include flexRow(flex-start,flex-start);
                 width: 80%;
-                a{
-                    color: black;
-                }
+                color: black;
+
             } 
         }
     }

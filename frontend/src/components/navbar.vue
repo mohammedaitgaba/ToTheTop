@@ -8,7 +8,7 @@
                 <li><a class="nav_item" href="">Home</a></li>
                 <li><a class="nav_item" href="">Profile</a> </li>
                 <li><a class="nav_item" href="">Messanger</a> </li>
-                <li><a class="auth" href="" >Sign in </a> </li>
+                <li> <router-link class="auth" to="/Login">Sign in </router-link>  </li>
             </ul>
         </div>
         <!-- <div class="auth">
