@@ -5,23 +5,24 @@
         </div>
         <div class="navlinks">
             <ul class="nav_items">
-                <li><a class="nav_item" href="">Home</a></li>
-                <li><a class="nav_item" href="">Profile</a> </li>
-                <li><a class="nav_item" href="">Messanger</a> </li>
-                <li> <router-link class="auth" to="/Login">Sign in </router-link>  </li>
+                <li><router-link to="/"><a class="nav_item" href="">Home</a></router-link></li>
+                <li><router-link to=""><a class="nav_item" href="">Profile</a></router-link>  </li>
+                <li><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
+                <li><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
             </ul>
         </div>
         <!-- <div class="auth">
-
+            
             <ul class="nav_auth">
-            </ul>
+                </ul>
         </div>    -->
-        <!-- <div class="auth">
-
+        <div class="auth">
+            
             <ul class="nav_items">
-                <li><a href="">logout</a> </li>
+                <li><router-link class="auth" to="/Login">Sign in </router-link>  </li>
+                <!-- <li><a href="">logout</a> </li> -->
             </ul>
-        </div> -->
+        </div>
 
         <div  @click="navSlide" class="menu" >
             <div class="line1"></div>
