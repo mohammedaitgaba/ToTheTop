@@ -6,23 +6,58 @@
                 <input type="search" placeholder="search">
                 <img src="../assets/images/icons/dashicons_search.png" alt="">
             </div>
-            <div class="friend">
-                <div class="friendinfo">
-                    <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
-                    <div class="friendname"><label>MED Gaba</label></div>
+            <div class="friends_holder">
+                <div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
+                        <div class="friendname"><label>MED Gaba</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/online.png" alt="">
+                    </div>
+                </div><div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
+                        <div class="friendname"><label>MED Gaba</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/online.png" alt="">
+                    </div>
+                </div><div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
+                        <div class="friendname"><label>MED Gaba</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/online.png" alt="">
+                    </div>
+                </div><div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
+                        <div class="friendname"><label>MED Gaba</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/online.png" alt="">
+                    </div>
                 </div>
-                <div class="status">
-                    <img src="../assets/images/icons/online.png" alt="">
+    
+                <div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/preview.png" alt=""></div>
+                        <div class="friendname"><label>Kayn darkblade</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/offline.png" alt="">
+                    </div>
                 </div>
-            </div>
-
-            <div class="friend">
-                <div class="friendinfo">
-                    <div class="friendpic"><img src="../assets/images/ProfilePic/preview.png" alt=""></div>
-                    <div class="friendname"><label>Kayn darkblade</label></div>
-                </div>
-                <div class="status">
-                    <img src="../assets/images/icons/offline.png" alt="">
+                <div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/preview.png" alt=""></div>
+                        <div class="friendname"><label>Kayn darkblade</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/offline.png" alt="">
+                    </div>
                 </div>
             </div>
         </section>
@@ -138,12 +173,14 @@ export default {
                 width: 25px;
             }
         }
+        .friends_holder{
 
-        .friend {
+         @include flexColumn(center, space-between);
+                width: 90%;
+            .friend {
             @include flexRow(center, space-between);
-            width: 90%;
             padding: 5px;
-
+            width: 100%;
 
             .friendinfo {
                 @include flexRow(center, center);
@@ -167,14 +204,16 @@ export default {
                 }
             }
         }
+        }
+        
     }
 
     .conversation {
         @include flexColumn(center, flex-start);
-        width: 60%;
+        width: 70%;
         height: 75vh;
         background-color: #E1E1E1;
-        border-radius: 20px;
+        border-radius: 10px;
 
 
         .head {
@@ -184,6 +223,7 @@ export default {
             padding: 10px;
             background-color: $white;
             border-bottom: 1px solid;
+            border-radius: 10px 10px 0 0;
 
             .friendpic {
                 @include flexRow(center, center);
@@ -210,6 +250,7 @@ export default {
             height: 100%;
             padding: 20px;
             overflow-y: scroll;
+            font-size: 15px;
 
             .sender {
                 @include flexColumn(flex-start, flex-start);
@@ -273,6 +314,48 @@ export default {
                 } 
         }
     }
+@include tablet{
+    @include flexColumn(center, space-evenly);
+    padding: 60px 0 0 0 ;
+    .ChatList{
+        width: 100%;
+        overflow-y: hidden;
+        height: 125px;
+        margin-bottom: 15px;
+        .search{
+            margin: 5px;
+        }
+        .friends_holder{
+            @include flexRow(center, flex-start);
+            width: 100%;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            .friend{
+                @include flexColumn(center, space-evenly);
+                width: 100px;
+                min-width: 100px;
+                .friendinfo{
+                    @include flexColumn(center, space-evenly);
+                    .friendpic{
+                        width: 40px;
+                        height: 40px;
+                    }
+                    .friendname{
+                        font-size: 12px;
+                        text-align: center;
+                        margin: 0%;
 
+                    }
+                }
+            }
+        }
+    }
+}
+@include phone{
+    .conversation{
+        width: 90%;
+        font-size: 14px;
+    }
+}
 }
 </style>
