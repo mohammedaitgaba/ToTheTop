@@ -111,6 +111,7 @@
             position: absolute;
             @include flexColumn(center,center);
             right: 0; 
+            margin:0;
             top: 12vh;
             background-color:$white;
             height: 80vh;
@@ -148,20 +149,9 @@
 export default {
     methods: {
 
-        navSlide () {
-            // let menu = document.querySelector('.menu');
-        let nav = document.querySelector('.nav_links');
-
-                console.log(nav);
-        // nav.classList.toggle('nav-active');
-        // menu.addEventListener('click' , console.log("eee"))
-        // () => {;});
     }
-        // navSlide(){
+
         
-        // }
-        
-    },
-}
-    // navSlide();
+    }
+
 </script>
