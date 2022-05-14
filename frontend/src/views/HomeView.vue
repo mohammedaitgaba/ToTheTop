@@ -161,37 +161,44 @@ export default {
         position: relative;
         width: 100%;
         height: 100vh;
-    }
-    .background_holder {
-        background-image:linear-gradient(#ded2c912,#f3a0334b,#0000008a ), url('../assets/images/backgrounds/homeback.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: top;
-        background-attachment: fixed;
-        z-index: -1;
-        width: 100%;
-        height: 110vh;
-        position: absolute;
-        max-width: 1440px;
-        img{
-            height: 100%;
+        .background_holder {
+            background-image:linear-gradient(#ded2c912,#f3a0334b,#0000008a ), url('../assets/images/backgrounds/homeback.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: top;
+            background-attachment: fixed;
+            z-index: -1;
             width: 100%;
+            height: 110vh;
+            position: absolute;
+            max-width: 1440px;
+            img{
+                height: 100%;
+                width: 100%;
+            }
         }
-    }
-    .heading{
-        @include flexColumn(center,center);
-        color: $white;
-        font-weight: bold;
-        font-size: 42px;
+        .heading{
+            @include flexColumn(center,center);
+            color: $white;
+            font-weight: bold;
+            font-size: 42px;
+            text-align: center;
+            
+            .mid_heading{
+                margin-top: 30px;
+                font-weight:400;
+                font-size: 26px
+            }
+        }
         @include phone{
-            font-size: 32px;
-            width: 80%
-        } ;
-    }
-    .mid_heading{
-        margin-top: 30px;
-        font-weight:400;
-        font-size: 26px
+                .heading{
+                    font-size: 24px;
+                    .mid_heading{
+                        font-size: 22px;
+                    }
+                }
+                // width: 80%
+            };
     }
     .about_home{
         @include flexRow(center,space-between);
@@ -229,9 +236,10 @@ export default {
             margin: 0;
         .big_title{
                        font-size: 18px;
-                   }
+                }
         }
         };
+        
     }
     .generator{
         background-color:$orange3;
@@ -272,6 +280,11 @@ export default {
             .paragraph{
             font-size: 14px;
             }
+        }
+    }
+    @include phone{
+        .titles_holder{
+            font-size: 24px;
         }
     }
     }

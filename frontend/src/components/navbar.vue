@@ -111,7 +111,6 @@
             position: absolute;
             @include flexColumn(center,center);
             right: 0; 
-            margin:0;
             top: 12vh;
             background-color:$white;
             height: 80vh;

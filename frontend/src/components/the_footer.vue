@@ -93,5 +93,18 @@
             width: 100%;
         }
     }
+    @include phone{
+        .about_us{
+            @include flexColumn(flex-start,center);
+            width: 90%;
+            font-size: 14px;
+        }
+        .social{
+            width: 80%;
+            img{
+                width: 20px;
+            }
+        }
+    }
     }
 </style>
