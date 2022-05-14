@@ -1,5 +1,6 @@
 <template>
-    <navbar />
+    <!-- <navbar/> -->
+    <Navigation/>
     <section class="container">
         <section class="ChatList">
             <div class="search">
@@ -127,11 +128,11 @@
 </template>
 
 <script>
-import navbar from '@/components/navbar.vue';
+import Navigation from '@/components/Navigation.vue';
 
 export default {
     components: {
-        navbar,
+        Navigation
     },
 }
 </script>

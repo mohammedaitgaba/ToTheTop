@@ -17,7 +17,6 @@
                 </ul>
         </div>    -->
         <div class="auth">
-            
             <ul class="nav_items">
                 <li><router-link class="auth" to="/Login">Sign in </router-link>  </li>
                 <!-- <li><a href="">logout</a> </li> -->
@@ -28,7 +27,6 @@
             <div class="line1"></div>
             <div class="line2"></div>
             <div class="line3"></div>
-            
         </div>
     </div>
 </template>
@@ -82,9 +80,7 @@
         }
         .auth{
             @include button;
-            a{
-                color: $white;
-            } 
+            color: $white;
             padding: 6px 10px;
         }
 

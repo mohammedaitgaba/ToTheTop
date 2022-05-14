@@ -1,5 +1,6 @@
 <template>
-    <navbar/>
+    <!-- <navbar/> -->
+    <Navigation/>
     <div class="container">
 
         <!-- sidebar section  -->
@@ -86,13 +87,13 @@
 
 
 <script>
-import navbar from '@/components/navbar.vue';
 import side_bar from '@/components/side_bar.vue';
+import Navigation from '@/components/Navigation.vue';
 
 export default {
     components :{
-        navbar,
         side_bar,
+        Navigation
     },
 }
 </script>

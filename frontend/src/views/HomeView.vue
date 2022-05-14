@@ -1,6 +1,7 @@
 <template>
 
-    <navbar/>
+    <!-- <navbar/> -->
+    <Navigation/>
     
     <section class="container">
         <div class="background_holder">
@@ -141,15 +142,15 @@
 
 <script>
 
-import navbar from '@/components/navbar.vue';
+import Navigation from '@/components/Navigation.vue';
 import contact from '@/components/contact.vue';
 import the_footer from '@/components/the_footer.vue';
 
 export default {
     components :{
-        navbar,
         the_footer,
         contact,
+        Navigation,
     },
 }
 </script>
