@@ -81,6 +81,9 @@
                </div>
            </div>
 
+           <!-- popup -->
+
+
        </section> 
     </div>
 </template>
@@ -89,11 +92,13 @@
 <script>
 import side_bar from '@/components/side_bar.vue';
 import Navigation from '@/components/Navigation.vue';
+import update_popup from '@/components/update_popup.vue';
 
 export default {
     components :{
         side_bar,
-        Navigation
+        Navigation,
+        update_popup
     },
 }
 </script>
