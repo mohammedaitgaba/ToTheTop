@@ -102,13 +102,13 @@ export default {
     @import '../assets/styles/config';
     
     .container{
+        @include flexRow(flex-start,space-around);
         width: 100%;
         height: 100%;
         padding: 90px;
         margin-top: 40px;
         position: relative;
         background-color: #F4F4F4;
-        @include flexRow(flex-start,space-around);
     
     .posts_container{
         @include flexColumn(stretch,space-evenly);

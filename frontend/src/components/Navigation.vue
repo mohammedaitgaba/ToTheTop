@@ -10,9 +10,9 @@
                 <li><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
                 <li><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
             </ul>
-            <!-- <div class="auth">
-                <li v-show ="!mobile"><router-link class="auth" to="/Login">Sign in </router-link>  </li>
-            </div> -->
+            <div class="auth" v-show ="!mobile">
+                <li ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
+            </div>
 
             <div  @click="toggleMobileNav" v-show="mobile" class="menu" :class="{'icon-active':mobileNav} " >
                 <div class="line1"></div>
@@ -25,7 +25,7 @@
                 <li><router-link to=""><a class="nav_item" href="">Profile</a></router-link>  </li>
                 <li><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
                 <li><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
-            
+                <li ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
             </ul>
             
             </transition>
@@ -123,7 +123,7 @@ nav{
     .auth{
             @include button;
             color: $white;
-            padding: 6px 10px;
+            padding: 8px 10px;
             li{
                 a{
                     text-decoration: none;
@@ -161,15 +161,15 @@ nav{
         @include flexColumn(center,space-evenly);
         position:fixed;
         width: 100%;
-        max-width: 250px;
+        max-width: 350px;
         height: 70%;
         background-color: $white;
-        top: 12vh;
+        top: 8vh;
         right: 0;
     }
     .mobile_nav-enter-active,
     .mobile_nav-leave-active{
-    transition: .4s ease-out;
+    transition: .4s ease all;
     }
     .mobile_nav-enter-from{
         transform: translateX(250px);
@@ -178,5 +178,7 @@ nav{
     .mobile_nav-enter-to {
         transform: translateX(0);
     }
+    
+    
 }
 </style>

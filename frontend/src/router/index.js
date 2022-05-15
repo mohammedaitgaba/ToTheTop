@@ -4,6 +4,7 @@ import posts from '../views/posts.vue'
 import Registration from '../views/Registration.vue'
 import Login from '../views/Login.vue'
 import Messanger from '../views/Messanger.vue'
+import admin_dushboard from '../views/admin_dushboard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,6 +37,11 @@ const router = createRouter({
       name: 'Messanger',
       component: Messanger
     },
+    {
+      path: '/admin_dushboard',
+      name: 'admin_dushboard',
+      component: admin_dushboard
+    }
     
   ]
 })
