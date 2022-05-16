@@ -1,5 +1,5 @@
 <template>
-    <registration>
+    <background>
     <section class="registration_container">
         <div class="title">
             Good to see you again
@@ -29,15 +29,15 @@
 
         </form>
     </section>
-    </registration>
+    </background>
 
 </template>
 
 <script>
-import registration from '@/components/background.vue';
+import background from '@/components/background.vue';
 export default {
     components :{
-        registration
+        background
     },
 }
 </script>
