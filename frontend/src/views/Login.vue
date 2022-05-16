@@ -6,11 +6,11 @@
         </div>
         <form action="" class="registration">
             <router-link to="/" class="back_home">
-                <img src="../assets/images/icons/ri_arrow-go-back-fill.png" alt="">Home
+                <img src="../assets/images/icons/bx_arrow-back.png" alt="">Home
             </router-link>
 
             <div class="form_title">
-                Join Us Now
+                Login
             </div>
             <div class="inputs">
                 <label for="">Email</label>
@@ -103,6 +103,18 @@ export default {
                 color: black;
 
             } 
+        }
+        @include phone{
+            .title{
+                font-size: 24px;
+                text-align: center;
+            }
+            .registration{
+                width: 90%;
+                .creat_acc{
+                    padding: 6px 20px;
+                }
+            }
         }
     }
 </style>

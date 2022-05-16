@@ -36,9 +36,6 @@
                 <div class="number">
                     20
                 </div>
-                <div class="more">
-                    More info
-                </div>
             </div>
             <div class="users_counter">
                 <div class="title">
@@ -46,9 +43,6 @@
                 </div>
                 <div class="number">
                     45
-                </div>
-                <div class="more">
-                    More info
                 </div>
             </div>
         </section>

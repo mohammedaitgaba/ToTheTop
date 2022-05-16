@@ -38,9 +38,10 @@
                         <label> Post description </label>
                         <textarea name="description" placeholder="description"></textarea>
                     </div>
-                    <div class="post_title">
-                        <label> Post photo </label>
-                        <input type="file" name="photo">
+                    <div class="add_img">
+                        <span> Post photo </span>
+                        <label for="image" > Choose picture </label>
+                        <input type="file" id="image" name="photo" hidden>
                     </div>
                     <div class="post_submit">
                         <button class="submit" type="submit" >Add</button>
@@ -83,6 +84,7 @@ export default {
 
             .add {
                 padding: 10px;
+                cursor: pointer;
                 img{
                     width: 30px;
                 }
@@ -128,9 +130,9 @@ export default {
 
         @include tablet {
             position:fixed;
-            top: 60px;
+            top: 54px;
             width: 100%;
-            height: 40px;
+            height: 57px;
             border-radius: 0;
             @include flexRow(center,center);
             flex-direction: row-reverse;
@@ -157,6 +159,7 @@ export default {
             .helpers{
                 .add{
                     img{
+                        
                         width: 25px;
                     }
                 }
@@ -172,13 +175,13 @@ export default {
         height: 100%;
         top: 0%;
         z-index: 1;
-        transition: ease-in;
+
         form{
             @include flexColumn(center,space-around);
             position: fixed;
-            top: 30%;
+            top: 22%;
             width: 40vw;
-            height: 60vh;
+            height: 70vh;
             background-color: $white;
             border-radius: 10px;
             .title{
@@ -207,13 +210,28 @@ export default {
                
 
             }
+            .add_img{
+                    @include flexColumn(flex-start,center);
+                    width: 90%;
+                    padding: 10px;
+                    label{
+                        cursor: pointer;
+                        align-self: center;
+                        text-align: center;
+                        background-color: bisque;
+                        width: 53%;
+                        padding: 8px 35px ;
+                        border-radius: 20px
+                    }
+
+                }
             .post_submit{
                 @include flexRow(flex-start,space-around);
                 width: 50%;
                 padding: 10px;
                 .submit{
                     @include button;
-                    padding: 8px 35px ;
+                    padding: 8px 30px ;
                 }
                 .cancel{
                     @include button;
@@ -223,5 +241,57 @@ export default {
 
             }
         }
+        @include tablet {
+            form{
+                width: 60%;
+                .title{
+                    font-size: 18px;
+                }
+                .post_title{
+                    font-size: 14px;
+                    padding: 5px;
+                }
+                .add_img{
+                    font-size: 14px;
+                    label{
+                        padding: 5px 15px;
+                    } 
+
+                }
+                .post_submit{
+                    padding: 5px;
+                    width: 60%;
+                    .submit{
+                        font-size: 14px;
+                    }
+                    .cancel{
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+        @include phone{
+            form{
+                width: 90%;
+                .post_submit{
+                    width: 80%;
+                }
+            }
+        }
     }
+    // .add_popup-enter-active,
+    // .add_popup-leave-active{
+    //     transition: .4s ease all;
+
+    // }
+
+    // .add_popup-enter-from{
+    //     transform: translate(-50%, -50%);
+    //     }
+    
+    // .add_popup{
+    //     transform: translate(0%,0%);
+
+    // }
+
 </style>

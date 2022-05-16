@@ -8,7 +8,7 @@
         <form action="" class="registration">
 
             <router-link to="/" class="back_home">
-                <img src="../assets/images/icons/ri_arrow-go-back-fill.png" alt="">Home
+                <img src="../assets/images/icons/bx_arrow-back.png" alt="">Home
             </router-link>
 
             <div class="form_title">
@@ -93,9 +93,8 @@ export default {
             .inputs{
                 @include flexColumn(flex-start,center);
                 width: 85%;
-                padding: 10px;
+                padding: 7px;
                 input{
-
                     width: 100%;
                     height: 40px;
                     padding: 10px;
@@ -107,13 +106,50 @@ export default {
             }
             .creat_acc{
                 margin: 10px;
-                @include button
+                @include button;
+                padding: 8px 25px;
             }
             .tosign_in{
                 @include flexRow(flex-start,flex-start);
                 width: 80%;
                 color: black;
-            } 
+            }
+            .tosign_in::before{
+                content:"";
+                position: absolute;
+                bottom: 9px;
+                width: 0;
+                height: 3px;
+                border-radius: 10px;
+                background-color: $orange2;
+                transition: width 0.35s ease-out;
+            }
+            .tosign_in:hover::before{
+                width: 20%;
+            }
+            .tosign_in:hover{
+                color: $orange2;
+                
+            }
+        }
+        @include phone{
+            .title{
+                font-size: 24px;
+                text-align: center;
+                padding: 5px;
+            }
+            .registration{
+                width: 90%;
+                .creat_acc{
+                    padding: 6px 20px;
+                }
+                .inputs{
+                    font-size: 14px;
+                    input{
+                        font-size: 14px;
+                    }
+                }
+            }
         }
     }
 </style>

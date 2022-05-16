@@ -62,7 +62,7 @@
                </div>
            </div>
 
-           <div class="comments_container">
+           <div class="comments_container ">
                <form class="make_cmnt">
                    <input type="text" placeholder="Write a public comment">
                    <button type="submit" name="submit"><img src="../assets/images/icons/send.png" alt=""></button>
@@ -82,7 +82,7 @@
            </div>
 
            <!-- popup -->
-
+            
 
        </section> 
     </div>
