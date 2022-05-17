@@ -1,0 +1,158 @@
+<template>
+     <section class="generator">
+        <div class="generator_head">
+            <div class="titles_holder">
+                <div class="title1">Motivation &nbsp; </div>
+                <div class="title2">Quotes</div>
+            </div>
+            <div class="paragraph">
+                Taking a  look at one or two random quotes each morning. 
+                can be a good exercise for journaling prompts.
+            </div>
+        </div>
+
+        <div class="quote">
+            <label > Taking a  look at one or two random quotes each morning.can be a good exercise for journaling prompts. </label>
+        </div>
+
+        <form action="" class="generator_submit">
+            <div class="select_holder">
+                <select name="category" class="category">
+                    <option value="motivation">Motivation</option>
+                    <option value="humor">Humor</option>
+                    <option value="success">Success</option>
+                    <option value="inspiration">Inspiration</option>
+                </select>
+                <div class="category_arrow"></div>
+            </div>
+            <button class="generate">
+                new quote
+            </button>
+
+        </form>
+
+    </section>
+</template>
+
+<script>
+export default {
+    
+}
+</script>
+
+<style lang="scss" scoped>
+@import '../assets/styles/config';
+
+    .generator{
+        background-image:linear-gradient(#ded2c912,#f3a0334b,#0000008a ), url('../assets/images/backgrounds/quotesBG.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        // background-position: top;
+        background-attachment: fixed;
+        height: 50vh;
+        @include flexColumn(center,space-evenly);
+        .generator_head{
+            @include flexColumn(center,center);
+            .paragraph{
+                font-size: 16px;
+                width: 85%;
+                text-align: center;
+                color: $white;
+            }
+        }
+        .titles_holder{
+            @include flexRow(center,space-between);
+            font-size: 28px;
+            font-weight: 800;
+     
+        .title2{
+            color: $white;
+        }
+        }
+        .quote{
+            @include flexRow(center,space-between);
+            width: 80%;
+            font-size: 20px;
+            text-align: center;
+            color: $white;
+        }
+        .generator_submit{
+            @include flexRow(center,space-evenly);
+            position: relative;
+            width: 40%;
+            .select_holder{
+                position: relative;
+                width: 40%;
+                .category{
+                    display: inline-block;
+                    width: 100%;
+                    cursor: pointer;
+                    padding: 10px 15px;
+                    outline: 0;
+                    border: solid 2px rgba(255, 255, 255, 0.6);
+                    padding: 6px 12px;
+                    border-radius: 7px;
+                    -webkit-box-shadow: 0px 1px 6px -1px #000;
+                    box-shadow: 0px 1px 6px -1px #000;
+                    background: $white;
+                    color: black;
+                    appearance: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    -webkit-transition: ease all 0.2s;
+                    -o-transition: ease all 0.2s;
+                    transition: ease all 0.2s;
+                }
+                .category_arrow{
+                    position: absolute;
+                    top: 18px;
+                    right: 15px;
+                    width: 0;
+                    height: 0;
+                    pointer-events: none;
+                    border-style: solid;
+                    border-width: 8px 5px 0 5px;
+                    border-color: #7b7b7b transparent transparent transparent;
+                }
+            }
+            .generate{
+                @include button;
+                // background-color: $white;
+                // color: $orange1;
+            }
+        }
+        
+    
+    @include tablet{
+        .quote{
+            font-size: 18px;
+        }
+        .generator_submit{
+            width: 70%;
+            .generate{
+                padding: 8px 12px;
+            }
+        }
+        .generator_head{
+            .paragraph{
+            font-size: 14px;
+            }
+        }
+    }
+    @include phone{
+        height: 80vh;
+        
+        .titles_holder{
+            font-size: 24px;
+        }
+        .generator_head{
+            .paragraph{
+                font-size: 12px;
+            }
+        }
+        .generator_submit{
+            width: 100%;
+        }
+    }
+    }
+</style>

@@ -41,14 +41,14 @@
            <div class="post_pic">
                <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
            </div>
-           <div class="post_react">
+           <!-- <div class="post_react">
                <div class="claps">
                    <img src="../assets/images/icons/claps full.png" alt="">
                </div>
                <div class="claps">
                    <img src="../assets/images/icons/love full.png" alt="">
                </div>
-           </div>    
+           </div>     -->
            
            <div class="post_react">
                <div class="claps">

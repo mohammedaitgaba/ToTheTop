@@ -18,8 +18,6 @@
     </section >
 
 <!-- about section -->
-
-
     <section class="about_home" >
 
         <div class="about_text">
@@ -38,69 +36,11 @@
        
         </div>
          <div class="about_img">
-                <img src="../assets/images/others/motivated.jpg" alt="">
+             <img src="../assets/images/others/motivated.jpg" alt="">
         </div>
     </section>
-
-
-    <!-- generator section -->
-
-    <section class="generator">
-        <div class="generator_head">
-            <div class="titles_holder">
-                <div class="title1">Motivation &nbsp; </div>
-                <div class="title2">Quotes</div>
-            </div>
-            <div class="paragraph"><p >
-                Taking a  look at one or two random quotes each morning. 
-                can be a good exercise for journaling prompts.</p>
-            </div>
-        </div>
-        
-        <div class="quote">
-            <label > Taking a  look at one or two random quotes each morning.can be a good exercise for journaling prompts. </label>
-        </div>
-
-        <form action="">
-            <button class="generate">
-                new quote
-            </button>
-        </form>
-
-    </section>
-
-
-    <!-- solutions section -->
-
-
-    <section class="solutions_container">
-
-        <div class="solutions_head">
-            <h1> Featured Solutions</h1>
-            <p>If you want to start taking action to achieve what you want in life, 
-                learn how to create a solid action plan and start making progress towards your goals!
-            </p>
-        </div>
-        <div class="solutions_body">
-
-            <div class="solution sol1">
-               <p>Have Motivated Freinds</p> 
-               <img src="../assets/images/others/freinds.jpg" alt=" motivation_freinds">
-                <div class="middle">
-                   <button class="button">Start a Conversation </button>
-               </div>
-            </div>
-
-            <div class="solution sol2">
-               <p>Share and have  Experience</p> 
-               <img src="../assets/images/others/ideas.jpg" alt=" motivation_ideas">
-               <div class="middle">
-                   <button class="button">Read People Stories </button>
-                </div>
-                   
-            </div>
-        </div>
-    </section>
+        <generator/>
+        <home_solutions/>
 
     <!-- latest blogs section  -->
 
@@ -145,12 +85,16 @@
 import Navigation from '@/components/Navigation.vue';
 import contact from '@/components/contact.vue';
 import the_footer from '@/components/the_footer.vue';
+import generator from '@/components/generator.vue';
+import home_solutions from '@/components/home_solutions.vue';
 
 export default {
     components :{
         the_footer,
         contact,
         Navigation,
+        generator,
+        home_solutions
     },
 }
 </script>
@@ -242,151 +186,7 @@ export default {
         };
         
     }
-    .generator{
-        background-color:$orange3;
-        height: 50vh;
-        @include flexColumn(center,space-evenly);
-        .generator_head{
-            @include flexColumn(center,center);
-            .paragraph{
-                font-size: 16px;
-                width: 85%;
-            }
-        }
-        .titles_holder{
-            @include flexRow(center,space-between);
-            font-size: 28px;
-            font-weight: 800;
-     
-        .title2{
-            color: $white;
-        }
-        }
-        .quote{
-            width: 80%;
-            @include flexRow(center,space-between);
-            font-size: 24px;
-        }
-        .generate{
-            @include button;
-            background-color: $white;
-            color: $orange1;
-        }
-    
-    @include tablet{
-        .quote{
-            font-size: 18px;
-        }
-        .generator_head{
-            .paragraph{
-            font-size: 14px;
-            }
-        }
-    }
-    @include phone{
-        .titles_holder{
-            font-size: 24px;
-        }
-    }
-    }
 
-    .solutions_container{
-        @include flexColumn(flex-start,space-between);
-        padding: 95px;
-        width: 100%;
-        height: 95vh;
-        .sol1{
-                margin-right: 25px
-            }
-        .sol2{
-                margin-left: 25px
-            }
-        .solutions_head{
-            width: 100%;
-            p{
-                margin-top: 30px;
-            }
-        }
-        .solutions_body{
-            width: 100%;
-            @include flexRow(center,space-between);
-  
-          
-        }
-        .solution{
-                width: 80%;
-                height: 100%;
-                position: relative;
-                @include flexColumn(center,space-evenly);
-                img{
-                     width: 85%;
-                     height: 70%;
-                    border-radius: 20px;
-                    opacity: 1;
-                    display: block;
-                    transition: .5s ease;
-                    backface-visibility: hidden;
-                }
-                p{
-                    font-weight: 400;
-                    font-size: 20px;
-                }
-            .middle{
-            transition: .5s ease;
-            opacity: 0;
-            position: absolute;
-            top: 56%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            text-align: center;
-            .button{
-                    @include button;
-                }
-            }
-            }
-        .solution:hover{
-            .middle {
-                opacity: 1;
-            }
-            img {
-            opacity: 0.3;
-            }
-        }
-    
-    @include tablet{
-        padding: 30px 7px 30px 7px ;
-        height: auto;
-        .solutions_head{
-            text-align: center;
-        }
-        .sol1{
-            margin: 15px 0 10px 0;
-        }
-        .sol2{
-           margin: 15px 0 10px 0;
-        }
-        .solutions_body{
-            @include flexColumn(center,space-between);
-            .solution{
-                width: 80%;
-                img{
-                    width: 75%;
-                }
-            }
-        }
-    }
-    @include phone{
-         .solutions_body{
-            .solution{
-                width: 80%;
-                img{
-                    width: 100%;
-                }
-            }
-        }
-    }
-    }
         
     .blogs_container{
         @include flexColumn(center,space-evenly);
@@ -407,10 +207,13 @@ export default {
         height: auto;
         .blogs_body{
             grid-template-columns: 1fr;
+            align-items: center;
             .blog{
+                margin: auto;
                 margin-top: 20px;
+                width: 45%;
                 img{
-                    width: 60%;
+                    width: 100%;
                 }
             }
         }
@@ -429,8 +232,11 @@ export default {
         }
          .blogs_body{
             .blog{
+                margin: auto;
+                margin-top: 20px;
+                width: 90%;
                 img{
-                    width: 80%;
+                    width: 100%;
                 }
             }
         }
@@ -445,7 +251,4 @@ export default {
         opacity: 1;
         transform: translateY(0);
     }
-
-
-    
 </style>

@@ -142,7 +142,7 @@ export default {
 
 .container {
     @include flexRow(center, space-evenly);
-    padding: 120px 130px 45px 130px;
+    padding: 120px 130px 20px 130px;
     background-color: #F4F4F4;
 
     .ChatList {

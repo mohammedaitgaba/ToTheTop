@@ -35,7 +35,7 @@
             @include flexColumn(center,space-evenly);
             background-color: $secondary;
             opacity: 0.8;
-            width: 60%;
+            width: 45%;
             height: 80%;
             border-radius: 10px;
             box-shadow: rgb(0 0 0 / 3%) 5.4px 5.4px 3.2px;        
