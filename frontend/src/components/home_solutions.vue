@@ -13,7 +13,7 @@
                <p>Have Motivated Freinds</p> 
                <img src="../assets/images/others/freinds.jpg" alt=" motivation_freinds">
                 <div class="middle">
-                   <button class="button">Start a Conversation </button>
+                   <router-link to="/messanger"><button class="button">Start a Conversation </button></router-link>
                </div>
             </div>
 
@@ -21,7 +21,7 @@
                <p>Share and have  Experience</p> 
                <img src="../assets/images/others/ideas.jpg" alt=" motivation_ideas">
                <div class="middle">
-                   <button class="button">Read People Stories </button>
+                   <router-link to="/posts"><button class="button">Read People Stories </button></router-link>
                 </div>
                    
             </div>
@@ -59,7 +59,7 @@ export default {
             }
         }
         .solutions_body{
-            width: 100%;
+            width: 90%;
             @include flexRow(center,space-between);
   
           

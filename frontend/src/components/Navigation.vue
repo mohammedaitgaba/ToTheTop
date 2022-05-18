@@ -27,7 +27,6 @@
                 <li><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
                 <li ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
             </ul>
-            
             </transition>
         </nav>
     </header>

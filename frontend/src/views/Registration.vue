@@ -5,7 +5,7 @@
         <div class="title">
             Welcome to the comunity of success 
         </div>
-        <form action="" class="registration">
+        <form v-on:submit.prevent="add_user" class="registration">
 
             <router-link to="/" class="back_home">
                 <img src="../assets/images/icons/bx_arrow-back.png" alt="">Home
@@ -16,22 +16,22 @@
             </div>
             <div class="inputs">
                 <label for="">Full name</label>
-                <input type="text" placeholder="Your name" name="fullname">
+                <input v-model="form.fullname" type="text" placeholder="Your name" name="fullname" required>
             </div> 
             
             <div class="inputs">
                 <label for="">Email</label>
-                <input type="text" placeholder="Your Email" name="email">
+                <input v-model="form.email" type="email" placeholder="Your Email" name="email" required>
             </div> 
             
             <div class="inputs">
                 <label for="">Password</label>
-                <input type="Password" placeholder="Password" name="Password">
+                <input v-model="form.password" type="Password" placeholder="Password" name="Password" required>
             </div> 
             
             <div class="inputs">
                 <label for="">Confirme password</label>
-                <input type="Password" placeholder="rentre password" name="Confirmation">
+                <input type="Password" placeholder="rentre password" name="Confirmation" required>
             </div>
 
             <button type="submit" name="submit" class="creat_acc">Create</button>
@@ -45,9 +45,26 @@
 
 <script>
 import registration from '@/components/background.vue';
+import axios from 'axios';
+const formState ={
+    fullname:"",
+    email:"",
+    password:""
+
+}
 export default {
     components :{
         registration
+    },
+    data() {
+        return {
+            form : formState
+        }
+    },
+    methods: {
+        add_user(){
+            axios.post()
+        }
     },
 }
 </script>
