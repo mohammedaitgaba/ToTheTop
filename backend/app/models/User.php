@@ -24,24 +24,11 @@ class User
             return $e->getMessage();
         }
     }
-
-    // public function validat_user($data){
-
-    //     $this ->db->query('SELECT * FROM client WHERE id = :id ');
-    //     $this->db->bind(":id", $data["id"]);
-        
-    //     try {
-    //         // fetch
-    //         return $this->db->resultSet() ? $data : false;
-    //     } catch (PDOException $e) {
-    //         return $e->getMessage();
-    //     }
-    // }
-
-    public function getById($id)
+    public function checkUser($data)
     {
-        $this ->db->query('SELECT * FROM client WHERE id = :id ');
-        $this->db->bind(":id", $id);
+        // echo($data['email']);die;
+        $this->db->query('SELECT * FROM users WHERE email =:email');
+        $this->db->bind(":email", $data->email);
 
         try {
             return $this->db->single();

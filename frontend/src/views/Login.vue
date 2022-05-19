@@ -4,7 +4,7 @@
         <div class="title">
             Good to see you again
         </div>
-        <form action="" class="registration">
+        <form action="" @submit.prevent="checkUser" class="registration">
             <router-link to="/" class="back_home">
                 <img src="../assets/images/icons/bx_arrow-back.png" alt="">Home
             </router-link>
@@ -14,15 +14,13 @@
             </div>
             <div class="inputs">
                 <label for="">Email</label>
-                <input type="text" placeholder="Your Email" name="email">
+                <input type="text" placeholder="Your Email" v-model="email">
             </div> 
             
             <div class="inputs">
                 <label for="">Password</label>
-                <input type="Password" placeholder="Password" name="Password">
+                <input type="Password" placeholder="Password" v-model="password" >
             </div> 
-
-
             <button type="submit" name="submit" class="creat_acc">Sign in</button>
 
             <router-link to="/Registration" class="tosign_in">Don’t have an account</router-link>
@@ -35,10 +33,25 @@
 
 <script>
 import background from '@/components/background.vue';
+import axios from 'axios';
 export default {
     components :{
         background
     },
+    data() {
+        return {
+            email:"",
+            password:""
+        }
+    },
+    methods:{
+        checkUser(){
+            axios.post('http://localhost/ToTheTop/backend/User/check_user',{
+                email:this.email,
+                password:this.password
+            }).then(res=>console.log(res))
+        }
+    }
 }
 </script>
 
