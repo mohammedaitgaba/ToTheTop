@@ -10,11 +10,11 @@ class UserController extends Controller
     
     public function add_user(){
 
-            $data = json_decode(file_get_contents("php://input"), true);
-            $result = $this->userModel->newClient($data);
+            $data = json_decode(file_get_contents("php://input"))->form;
+            $result = $this->userModel->newUser($data);
 
             if($result){
-                echo json_encode(["message" => "success", "data" => $result]);
+                echo json_encode(["message" => "success"]);
             }else{
                 echo json_encode(["message" => "error not created"]);
             }

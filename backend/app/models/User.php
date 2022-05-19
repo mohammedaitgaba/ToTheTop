@@ -7,23 +7,19 @@ class User
     {
         $this->db = new Database;
     }
-    public function newClient($data)
+    public function newUser($data)
      {
-        $this->db->query('INSERT INTO client (id,name, date_nais, CIN,profession) VALUES(:id,:name, :date_nais, :CIN, :profession)');
 
-        //Bind values
+        $this->db->query('INSERT INTO users (full_name, email,password)VALUES(:full_name, :email, :password)');
 
-        $this->db->bind(":id", $data["id"]);
-        $this->db->bind(':name', $data['full_name']);
-        $this->db->bind(':date_nais', $data['birthday']);
-        $this->db->bind(':CIN', $data['CIN']);
-        $this->db->bind(':profession', $data['Job']);
-
+        $this->db->bind(':full_name',$data->full_name);
+        $this->db->bind(':email',$data->email);
+        $this->db->bind(':password',password_hash($data->password,PASSWORD_BCRYPT));
 
         //Execute function
         // ternary operator
         try {
-            return $this->db->execute() ? $data : false;
+            return $this->db->execute();
         } catch (PDOException $e) {
             return $e->getMessage();
         }

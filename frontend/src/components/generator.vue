@@ -13,7 +13,7 @@
 
         <div class="quote">
 
-            <label> {{quots}} </label>
+            <label > {{quots}} </label>
         </div>
 
         <form class="generator_submit" v-on:submit.prevent="generate">
