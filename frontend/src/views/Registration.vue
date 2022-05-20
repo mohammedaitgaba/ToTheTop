@@ -61,6 +61,9 @@ export default {
             form: formState
         }
     },
+    mounted() {
+        this.checkregistration()
+    },
     methods: {
         add_user() {
             axios.post('http://localhost/ToTheTop/backend/User/add_user', {
@@ -70,6 +73,11 @@ export default {
                 this.$router.push("/Login")
             })
 
+        },
+        checkregistration(){
+            if(sessionStorage.getItem('ID')){
+                this.$router.push('/')
+            }
         }
     },
 }

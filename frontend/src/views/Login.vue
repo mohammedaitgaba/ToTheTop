@@ -41,7 +41,8 @@ export default {
     data() {
         return {
             email:"",
-            password:""
+            password:"",
+            user:[]
         }
     },
     methods:{
@@ -49,7 +50,12 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/User/check_user',{
                 email:this.email,
                 password:this.password
-            }).then(res=>console.log(res))
+            }).then((res) => {
+                sessionStorage.setItem('ID',res.data.data.id_user.toString())
+                console.log(sessionStorage.getItem('ID'));
+                this.$router.push("/")
+
+                })
         }
     }
 }

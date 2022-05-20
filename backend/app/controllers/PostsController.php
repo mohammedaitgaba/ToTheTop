@@ -18,7 +18,7 @@ class PostsController extends Controller{
                 $target_path = $file_name;
                 
                 if (move_uploaded_file($_FILES['image']['tmp_name'], 'C:\xampp\htdocs\ToTheTop\backend\public\imgUploaded\\' . $target_path)) {
-        $result=$this->Postsmodel->CreatePost($target_path,$data);
+                    $result=$this->Postsmodel->CreatePost($target_path,$data);
                     echo json_encode(['message' => 'ok']);
                 } else {
                     echo json_encode(['message' => 'Error uploading file']);

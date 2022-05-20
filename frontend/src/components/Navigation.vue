@@ -4,13 +4,17 @@
             <div class="branding">
                 <img src="../assets/images/logo/Group 16.png" alt="logo to the top">
             </div>
-            <ul v-show ="!mobile" class="navigation">
-                <li><router-link to="/"><a class="nav_item" href="">Home</a></router-link></li>
-                <li><router-link to=""><a class="nav_item" href="">Profile</a></router-link>  </li>
-                <li><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
-                <li><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
-            </ul>
-            <div class="auth" v-show ="!mobile">
+                <ul v-show ="!mobile"  class="navigation">
+                    <li><router-link to="/"><a class="nav_item" href="">Home</a></router-link></li>
+                    <li><router-link to=""><a class="nav_item" href="">Profile</a></router-link>  </li>
+                    <li><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
+                    <li><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
+                </ul>
+    
+            <div class="auth" @click="destroyId" v-show ="!mobile" v-if="id">
+                <li ><router-link class="auth" to="/Login">logout </router-link>  </li>
+            </div>
+            <div class="auth" v-show ="!mobile" v-if="!id">
                 <li ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
             </div>
 
@@ -25,7 +29,8 @@
                 <li><router-link to=""><a class="nav_item" href="">Profile</a></router-link>  </li>
                 <li><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
                 <li><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
-                <li ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
+                <li v-if="!id" ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
+                <li v-if="id" @click="destroyId"><router-link class="auth" to="/Login">logout</router-link>  </li>
             </ul>
             </transition>
         </nav>
@@ -40,12 +45,22 @@ export default {
         mobile: null,
         mobileNav: null,
         windowwidth: null,
+        id:""
   };
   
 },
-    created() {
+    // created() {
+        
+    // },
+    beforeMount(){
+        console.log("dd");
         window.addEventListener("resize", this.checkScreen);
         this.checkScreen();
+    },
+    mounted() {
+            // console.log(sessionStorage.getItem('ID'));
+        this.checkregistration()
+
     },
     methods: {
         toggleMobileNav(){
@@ -60,7 +75,16 @@ export default {
             this.mobile=false;
             this. mobileNav=false;
             return;
+        },
+        checkregistration(){
+            if(sessionStorage.getItem('ID')){
+                this.id = sessionStorage.getItem('ID')
+            }
+        },
+        destroyId(){
+            sessionStorage.removeItem('ID');
         }
+
     },
 }
 </script>

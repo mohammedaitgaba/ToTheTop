@@ -63,7 +63,11 @@ export default {
             title: "",
             description: "",
             selectedFile: "",
+            id:""
         }
+    },
+    mounted() {
+      this.checkregistration()  
     },
     methods: {
         show() {
@@ -84,7 +88,8 @@ export default {
             const data = {
                 title: this.title,
                 description: this.description,
-                image: this.selectedFile
+                image: this.selectedFile,
+                id:this.id
             };
             const formData = new FormData();
             Object.keys(data).forEach((key) => {
@@ -93,7 +98,12 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/Posts/AddNewPosts',
                     formData
                 ,config).then(res => console.log(res))
-        }
+        },
+        checkregistration(){
+            if(sessionStorage.getItem('ID')){
+                this.id = sessionStorage.getItem('ID')
+            }
+        },
     },
 
 }

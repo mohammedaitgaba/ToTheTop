@@ -9,7 +9,6 @@ class UserController extends Controller
     }
     
     public function add_user(){
-
             $data = json_decode(file_get_contents("php://input"))->form;
             $result = $this->userModel->newUser($data);
 

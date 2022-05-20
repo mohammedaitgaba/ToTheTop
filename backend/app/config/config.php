@@ -9,7 +9,7 @@
     define('APPROOT', dirname(dirname(__FILE__)));
 
     //URLROOT (Dynamic links)
-    define('URLROOT', 'http://localhost/tothetop/backend');
+    define('URLROOT', 'http://localhost/tothetop');
 
     //Sitename
     define('SITENAME', 'tothetop');
