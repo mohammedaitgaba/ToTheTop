@@ -9,66 +9,19 @@
             <img src="../assets/images/icons/dashicons_search.png" alt="">
         </div>
 
-
-
         <div class="friends_holder">
-                <div class="friend">
+                <div class="friend" v-for="elements in friends">
                     <div class="friendinfo">
                         <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
-                        <div class="friendname"><label>MED Gaba</label></div>
+                        <div class="friendname">
+                            <label> {{elements.full_name}} </label>
+                        </div>
                     </div>
                     <div class="add_friend">
                         <img src="../assets/images/icons/addFriend.png" alt="">
                     </div>
                 </div>
-                <div class="friend">
-                    <div class="friendinfo">
-                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
-                        <div class="friendname"><label>MED Gaba</label></div>
-                    </div>
-                    <div class="status">
-                        <img src="../assets/images/icons/online.png" alt="">
-                    </div>
-                </div><div class="friend">
-                    <div class="friendinfo">
-                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
-                        <div class="friendname"><label>MED Gaba</label></div>
-                    </div>
-                    <div class="status">
-                        <img src="../assets/images/icons/online.png" alt="">
-                    </div>
-                </div><div class="friend">
-                    <div class="friendinfo">
-                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
-                        <div class="friendname"><label>MED Gaba</label></div>
-                    </div>
-                    <div class="status">
-                        <img src="../assets/images/icons/online.png" alt="">
-                    </div>
-                </div>
-    
-                <div class="friend">
-                    <div class="friendinfo">
-                        <div class="friendpic"><img src="../assets/images/ProfilePic/preview.png" alt=""></div>
-                        <div class="friendname"><label>Kayn darkblade</label></div>
-                    </div>
-                    <div class="status">
-                        <img src="../assets/images/icons/offline.png" alt="">
-                    </div>
-                </div>
-                <div class="friend">
-                    <div class="friendinfo">
-                        <div class="friendpic"><img src="../assets/images/ProfilePic/preview.png" alt=""></div>
-                        <div class="friendname"><label>Kayn darkblade</label></div>
-                    </div>
-                    <div class="status">
-                        <img src="../assets/images/icons/addFriend.png" alt="">
-                    </div>
-                </div>
-            </div>
-
-
-
+        </div>
 
         <div class="posts_footer">
             <div class="copyriths">
@@ -125,14 +78,17 @@ export default {
             title: "",
             description: "",
             selectedFile: "",
-            id:""
+            id:"",
+
+            friends:[],
         }
     },
     mounted() {
-      this.checkregistration()  
+      this.checkregistration();
+      this.RandomFriends();
     },
     methods: {
-        show() {
+        show(){
             this.Visible = !this.Visible
         },
         selectedPic(event) {
@@ -167,6 +123,13 @@ export default {
                 this.id = sessionStorage.getItem('ID')
             }
         },
+        RandomFriends(){
+            axios.get('http://localhost/ToTheTop/backend/User/GetRandUsers')
+            .then(res => {
+                this.friends = res.data
+                console.log(this.friends);
+            })
+        }
     },
 
 }
@@ -250,7 +213,7 @@ export default {
         margin-top: 20px;
         overflow-y: scroll;
 
-            .friend {
+        .friend {
             @include flexRow(center, space-between);
             padding: 5px;
             width: 100%;
@@ -283,6 +246,9 @@ export default {
                     border-radius: 50%;
                 }
             }
+        }
+        .friend:hover{
+        background-color: #F4F4F4;
         }
         }
 

@@ -35,6 +35,15 @@ class UserController extends Controller
                 echo json_encode(["message" => "you entred false info"]);
             }
     }
+    public function GetRandUsers(){
+        $result = $this->userModel->getRandomUser();
+        if ($result) {
+            echo json_encode($result);
+        } else {
+            echo json_encode(['message'=> 'error']);
+        }
+        
+    }
     // public function getAllusers(){
        
     //         $result = $this->userModel->getAllusers(); 

@@ -144,7 +144,8 @@
                </div>
                <div class="post_pic">
                    <!-- <img src="" alt=""> -->
-                   <img src="../../../backend/public/imgUploaded/62861e2c230758.65555310.png" alt="">
+                   <img alt="" src="http://localhost/ToTheTop/backend/public/imgUploaded/" >
+                   
                    <!-- <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""> -->
                </div>
                <!-- <div class="post_react">

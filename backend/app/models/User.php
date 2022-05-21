@@ -36,54 +36,62 @@ class User
             return $e->getMessage();
         }
     }
-    public function getAllusers(){
-        $this->db->query('SELECT * FROM client');
+    public function getRandomUser(){
+        $this->db->query('SELECT * FROM users ORDER BY RAND() LIMIT 5');
         try {
             return $this->db->resultSet();
         } catch (PDOException $e) {
             return $e->getMessage();
         }
     }
-    public function delet_user($data){
-        $this->db->query('DELETE  FROM client WHERE id = :id');
-        $this->db->bind(":id", $data);
-        try {
-            return $this->db->execute();
-        } catch (PDOException $e) {
-            return $e->getMessage();
-        }
-    }
+    // public function getAllusers(){
+    //     $this->db->query('SELECT * FROM client');
+    //     try {
+    //         return $this->db->resultSet();
+    //     } catch (PDOException $e) {
+    //         return $e->getMessage();
+    //     }
+    // }
+    // public function delet_user($data){
+    //     $this->db->query('DELETE  FROM client WHERE id = :id');
+    //     $this->db->bind(":id", $data);
+    //     try {
+    //         return $this->db->execute();
+    //     } catch (PDOException $e) {
+    //         return $e->getMessage();
+    //     }
+    // }
 
-    public function updateInfo($data)
-    {
-        $this->db->query("UPDATE client SET 
+    // public function updateInfo($data)
+    // {
+    //     $this->db->query("UPDATE client SET 
 
-        name=:name,
-        date_nais = :date_nais,
-        CIN =:CIN,
-        profession = :profession WHERE id=:id");
-        // Bind value
-        // 
+    //     name=:name,
+    //     date_nais = :date_nais,
+    //     CIN =:CIN,
+    //     profession = :profession WHERE id=:id");
+    //     // Bind value
+    //     // 
 
-        $this->db->bind(':name', $data['name']);
-        $this->db->bind(':date_nais', $data['date_nais']);
-        $this->db->bind(':CIN', $data['CIN']);
-        $this->db->bind(':profession', $data['profession']);
-        $this->db->bind(':id', $data['id']);
+    //     $this->db->bind(':name', $data['name']);
+    //     $this->db->bind(':date_nais', $data['date_nais']);
+    //     $this->db->bind(':CIN', $data['CIN']);
+    //     $this->db->bind(':profession', $data['profession']);
+    //     $this->db->bind(':id', $data['id']);
 
-        try{
-            return $this->db->execute();
-        }catch(PDOException $e){
-            return $e->getMessage();
-        }
-    }
-    public function getInfor($id){
-        $this->db->query('SELECT * FROM  client WHERE id = :id');
-        $this->db->bind(":id",$id);
-        try{
-            return $this->db->single();
-        }catch(PDOException $e){
-            return $e->getMessage();
-        }
-    }
+    //     try{
+    //         return $this->db->execute();
+    //     }catch(PDOException $e){
+    //         return $e->getMessage();
+    //     }
+    // }
+    // public function getInfor($id){
+    //     $this->db->query('SELECT * FROM  client WHERE id = :id');
+    //     $this->db->bind(":id",$id);
+    //     try{
+    //         return $this->db->single();
+    //     }catch(PDOException $e){
+    //         return $e->getMessage();
+    //     }
+    // }
 }
