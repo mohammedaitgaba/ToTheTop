@@ -10,7 +10,7 @@ class User
     public function newUser($data)
      {
 
-        $this->db->query('INSERT INTO users (full_name, email,password)VALUES(:full_name, :email, :password)');
+        $this->db->query('INSERT INTO users (full_name, email,password,user_photo)VALUES(:full_name, :email, :password,"default.png")');
 
         $this->db->bind(':full_name',$data->full_name);
         $this->db->bind(':email',$data->email);

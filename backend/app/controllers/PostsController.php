@@ -9,6 +9,7 @@ class PostsController extends Controller{
         $data = [
             'title' => $_POST['title'],
             'description' => $_POST['description'],
+            'id'=>$_POST['id']
         ];
             $Image = $_FILES['image']['name'];
             $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
@@ -24,5 +25,15 @@ class PostsController extends Controller{
                     echo json_encode(['message' => 'Error uploading file']);
                 }
             }
+    }
+
+    public function GetAllPosts(){
+        $result=$this->Postsmodel->getposts();
+        if ($result){
+            echo json_encode($result);
+        } else {
+            echo json_encode(['data'=>'error']);
+        }
+        
     }
 }

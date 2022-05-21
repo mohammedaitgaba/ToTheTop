@@ -8,6 +8,68 @@
             <input type="search" placeholder="search">
             <img src="../assets/images/icons/dashicons_search.png" alt="">
         </div>
+
+
+
+        <div class="friends_holder">
+                <div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
+                        <div class="friendname"><label>MED Gaba</label></div>
+                    </div>
+                    <div class="add_friend">
+                        <img src="../assets/images/icons/addFriend.png" alt="">
+                    </div>
+                </div>
+                <div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
+                        <div class="friendname"><label>MED Gaba</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/online.png" alt="">
+                    </div>
+                </div><div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
+                        <div class="friendname"><label>MED Gaba</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/online.png" alt="">
+                    </div>
+                </div><div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
+                        <div class="friendname"><label>MED Gaba</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/online.png" alt="">
+                    </div>
+                </div>
+    
+                <div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/preview.png" alt=""></div>
+                        <div class="friendname"><label>Kayn darkblade</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/offline.png" alt="">
+                    </div>
+                </div>
+                <div class="friend">
+                    <div class="friendinfo">
+                        <div class="friendpic"><img src="../assets/images/ProfilePic/preview.png" alt=""></div>
+                        <div class="friendname"><label>Kayn darkblade</label></div>
+                    </div>
+                    <div class="status">
+                        <img src="../assets/images/icons/addFriend.png" alt="">
+                    </div>
+                </div>
+            </div>
+
+
+
+
         <div class="posts_footer">
             <div class="copyriths">
                 <img src="../assets/images/icons/lucide_copyright.png" alt="">
@@ -26,7 +88,7 @@
 
     </section>
     <div class="add_popup" v-show="Visible">
-        <form enctype="multipart/form-data" @submit.prevent="addPost">
+        <form enctype="multipart/form-data" @submit="addPost">
             <div class="title">
                 Add Post
             </div>
@@ -44,7 +106,7 @@
                 <input type="file" id="image" name="image" hidden @change="selectedPic">
             </div>
             <div class="post_submit">
-                <button class="submit" type="submit">Add</button>
+                <button class="submit" type="submit" >Add</button>
                 <button class="cancel" type="button" @click="show">cancel</button>
             </div>
         </form>
@@ -98,6 +160,7 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/Posts/AddNewPosts',
                     formData
                 ,config).then(res => console.log(res))
+            
         },
         checkregistration(){
             if(sessionStorage.getItem('ID')){
@@ -116,7 +179,7 @@ export default {
     position: sticky;
     background-color: $white;
     width: 30%;
-    height: 60vh;
+    height: 65vh;
     --header-height: 101px;
     top: calc(var(--header-height) + 27px);
     padding-bottom: 12px;
@@ -180,6 +243,48 @@ export default {
             cursor: pointer;
         }
     }
+    .friends_holder{
+
+        @include flexColumn(center, space-between);
+        width: 90%;
+        margin-top: 20px;
+        overflow-y: scroll;
+
+            .friend {
+            @include flexRow(center, space-between);
+            padding: 5px;
+            width: 100%;
+
+            .friendinfo {
+                @include flexRow(center, center);
+
+                .friendpic {
+                    @include flexRow(center, center);
+                    width: 40px;
+                    height: 40px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                    }
+                }
+
+                .friendname {
+                    margin-left: 5px;
+                    font-size: 14px;
+
+                }
+            }
+            .add_friend{
+                cursor: pointer;
+                img:hover{
+                    background-color: $orange3;
+                    border-radius: 50%;
+                }
+            }
+        }
+        }
 
     @include tablet {
         position: fixed;

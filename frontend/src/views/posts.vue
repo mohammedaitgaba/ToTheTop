@@ -7,9 +7,9 @@
        <side_bar/>
 
         <!-- posts section -->
-       <section class="posts_container">
+       <!-- <section class="posts_container"> -->
 
-           <div class="user_info">
+           <!-- <div class="user_info">
                <div class="post_head">
                    <div class="profile_pic">
                        <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
@@ -40,7 +40,7 @@
            </div>
            <div class="post_pic">
                <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
-           </div>
+           </div> -->
            <!-- <div class="post_react">
                <div class="claps">
                    <img src="../assets/images/icons/claps full.png" alt="">
@@ -50,7 +50,7 @@
                </div>
            </div>     -->
            
-           <div class="post_react">
+           <!-- <div class="post_react">
                <div class="claps">
                    <img src="../assets/images/icons/claps.png" alt="">
                    <label for="">30</label>
@@ -79,26 +79,152 @@
                <div class="show_more">
                    <a href="">show more</a>
                </div>
-           </div>
+           </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section class="posts_container">
+
+
+            <section class="post" v-for="elements in post">
+               <div class="user_info" >
+                   <div class="post_head">
+                       <div class="profile_pic">
+                           <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
+                       </div>
+                       <div class="username_time">
+                           <div>
+                               <label class="username"> {{elements.full_name}} </label>
+                           </div>
+                           <div class="time">
+                               <label > 20h Ago</label>
+                           </div>
+                       </div>
+                   </div>
+                   
+                    <div class="post_more">
+                        <img src="../assets/images/icons/ep_more-filled.png" alt="">
+                    </div>
+               </div>
+    
+               <div class="post_title">
+                   {{elements.title}}
+               </div>
+               <div class="post_description">
+                   {{elements.description}}
+               </div>
+               <div class="post_pic">
+                   <!-- <img src="" alt=""> -->
+                   <img src="../../../backend/public/imgUploaded/62861e2c230758.65555310.png" alt="">
+                   <!-- <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""> -->
+               </div>
+               <!-- <div class="post_react">
+                   <div class="claps">
+                       <img src="../assets/images/icons/claps full.png" alt="">
+                   </div>
+                   <div class="claps">
+                       <img src="../assets/images/icons/love full.png" alt="">
+                   </div>
+               </div>     -->
+               
+               <div class="post_react">
+                   <div class="claps">
+                       <img src="../assets/images/icons/claps.png" alt="">
+                       <label for="">30</label>
+                   </div>
+                   <div class="claps">
+                       <img src="../assets/images/icons/love.png" alt="">
+                        <label for="">30</label>
+    
+                   </div>
+               </div>
+    
+               <div class="comments_container ">
+                   <form class="make_cmnt">
+                       <input type="text" placeholder="Write a public comment">
+                       <button type="submit" name="submit"><img src="../assets/images/icons/send.png" alt=""></button>
+                   </form>
+                   <div class="all_cmnts">
+                       <div class="cmnt_maker_pic">
+                           <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
+                       </div>
+                       <div class="comments">
+                           <label for="" class="name"> med gaba </label>
+                           <label for=""> Lorem ipsum dolor sit amet, consectetsfdfsdfsdfsdfsdfdsur adipisicing elit.</label>
+                       </div>
+                   </div>
+                   <div class="show_more">
+                       <a href="">show more </a>
+                   </div>
+               </div>
+               </section>
+        </section>
 
            <!-- popup -->
             
 
-       </section> 
+       <!-- </section>  -->
     </div>
 </template>
 
 
 <script>
+import axios from 'axios';
 import side_bar from '@/components/side_bar.vue';
 import Navigation from '@/components/Navigation.vue';
 import update_popup from '@/components/update_popup.vue';
-
 export default {
     components :{
         side_bar,
         Navigation,
         update_popup
+    },
+    data() {
+        return {
+            post:[],
+        }
+    },
+    mounted() {
+        this.getallposts()
+    },
+    methods: {
+            getallposts(){
+            axios.get('http://localhost/ToTheTop/backend/Posts/GetAllPosts')
+            .then(res=>{
+                console.log(res.data);
+                this.post = res.data
+                console.log(this.post);
+            })
+        }
     },
 }
 </script>
@@ -116,11 +242,15 @@ export default {
         background-color: #F4F4F4;
     
     .posts_container{
+        
         @include flexColumn(stretch,space-evenly);
         width: 55%;
-        background-color: $white; 
-        border-radius: 10px;
-        box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;        
+        .post{
+            background-color: $white; 
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;  
+            margin-bottom: 30px;  
+        }    
     .post_head{
             @include flexRow(center,space-between);
         }
