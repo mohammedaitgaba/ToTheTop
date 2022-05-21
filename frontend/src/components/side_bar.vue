@@ -12,7 +12,9 @@
         <div class="friends_holder">
                 <div class="friend" v-for="elements in friends">
                     <div class="friendinfo">
-                        <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
+                        <div class="friendpic">
+                            <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/' + elements.user_photo" alt="">
+                        </div>
                         <div class="friendname">
                             <label> {{elements.full_name}} </label>
                         </div>

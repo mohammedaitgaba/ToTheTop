@@ -6,115 +6,8 @@
         <!-- sidebar section  -->
        <side_bar/>
 
-        <!-- posts section -->
-       <!-- <section class="posts_container"> -->
-
-           <!-- <div class="user_info">
-               <div class="post_head">
-                   <div class="profile_pic">
-                       <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
-                   </div>
-                   <div class="username_time">
-                       <div>
-                           <label class="username">mohammed gaba</label>
-                       </div>
-                       <div class="time">
-                           <label > 20h Ago</label>
-                       </div>
-                   </div>
-               </div>
-               
-                <div class="post_more">
-                    <img src="../assets/images/icons/ep_more-filled.png" alt="">
-                </div>
-           </div>
-
-           <div class="post_title">
-               Lorem ipsum dolor sit amet consectetur
-           </div>
-           <div class="post_description">
-               Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-               Est iusto reiciendis dolore, et adipisci eius impedit aliquid, 
-               numquam ad sunt quo commodi labore obcaecati? Magni quisquam cupiditate 
-               consequuntur ad quia?
-           </div>
-           <div class="post_pic">
-               <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
-           </div> -->
-           <!-- <div class="post_react">
-               <div class="claps">
-                   <img src="../assets/images/icons/claps full.png" alt="">
-               </div>
-               <div class="claps">
-                   <img src="../assets/images/icons/love full.png" alt="">
-               </div>
-           </div>     -->
-           
-           <!-- <div class="post_react">
-               <div class="claps">
-                   <img src="../assets/images/icons/claps.png" alt="">
-                   <label for="">30</label>
-               </div>
-               <div class="claps">
-                   <img src="../assets/images/icons/love.png" alt="">
-                    <label for="">30</label>
-
-               </div>
-           </div>
-
-           <div class="comments_container ">
-               <form class="make_cmnt">
-                   <input type="text" placeholder="Write a public comment">
-                   <button type="submit" name="submit"><img src="../assets/images/icons/send.png" alt=""></button>
-               </form>
-               <div class="all_cmnts">
-                   <div class="cmnt_maker_pic">
-                       <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
-                   </div>
-                   <div class="comments">
-                       <label for="" class="name"> med gaba </label>
-                       <label for=""> Lorem ipsum dolor sit amet, consectetsfdfsdfsdfsdfsdfdsur adipisicing elit.</label>
-                   </div>
-               </div>
-               <div class="show_more">
-                   <a href="">show more</a>
-               </div>
-           </div> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <section class="posts_container">
-
-
             <section class="post" v-for="elements in post">
                <div class="user_info" >
                    <div class="post_head">
@@ -143,11 +36,8 @@
                    {{elements.description}}
                </div>
                <div class="post_pic">
-                   <!-- <img src="" alt=""> -->
-                   <img alt="" src="http://localhost/ToTheTop/backend/public/imgUploaded/" >
-                   
-                   <!-- <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""> -->
-               </div>
+                   <img alt=""  :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.photo" >
+                </div>
                <!-- <div class="post_react">
                    <div class="claps">
                        <img src="../assets/images/icons/claps full.png" alt="">
@@ -212,6 +102,7 @@ export default {
     data() {
         return {
             post:[],
+            url:'http://localhost/ToTheTop/backend/public/imgUploaded/'
         }
     },
     mounted() {
