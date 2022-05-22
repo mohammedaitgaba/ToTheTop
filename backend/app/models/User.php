@@ -36,8 +36,17 @@ class User
             return $e->getMessage();
         }
     }
-    public function getRandomUser(){
-        $this->db->query('SELECT * FROM users ORDER BY RAND() LIMIT 5');
+    public function getRandomUser($data){
+        // $this->db->query('SELECT * FROM users WHERE id_user != :id ORDER BY RAND() LIMIT 5');
+        // $this->db->query('SELECT users.*,friends.* FROM users INNER JOIN friends ON users.id_user != friends.id_reciver');
+        // $this->db->query('SELECT * full_name FROM users INNER JOIN friends ON users.id_user = friends.id_reciver');
+
+        $this->db->query('SELECT *  FROM users INNER JOIN friends ON users.id_user != friends.id_reciver AND users.id_user != :id ' );
+
+        // WHERE users.id_user != :id
+        // SELECT * FROM users INNER JOIN friends ON 'WHERE users.id_user != friends.id_reciver AND users.id_user != 26';
+        // uer_id != id_reciver        
+        $this->db->bind(":id",$data->id);
         try {
             return $this->db->resultSet();
         } catch (PDOException $e) {
@@ -60,7 +69,7 @@ class User
     //         return $this->db->resultSet();
     //     } catch (PDOException $e) {
     //         return $e->getMessage();
-    //     }
+    //     } 
     // }
     // public function delet_user($data){
     //     $this->db->query('DELETE  FROM client WHERE id = :id');

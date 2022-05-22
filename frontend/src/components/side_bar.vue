@@ -128,7 +128,10 @@ export default {
             }
         },
         RandomFriends(){
-            axios.get('http://localhost/ToTheTop/backend/User/GetRandUsers')
+            axios.post('http://localhost/ToTheTop/backend/User/GetRandUsers',{
+                id : sessionStorage.getItem('ID')
+            }
+            )
             .then(res => {
                 this.friends = res.data
                 console.log(this.friends);

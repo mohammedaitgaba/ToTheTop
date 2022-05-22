@@ -2,7 +2,32 @@
     <!-- <navbar/> -->
     <Navigation/>
     <div class="container">
-
+        <!-- popup update post -->
+    <div class="update_popup" v-show="Updater">
+        <form enctype="multipart/form-data" @submit="addPost">
+            <div class="title">
+                Update Post
+            </div>
+            <div class="post_title">
+                <label> Post title </label>
+                <input type="text" placeholder="Title" v-model="update.title">
+            </div>
+            <div class="post_title">
+                <label> Post description </label>
+                <textarea placeholder="description" v-model="update.description"></textarea>
+            </div>
+            <div class="add_img">
+                <span> Post photo </span>
+                <label for="image"> Choose picture </label>
+                <input type="file" id="image" name="image" hidden @change="selectedPic">
+            </div>
+            <div class="post_submit">
+                <button class="submit" type="submit" @click="update_post">Update</button>
+                <button class="cancel" type="button" @click="update_popup">cancel</button>
+            </div>
+        </form>
+    </div>
+        
         <!-- sidebar section  -->
        <side_bar/>
 
@@ -17,6 +42,7 @@
                        <div class="username_time">
                            <div>
                                <label class="username"> {{elements.full_name}} </label>
+                               <!-- <label class="username"> {{elements.id_post}} </label> -->
                            </div>
                            <div class="time">
                                <label > 20h Ago</label>
@@ -24,9 +50,19 @@
                        </div>
                    </div>
                    
-                    <div class="post_more">
+                    <div class="post_more" @click="drop(elements.id_post)">
                         <img src="../assets/images/icons/ep_more-filled.png" alt="">
+                        <div class="dropdown_more" v-show="Visibe" >
+                            <!-- <input v-model="elements.id_post"> -->
+                            <div class="dropped_item_update">
+                                <button @click="update_popup(elements.id_post)">Update</button>
+                            </div>
+                            <div class="dropped_item_delete">
+                                <button >Delete  </button>
+                            </div>
+                        </div>
                     </div>
+
                </div>
     
                <div class="post_title">
@@ -102,21 +138,54 @@ export default {
     data() {
         return {
             post:[],
-            url:'http://localhost/ToTheTop/backend/public/imgUploaded/'
+            Visibe: false,
+            Updater: false,
+
+            update:{
+                title:"",
+                description:"",
+            }
+            
         }
     },
     mounted() {
         this.getallposts()
     },
     methods: {
-            getallposts(){
+        getallposts(){
             axios.get('http://localhost/ToTheTop/backend/Posts/GetAllPosts')
             .then(res=>{
                 console.log(res.data);
                 this.post = res.data
                 console.log(this.post);
             })
+        },
+        drop(id){
+            const dropped_id = id
+                // console.log(element.id_post);
+            this.post.forEach(element =>{
+                if (element.id_post==dropped_id) {
+                    console.log(dropped_id);
+                    this.Visibe = !this.Visibe
+                }else{
+                    console.log('hahah');
+                }
+            })
+            
+        },
+        update_popup(id){
+            this.Updater = !this.Updater
+            this.post.forEach(element =>{
+                if (element.id_post==id) {
+                    this.update.title = element.title
+                    this.update.description = element.description
+                }
+            })
+        },
+        update_post(){
+            
         }
+
     },
 }
 </script>
@@ -147,11 +216,45 @@ export default {
             @include flexRow(center,space-between);
         }
             .post_more{
+                position: relative;
                 cursor: pointer;
                 img{
                     width: 25px;
                 }
+                 .dropdown_more{
+                    @include flexColumn(center,space-between);
+                    box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+                    background-color:#F4F4F4;  
+                    position: absolute;
+                    border-radius: 5px;
+                    right: 0px;
+                    width: 130px;
+                    height: 50px;
+                    .dropped_item_update{
+                        width:100%;
+                        button{
+                            width:100%;
+                            border-radius: 5px;
+                        }
+                        button:hover{
+                            background-color: #EAEAEA;
+                        }
+                    }
+                    .dropped_item_delete{
+                          width:100%;
+                        button{
+                            width:100%;
+                            border-radius: 5px;
+                        }
+                        button:hover{
+                            color: red;
+                            background-color: #EAEAEA;
+                        }
+                    }
+
+                }
             }
+           
         .user_info{
             padding: 10px;
             @include flexRow(center,space-between);
@@ -285,7 +388,137 @@ export default {
         @include phone{
             padding: 90px 15px 70px 15px   ;
         }
-                
+    
+    .update_popup {
+    @include flexColumn(center, center);
+    background-color: rgba(0, 0, 0, 0.55);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    z-index: 1;
+
+    form {
+        @include flexColumn(center, space-around);
+        position: fixed;
+        top: 22%;
+        width: 40vw;
+        height: 70vh;
+        background-color: $white;
+        border-radius: 10px;
+
+        .title {
+            padding-top: 10px;
+            font-size: 24px;
+            font-weight: 500
+        }
+
+        .post_title {
+            @include flexColumn(flex-start, center);
+            width: 90%;
+            padding: 10px;
+
+            input {
+                width: 100%;
+                height: 40px;
+                padding: 10px;
+                font-size: 18px;
+            }
+
+            textarea {
+                width: 100%;
+                resize: none;
+                height: 70px;
+                font-size: 18px;
+                padding: 10px;
+            }
+
+
+        }
+
+        .add_img {
+            @include flexColumn(flex-start, center);
+            width: 90%;
+            padding: 10px;
+
+            label {
+                cursor: pointer;
+                align-self: center;
+                text-align: center;
+                background-color: bisque;
+                width: 53%;
+                padding: 8px 35px;
+                border-radius: 20px
+            }
+
+        }
+
+        .post_submit {
+            @include flexRow(flex-start, space-around);
+            width: 50%;
+            padding: 10px;
+
+            .submit {
+                @include button;
+                padding: 8px 30px;
+            }
+
+            .cancel {
+                @include button;
+                padding: 8px 20px;
+                background-color: black;
+            }
+
+        }
+    }
+
+    @include tablet {
+        form {
+            width: 60%;
+
+            .title {
+                font-size: 18px;
+            }
+
+            .post_title {
+                font-size: 14px;
+                padding: 5px;
+            }
+
+            .add_img {
+                font-size: 14px;
+
+                label {
+                    padding: 5px 15px;
+                }
+
+            }
+
+            .post_submit {
+                padding: 5px;
+                width: 60%;
+
+                .submit {
+                    font-size: 14px;
+                }
+
+                .cancel {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    @include phone {
+        form {
+            width: 90%;
+
+            .post_submit {
+                width: 80%;
+            }
+        }
+    }
+}
     }
    
 
