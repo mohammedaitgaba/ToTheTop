@@ -44,6 +44,15 @@ class UserController extends Controller
         }
         
     }
+    public function AddFreind(){
+        $data = json_decode(file_get_contents("php://input"));
+        $result = $this->userModel->NewFreind($data);
+        if ($result) {
+            echo json_encode(['message' =>'added']);
+        } else {
+            echo json_encode(['message'=> 'error']);
+        }
+    }
     // public function getAllusers(){
        
     //         $result = $this->userModel->getAllusers(); 

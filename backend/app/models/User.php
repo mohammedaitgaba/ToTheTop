@@ -44,6 +44,16 @@ class User
             return $e->getMessage();
         }
     }
+    public function NewFreind($data){
+        $this->db->query("INSERT INTO friends (id_sender,id_reciver)VALUES(:id_sender,:id_reciver)");
+        $this->db->bind(":id_sender",$data->id_sender);
+        $this->db->bind(":id_reciver",$data->id_reciver);
+        try {
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
     // public function getAllusers(){
     //     $this->db->query('SELECT * FROM client');
     //     try {

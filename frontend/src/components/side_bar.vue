@@ -17,9 +17,11 @@
                         </div>
                         <div class="friendname">
                             <label> {{elements.full_name}} </label>
+                            <!-- <input type="hidden" v-model="elements.id_user"> -->
+                            <label>  </label>
                         </div>
                     </div>
-                    <div class="add_friend">
+                    <div class="add_friend" @click="add_friend(elements.id_user)">
                         <img src="../assets/images/icons/addFriend.png" alt="">
                     </div>
                 </div>
@@ -131,6 +133,12 @@ export default {
                 this.friends = res.data
                 console.log(this.friends);
             })
+        },
+        add_friend(id){
+            axios.post('http://localhost/ToTheTop/backend/User/AddFreind',{
+                id_sender:sessionStorage.getItem('ID'),
+                id_reciver:id
+            }).then(res=>console.log(res))
         }
     },
 
