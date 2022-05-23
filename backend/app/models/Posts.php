@@ -24,6 +24,14 @@ class Posts{
             return $e->getMessage();
         }
     }
+    public function UpdatePost($target_path,$data){
+        $this->db->query('UPDATE posts SET title=:title,description=:description,photo=:photo WHERE id_post = :id');
+        $this->db->bind(':title',$data['title']);
+        $this->db->bind(':id',$data['id']);
+        $this->db->bind(':description',$data['description']);
+        $this->db->bind(':photo',$target_path);
+        $this->db->execute();
+    }
     //  public function CreatePosts($target_path){
     //     $this->db->query("INSERT INTO posts (photo) VALUES (:photo)");
     //     // $this->db->bind(':title',$data->title);

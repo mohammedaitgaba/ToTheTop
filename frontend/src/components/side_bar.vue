@@ -21,9 +21,11 @@
                             <label>  </label>
                         </div>
                     </div>
-                    <div class="add_friend" @click="add_friend(elements.id_user)">
+                    <form class="add_friend" >
+                    <button type="submit" @click="add_friend(elements.id_user)">
                         <img src="../assets/images/icons/addFriend.png" alt="">
-                    </div>
+                    </button>
+                    </form>
                 </div>
         </div>
 
@@ -45,7 +47,7 @@
 
     </section>
     <div class="add_popup" v-show="Visible">
-        <form enctype="multipart/form-data" @submit="addPost">
+        <form enctype="multipart/form-data" @submit.prevent="addPost">
             <div class="title">
                 Add Post
             </div>
@@ -60,7 +62,7 @@
             <div class="add_img">
                 <span> Post photo </span>
                 <label for="image"> Choose picture </label>
-                <input type="file" id="image" name="image" hidden @change="selectedPic">
+                <input type="file" id="image" name="image" hidden @change="modifiedPic">
             </div>
             <div class="post_submit">
                 <button class="submit" type="submit" >Add</button>
@@ -95,9 +97,13 @@ export default {
         show(){
             this.Visible = !this.Visible
         },
-        selectedPic(event) {
-            this.selectedFile = event.target.files[0]
+        // selectedPic(event) {
+        //     this.selectedFile = event.target.files[0]
 
+        //     console.log(this.selectedFile);
+        // },
+        modifiedPic(event) {
+            this.selectedFile = event.target.files[0]
             console.log(this.selectedFile);
         },
         addPost() {
@@ -119,7 +125,8 @@ export default {
             });
             axios.post('http://localhost/ToTheTop/backend/Posts/AddNewPosts',
                     formData
-                ,config).then(res => console.log(res))
+                ,config)
+                .then(res => console.log(res))
             
         },
         checkregistration(){
@@ -134,14 +141,14 @@ export default {
             )
             .then(res => {
                 this.friends = res.data
-                console.log(this.friends);
+                // console.log(this.friends);
             })
         },
         add_friend(id){
             axios.post('http://localhost/ToTheTop/backend/User/AddFreind',{
                 id_sender:sessionStorage.getItem('ID'),
                 id_reciver:id
-            }).then(res=>console.log(res))
+            }).then(res=>console.log('res'))
         }
     },
 

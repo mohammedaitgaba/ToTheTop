@@ -4,25 +4,25 @@
     <div class="container">
         <!-- popup update post -->
     <div class="update_popup" v-show="Updater">
-        <form enctype="multipart/form-data" @submit="addPost">
+        <form enctype="multipart/form-data" @submit="update_post">
             <div class="title">
                 Update Post
             </div>
             <div class="post_title">
                 <label> Post title </label>
-                <input type="text" placeholder="Title" v-model="update.title">
+                <input type="text" placeholder="Title" v-model="title">
             </div>
             <div class="post_title">
                 <label> Post description </label>
-                <textarea placeholder="description" v-model="update.description"></textarea>
+                <textarea placeholder="description" v-model="description"></textarea>
             </div>
             <div class="add_img">
                 <span> Post photo </span>
                 <label for="image"> Choose picture </label>
-                <input type="file" id="image" name="image" hidden @change="selectedPic">
+                <input type="file" id="image" name="image" hidden @change="modifiedPic">
             </div>
             <div class="post_submit">
-                <button class="submit" type="submit" @click="update_post">Update</button>
+                <button class="submit" type="submit" >Update</button>
                 <button class="cancel" type="button" @click="update_popup">cancel</button>
             </div>
         </form>
@@ -42,6 +42,7 @@
                        <div class="username_time">
                            <div>
                                <label class="username"> {{elements.full_name}} </label>
+                               <label class="username"> {{sessionid}} </label>
                                <!-- <label class="username"> {{elements.id_post}} </label> -->
                            </div>
                            <div class="time">
@@ -50,7 +51,8 @@
                        </div>
                    </div>
                    
-                    <div class="post_more" @click="drop(elements.id_post)">
+                    <div class="post_more" v-if="sessionid = elements.id_maker" @click="drop(elements.id_post)">
+                        
                         <img src="../assets/images/icons/ep_more-filled.png" alt="">
                         <div class="dropdown_more" v-show="Visibe" >
                             <!-- <input v-model="elements.id_post"> -->
@@ -66,6 +68,7 @@
                </div>
     
                <div class="post_title">
+
                    {{elements.title}}
                </div>
                <div class="post_description">
@@ -140,24 +143,32 @@ export default {
             post:[],
             Visibe: false,
             Updater: false,
+            
+            title: "",
+            description: "",
+            id_post:"",
+            selectedFile: "",
 
-            update:{
-                title:"",
-                description:"",
-            }
+            sessionid:""
+            // update:{
+            //     title:"",
+            //     description:"",
+            // }
             
         }
     },
     mounted() {
         this.getallposts()
+        this.sessionid = sessionStorage.getItem('ID')
+        console.log(this.sessionid);
     },
     methods: {
         getallposts(){
             axios.get('http://localhost/ToTheTop/backend/Posts/GetAllPosts')
             .then(res=>{
-                console.log(res.data);
+                // console.log(res.data);
                 this.post = res.data
-                console.log(this.post);
+                // console.log(this.post);
             })
         },
         drop(id){
@@ -165,10 +176,8 @@ export default {
                 // console.log(element.id_post);
             this.post.forEach(element =>{
                 if (element.id_post==dropped_id) {
-                    console.log(dropped_id);
+                    // console.log(dropped_id);
                     this.Visibe = !this.Visibe
-                }else{
-                    console.log('hahah');
                 }
             })
             
@@ -177,13 +186,35 @@ export default {
             this.Updater = !this.Updater
             this.post.forEach(element =>{
                 if (element.id_post==id) {
-                    this.update.title = element.title
-                    this.update.description = element.description
+                    this.title = element.title
+                    this.description = element.description
+                    this.id_post = id
                 }
             })
         },
+        modifiedPic(event) {
+            this.selectedFile = event.target.files[0]
+            console.log(this.selectedFile);
+        },
         update_post(){
-            
+             let config = {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            };
+            const data = {
+                title: this.title,
+                description: this.description,
+                image: this.selectedFile,
+                id_post:this.id_post
+            };
+            const formData = new FormData();
+            Object.keys(data).forEach((key) => {
+                formData.append(key, data[key]);
+            });
+            axios.post('http://localhost/ToTheTop/backend/Posts/UpdatePost',
+                    formData
+                ,config).then(res => console.log(res))
         }
 
     },

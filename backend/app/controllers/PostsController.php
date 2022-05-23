@@ -11,7 +11,8 @@ class PostsController extends Controller{
             'description' => $_POST['description'],
             'id'=>$_POST['id']
         ];
-            $Image = $_FILES['image']['name'];
+        
+        $Image = $_FILES['image']['name'];
             $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
             $extensions_arr = array("jpg", "jpeg", "png", "gif");
             if (in_array($imageFileType, $extensions_arr)) {
@@ -25,6 +26,30 @@ class PostsController extends Controller{
                     echo json_encode(['message' => 'Error uploading file']);
                 }
             }
+        
+            // $data = [
+            //     'title' => $_POST['title'],
+            //     'description' => $_POST['description'],
+            //     'id' => $_POST['id']
+            // ];
+            // $Image = $_FILES['image']['name'];
+            // $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
+            // $extensions_arr = array("jpg", "jpeg", "png", "gif");
+            // if (in_array($imageFileType, $extensions_arr)) {
+            //     $file_name = uniqid('', true) . '.' . $imageFileType;
+            //     $target_path = $file_name;
+                
+            //     if (move_uploaded_file($_FILES['image']['tmp_name'], 'C:\xampp\htdocs\ToTheTop\backend\public\imgUploaded\\' . $target_path)) {
+            //         $result=$this->Postsmodel->CreatePost($target_path,$data);
+            //         echo json_encode(['message' => 'ok']);
+            //     } else {
+            //         echo json_encode(['message' => 'Error uploading file']);
+            //     }
+            // }
+        
+
+
+        
     }
 
     public function GetAllPosts(){
@@ -35,5 +60,26 @@ class PostsController extends Controller{
             echo json_encode(['data'=>'error']);
         }
         
+    }
+    public function UpdatePost(){
+        $data = [
+            'title' => $_POST['title'],
+            'description' => $_POST['description'],
+            'id' => $_POST['id_post']
+        ];
+        $Image = $_FILES['image']['name'];
+        $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
+        $extensions_arr = array("jpg", "jpeg", "png", "gif");
+        if (in_array($imageFileType, $extensions_arr)) {
+            $file_name = uniqid('', true) . '.' . $imageFileType;
+            $target_path = $file_name;
+            
+            if (move_uploaded_file($_FILES['image']['tmp_name'], 'C:\xampp\htdocs\ToTheTop\backend\public\imgUploaded\\' . $target_path)) {
+                $result=$this->Postsmodel->UpdatePost($target_path,$data);
+                echo json_encode(['message' => 'ok']);
+            } else {
+                echo json_encode(['message' => 'Error uploading file']);
+            }
+        }
     }
 }
