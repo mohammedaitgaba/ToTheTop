@@ -108,7 +108,7 @@ export default {
         },
         addPost() {
             // const img =new FormData();
-            let config = {
+           let config = {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -117,7 +117,7 @@ export default {
                 title: this.title,
                 description: this.description,
                 image: this.selectedFile,
-                id:this.id
+                id_post:this.id_post
             };
             const formData = new FormData();
             Object.keys(data).forEach((key) => {
@@ -125,8 +125,7 @@ export default {
             });
             axios.post('http://localhost/ToTheTop/backend/Posts/AddNewPosts',
                     formData
-                ,config)
-                .then(res => console.log(res))
+                ,config).then(res => console.log(res))
             
         },
         checkregistration(){

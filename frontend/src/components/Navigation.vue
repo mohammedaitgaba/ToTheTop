@@ -53,7 +53,6 @@ export default {
         
     // },
     beforeMount(){
-        console.log("dd");
         window.addEventListener("resize", this.checkScreen);
         this.checkScreen();
     },

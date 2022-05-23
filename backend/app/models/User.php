@@ -62,6 +62,18 @@ class User
             return $e->getMessage();
         }
     }
+
+    public function GetFriends($data){
+        $this->db->query("SELECT users.id_user,user_photo,full_name FROM users JOIN friends ON friends.id_reciver = users.id_user WHERE id_sender = :id
+        UNION
+        SELECT users.id_user,user_photo,full_name FROM users JOIN friends ON friends.id_sender = users.id_user WHERE id_reciver = :id");
+        $this->db->bind(":id",$data->id);
+        try {
+            return $this->db->resultSet();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
     // public function getAllusers(){
     //     $this->db->query('SELECT * FROM client');
     //     try {

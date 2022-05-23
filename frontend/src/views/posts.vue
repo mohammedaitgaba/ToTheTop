@@ -42,22 +42,24 @@
                        <div class="username_time">
                            <div>
                                <label class="username"> {{elements.full_name}} </label>
-                               <label class="username"> {{sessionid}} </label>
+                               <label class="username">  </label>
                                <!-- <label class="username"> {{elements.id_post}} </label> -->
                            </div>
                            <div class="time">
                                <label > 20h Ago</label>
+                               
                            </div>
                        </div>
                    </div>
                    
-                    <div class="post_more" v-if="sessionid = elements.id_maker" @click="drop(elements.id_post)">
+                    <div class="post_more"  @click="drop(elements.id_post)" v-if="elements.id_maker == loggedid">
                         
                         <img src="../assets/images/icons/ep_more-filled.png" alt="">
                         <div class="dropdown_more" v-show="Visibe" >
                             <!-- <input v-model="elements.id_post"> -->
                             <div class="dropped_item_update">
                                 <button @click="update_popup(elements.id_post)">Update</button>
+                                
                             </div>
                             <div class="dropped_item_delete">
                                 <button >Delete  </button>
@@ -149,18 +151,14 @@ export default {
             id_post:"",
             selectedFile: "",
 
-            sessionid:""
-            // update:{
-            //     title:"",
-            //     description:"",
-            // }
+            loggedid:""
             
         }
     },
     mounted() {
         this.getallposts()
-        this.sessionid = sessionStorage.getItem('ID')
-        console.log(this.sessionid);
+        this.loggedid = sessionStorage.getItem('ID')
+        console.log(this.loggedid);
     },
     methods: {
         getallposts(){
