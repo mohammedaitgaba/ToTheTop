@@ -37,16 +37,7 @@ class UserController extends Controller
     }
     public function GetRandUsers(){
         $data = json_decode(file_get_contents("php://input"));
-        $result_1 = $this->userModel->getRandomUser($data);
-        $result=array();
-        $i=1;
-        foreach($result_1 as $s){
-            if($i%2==1){
-                $result[]=$s;
-            }
-            $i++;
-        }
-        // var_dump($result);die;
+        $result = $this->userModel->getRandomUser($data);
         if ($result) {
             echo json_encode($result);
         } else {
