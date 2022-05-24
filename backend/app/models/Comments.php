@@ -19,7 +19,7 @@ class Comments {
 
     }
     public function GetComment($data){
-        $this->db->query('SELECT  users.full_name,users.user_photo ,comments.body  FROM users JOIN comments ON users.id_user = comments.id_maker WHERE comments.id_post = :id_post');
+        $this->db->query('SELECT users.full_name,users.user_photo ,comments.body,comments.id_post FROM users JOIN comments ON users.id_user = comments.id_maker WHERE comments.id_post = :id_post ORDER BY comments.id_comment DESC');
         $this->db->bind(':id_post',$data->id_post);
         try{
             return $this->db->resultSet();

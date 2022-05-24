@@ -5,12 +5,13 @@
             <button name="submit"><img src="../assets/images/icons/send.png" alt=""></button>
         </form>
         <div class="all_cmnts" v-for="elements in comments">
+        
             <div class="cmnt_maker_pic">
-                <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
+                <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="">
             </div>
-            <div class="comments" v-if="post_id" >
+            <div class="comments">
                 <label for="" class="name"> {{elements.full_name}} </label>
-                <label for=""> Lorem ipsum dolor sit amet, consectetsfdfsdfsdfsdfsdfdsur adipisicing elit.</label>
+                <label for=""> {{elements.body}} </label>
             </div>
         </div>
         <div class="show_more">
@@ -52,7 +53,7 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/Comments/GetComment',{
                 id_post:this.post_id
             }).then(res =>{
-                this.comments = res
+                this.comments = res.data
             })
         }
 
@@ -73,9 +74,12 @@ export default {
                     width: 100%;
                     height: 40px;
                     border-radius: 20px;
-                    padding: 10px;
+                    padding: 10px 55px 10px 10px;
                     border: 1px solid;
                     font-size: 16px;
+                }
+                input:focus{
+                    border-color: $orange1;
                 }
                 button{
                     position: absolute;
@@ -91,11 +95,13 @@ export default {
 
             }
             .all_cmnts{
-                @include flexRow(center,space-evenly);
+                @include flexRow(flex-start,flex-start);
                 width: 93%;
+                margin-top: 10px;
                 .cmnt_maker_pic{
                     width: 60px;
                     height: 55px;
+                    min-width: 60px;
                     img{
                         width: 100%;
                         height: 100%;
