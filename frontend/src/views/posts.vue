@@ -4,7 +4,7 @@
     <div class="container">
         <!-- popup update post -->
     <div class="update_popup" v-show="Updater">
-        <form enctype="multipart/form-data" @submit="update_post">
+        <form enctype="multipart/form-data" @submit.prevent="update_post">
             <div class="title">
                 Update Post
             </div>
@@ -30,7 +30,6 @@
         
         <!-- sidebar section  -->
        <side_bar/>
-
 
         <section class="posts_container">
             <section class="post" v-for="elements in post">
@@ -59,10 +58,9 @@
                             <!-- <input v-model="elements.id_post"> -->
                             <div class="dropped_item_update">
                                 <button @click="update_popup(elements.id_post)">Update</button>
-                                
                             </div>
                             <div class="dropped_item_delete">
-                                <button >Delete  </button>
+                                <button @click="deletePost(elements.id_post)">Delete  </button>
                             </div>
                         </div>
                     </div>
@@ -76,55 +74,14 @@
                <div class="post_description">
                    {{elements.description}}
                </div>
-               <div class="post_pic">
-                   <img alt=""  :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.photo" >
+                <div class="post_pic">
+                   <img alt="" :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.photo" >
                 </div>
-               <!-- <div class="post_react">
-                   <div class="claps">
-                       <img src="../assets/images/icons/claps full.png" alt="">
-                   </div>
-                   <div class="claps">
-                       <img src="../assets/images/icons/love full.png" alt="">
-                   </div>
-               </div>     -->
-               
-               <div class="post_react">
-                   <div class="claps">
-                       <img src="../assets/images/icons/claps.png" alt="">
-                       <label for="">30</label>
-                   </div>
-                   <div class="claps">
-                       <img src="../assets/images/icons/love.png" alt="">
-                        <label for="">30</label>
-    
-                   </div>
-               </div>
-    
-               <div class="comments_container ">
-                   <form class="make_cmnt">
-                       <input type="text" placeholder="Write a public comment">
-                       <button type="submit" name="submit"><img src="../assets/images/icons/send.png" alt=""></button>
-                   </form>
-                   <div class="all_cmnts">
-                       <div class="cmnt_maker_pic">
-                           <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
-                       </div>
-                       <div class="comments">
-                           <label for="" class="name"> med gaba </label>
-                           <label for=""> Lorem ipsum dolor sit amet, consectetsfdfsdfsdfsdfsdfdsur adipisicing elit.</label>
-                       </div>
-                   </div>
-                   <div class="show_more">
-                       <a href="">show more </a>
-                   </div>
-               </div>
+                <Reacts/>
+                <comments_section :post_id="elements.id_post" />
+
                </section>
         </section>
-
-           <!-- popup -->
-            
-
-       <!-- </section>  -->
     </div>
 </template>
 
@@ -134,47 +91,48 @@ import axios from 'axios';
 import side_bar from '@/components/side_bar.vue';
 import Navigation from '@/components/Navigation.vue';
 import update_popup from '@/components/update_popup.vue';
+import Reacts from '@/components/Reacts.vue';
+import comments_section from '@/components/comments_section.vue';
+import { EmojiPickerPlugin } from 'vue-emoji-picker'
+
 export default {
     components :{
         side_bar,
         Navigation,
-        update_popup
+        update_popup,
+        Reacts,
+        comments_section
     },
     data() {
         return {
             post:[],
             Visibe: false,
             Updater: false,
-            
+            post_id:null,
             title: "",
             description: "",
             id_post:"",
             selectedFile: "",
-
-            loggedid:""
+            loggedid:"",
             
         }
     },
     mounted() {
         this.getallposts()
         this.loggedid = sessionStorage.getItem('ID')
-        console.log(this.loggedid);
     },
     methods: {
         getallposts(){
             axios.get('http://localhost/ToTheTop/backend/Posts/GetAllPosts')
             .then(res=>{
-                // console.log(res.data);
                 this.post = res.data
-                // console.log(this.post);
+                this.post_id = res.data.id
             })
         },
         drop(id){
             const dropped_id = id
-                // console.log(element.id_post);
             this.post.forEach(element =>{
                 if (element.id_post==dropped_id) {
-                    // console.log(dropped_id);
                     this.Visibe = !this.Visibe
                 }
             })
@@ -213,8 +171,7 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/Posts/UpdatePost',
                     formData
                 ,config).then(res => console.log(res))
-        }
-
+        },
     },
 }
 </script>
@@ -321,70 +278,8 @@ export default {
                 width: 100%;
             }
         }
-        .post_react{
-            padding-left: 20px;
-            @include flexRow(center,flex-start);
-            .claps{
-                @include flexColumn(center,flex-start);
-                img{
-                    width: 30px
-                }
-            
-            }
-        }
-        .comments_container{
-            width: 100%;
-            @include flexColumn(center,flex-start);
-            .make_cmnt{
-                width: 90%;
-                padding: 10px 0 10px 0;
-                position: relative;
-                @include flexRow(center,center);
-                input{
-                    width: 100%;
-                    height: 40px;
-                    border-radius: 20px;
-                    padding: 10px;
-                    border: 1px solid;
-                    font-size: 16px;
-                }
-                button{
-                    position: absolute;
-                    right: 10px;
-                    border: none;
-                    background-color: $white;
-                    border-radius: 30px;
-                    img{
-                        width: 30px;
-                        height: 30px;
-                    }
-                } 
-
-            }
-            .all_cmnts{
-                @include flexRow(center,space-evenly);
-                width: 93%;
-                .cmnt_maker_pic{
-                    width: 60px;
-                    height: 55px;
-                    img{
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 50%;
-                    }
-                }
-            }
-            .comments{
-                @include flexColumn(flex-start,center);
-                margin-left: 10px;
-                background-color: #EAEAEA;
-                border-radius: 10px;
-                padding: 7px;
-               .name{
-                   text-decoration: underline;
-                   cursor: pointer;
-               }
-            }
+        
+        
         }
         @include tablet {
             width: 100%;
@@ -395,27 +290,11 @@ export default {
                 font-size: 14px;
                 padding: 20px 10px 20px 10px;
             }
-            .comments_container{
-                .make_cmnt{
-                    input{
-                        height: 40px;
-                    }
-                }
-                .all_cmnts{
-                    width: 98%;
-                    font-size: 14px;
-                    .comments{
-                        margin: 0;
-                    }
-                    .cmnt_maker_pic{
-                        height: 40px;
-                    }
-                }
-            }
-        }
+            
         }
         @include phone{
             padding: 90px 15px 70px 15px   ;
+        }
         }
     
     .update_popup {
@@ -548,7 +427,4 @@ export default {
         }
     }
 }
-    }
-   
-
 </style>

@@ -12,6 +12,7 @@
     "flowbite": "^1.4.5",
     "moment": "^2.29.3",
     "vue": "^3.2.33",
+    "vue-emoji-picker": "^1.0.3",
     "vue-router": "^4.0.14"
   },
   "devDependencies": {

@@ -62,7 +62,7 @@
             <div class="add_img">
                 <span> Post photo </span>
                 <label for="image"> Choose picture </label>
-                <input type="file" id="image" name="image" hidden @change="modifiedPic">
+                <input type="file" id="image" name="image" hidden @change="AddedPic">
             </div>
             <div class="post_submit">
                 <button class="submit" type="submit" >Add</button>
@@ -82,8 +82,8 @@ export default {
         return {
             Visible: false,
             title: "",
-            description: "",
-            selectedFile: "",
+            description:"",
+            selectedImg:"",
             id:"",
 
             friends:[],
@@ -102,9 +102,9 @@ export default {
 
         //     console.log(this.selectedFile);
         // },
-        modifiedPic(event) {
-            this.selectedFile = event.target.files[0]
-            console.log(this.selectedFile);
+        AddedPic(event) {
+            this.selectedImg = event.target.files[0]
+            console.log(this.selectedImg);
         },
         addPost() {
             // const img =new FormData();
@@ -116,15 +116,16 @@ export default {
             const data = {
                 title: this.title,
                 description: this.description,
-                image: this.selectedFile,
-                id_post:this.id_post
+                image: this.selectedImg,
+                id_post:this.id_post,
+                id:this.id
             };
-            const formData = new FormData();
+            const asformData = new FormData();
             Object.keys(data).forEach((key) => {
-                formData.append(key, data[key]);
+                asformData.append(key, data[key]);
             });
             axios.post('http://localhost/ToTheTop/backend/Posts/AddNewPosts',
-                    formData
+                    asformData
                 ,config).then(res => console.log(res))
             
         },

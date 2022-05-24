@@ -104,6 +104,8 @@ export default {
     },
     mounted() {
         this.getFriends()
+        this.connected()
+        
     },
     methods: {
         getFriends(){
@@ -113,11 +115,21 @@ export default {
                     this.friends = res.data
                     console.log(this.friends);
                 })
+        },
+        connected(){
+            var conn = new WebSocket('ws://localhost:8080');
+            conn.onopen = function(e) {
+                console.log("Connection established!");
+            };
+
+            conn.onmessage = function(e) {
+                console.log(e.data);
+                console.log('ok');
+            };
         }
     },
 }
 </script>
-
 <style lang="scss" scoped>
 @import '../assets/styles/config';
 
