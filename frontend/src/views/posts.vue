@@ -50,10 +50,6 @@
                            </div>
                        </div>
                    </div>
-
-
-
-                   
                     <div class="post_more"  @click="drop(elements.id_post)" v-if="elements.id_maker == loggedid">
                         
                         <img src="../assets/images/icons/ep_more-filled.png" alt="">

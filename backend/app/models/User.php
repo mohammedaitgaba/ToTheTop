@@ -92,6 +92,15 @@ class User
             return $e->getMessage();
         }
     }
+    public function UpdateUser($target_path,$data){
+        
+        $this->db->query('UPDATE users SET full_name=:fullName,email=:email,user_photo=:photo WHERE id_user = :id');
+        $this->db->bind(':fullName',$data['fullName']);
+        $this->db->bind(':id',$data['id']);
+        $this->db->bind(':email',$data['email']);
+        $this->db->bind(':photo',$target_path);
+        $this->db->execute();
+    }
     // public function getAllusers(){
     //     $this->db->query('SELECT * FROM client');
     //     try {

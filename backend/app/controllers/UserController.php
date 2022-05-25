@@ -85,6 +85,41 @@ class UserController extends Controller
             echo json_encode(['message'=> 'error']);
         }
     }
+    public function UpdateUserInfo(){
+        $data = [
+            'fullName' => $_POST['fullName'],
+            'email' => $_POST['email'],
+            'id' => $_POST['id']
+        ];
+        if (empty($_FILES['image'])) {
+            $oldPic=$_POST['oldimage'];
+            // var_dump($oldPic);die;
+            $result=$this->userModel->UpdateUser($oldPic,$data);
+            if ($result) {
+                echo json_encode(['message' => 'ok']);
+            }
+            else {
+                echo json_encode(['message' => 'Error uploading file']);
+            }
+        } else {
+            $Image = $_FILES['image']['name'];
+    
+            $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
+            $extensions_arr = array("jpg", "jpeg", "png", "gif");
+            if (in_array($imageFileType, $extensions_arr)) {
+                $file_name = uniqid('', true) . '.' . $imageFileType;
+                $target_path = $file_name;
+                
+                if (move_uploaded_file($_FILES['image']['tmp_name'], 'C:\xampp\htdocs\ToTheTop\backend\public\imgUploaded\\' . $target_path)) {
+                    $result=$this->userModel->UpdateUser($target_path,$data);
+                    echo json_encode(['message' => 'ok']);
+                } else {
+                    echo json_encode(['message' => 'Error uploading file']);
+                }
+            }
+        }
+        
+    }
     // public function getAllusers(){
        
     //         $result = $this->userModel->getAllusers(); 

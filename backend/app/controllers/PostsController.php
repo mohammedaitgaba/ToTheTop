@@ -67,7 +67,7 @@ class PostsController extends Controller{
             'id' => $_POST['id_post']
         ];
         $Image = $_FILES['image']['name'];
-        var_dump($_FILES['image']);die;
+        
 
         $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
         $extensions_arr = array("jpg", "jpeg", "png", "gif");
