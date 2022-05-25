@@ -20,12 +20,12 @@
                             </div>
                             <div class="flex justify-center items-center gap-2 my-3">
                                 <div class="font-semibold text-center mx-4">
-                                    <p class="text-black">102</p>
+                                    <p class="text-black"> {{counter}} </p>
                                     <span class="text-gray-400">Posts</span>
                                 </div>
                                 <div class="font-semibold text-center mx-4">
-                                    <p class="text-black">102</p>
-                                    <span class="text-gray-400">Followers</span>
+                                    <p class="text-black">{{friendsCounter}} </p>
+                                    <span class="text-gray-400">Friends</span>
                                 </div>
                             </div>
                         </div>
@@ -502,11 +502,15 @@ export default {
             ProfilePic:"",
             email:"",
             postData:[],
+            counter:"",
+            friendsCounter:""
         }
     },
     mounted() {
         this.GetUser();
-        this.getUserPosts()
+        this.getUserPosts();
+        this.PostsCounter();
+        this.FriendsCounter()
     },
     methods: {
         GetUser(){
@@ -525,6 +529,21 @@ export default {
                 this.postData=res.data
             })
         },
+        PostsCounter(){
+            axios.post('http://localhost/ToTheTop/backend/Posts/CountPostsByIdUser',{
+                id:sessionStorage.getItem('ID')
+            }).then(res=>{
+                this.counter=res.data.counter
+            }
+            )
+        },
+        FriendsCounter(){
+            axios.post('http://localhost/ToTheTop/backend/User/CountUserFriends',{
+                id:sessionStorage.getItem('ID')
+            }).then(res=>{
+                this.friendsCounter = res.data.COUNTER
+            })
+        }
     },
 }
 </script>

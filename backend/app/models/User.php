@@ -83,6 +83,15 @@ class User
             return $e->getMessage();
         }
     }
+    public function GetUserFriends($data){
+        $this->db->query('SELECT COUNT(*) AS COUNTER FROM friends WHERE id_sender = :id OR id_reciver = :id');
+        $this->db->bind(':id',$data->id);
+        try{
+            return $this->db->single();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
     // public function getAllusers(){
     //     $this->db->query('SELECT * FROM client');
     //     try {

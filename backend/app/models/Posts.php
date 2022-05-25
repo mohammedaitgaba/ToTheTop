@@ -41,6 +41,15 @@ class Posts{
             return $e->getMessage();
         }
     }
+    public function CountUserPosts($data){
+        $this->db->query("SELECT COUNT(*) AS counter FROM posts WHERE id_maker = :id");
+        $this->db->bind(':id',$data->id);
+        try{
+            return $this->db->single();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
     //  public function CreatePosts($target_path){
     //     $this->db->query("INSERT INTO posts (photo) VALUES (:photo)");
     //     // $this->db->bind(':title',$data->title);

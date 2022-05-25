@@ -92,4 +92,13 @@ class PostsController extends Controller{
             echo json_encode(['data'=>'error']);
         }
     }
+    public function CountPostsByIdUser(){
+        $data = json_decode(file_get_contents("php://input"));
+        $result=$this->Postsmodel->CountUserPosts($data);
+        if ($result){
+            echo json_encode($result);
+        } else {
+            echo json_encode(['data'=>'error']);
+        }
+    }
 }
