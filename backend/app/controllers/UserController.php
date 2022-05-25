@@ -65,6 +65,16 @@ class UserController extends Controller
             echo json_encode(['message'=> 'error']);
         }
     }
+    public function GetUserById(){
+        $data = json_decode(file_get_contents("php://input"));
+        $result = $this->userModel->GetUser($data);
+        if ($result) {
+            echo json_encode($result);
+        }
+        else{
+            echo json_encode(['message'=> 'error']);
+        }
+    }
     // public function getAllusers(){
        
     //         $result = $this->userModel->getAllusers(); 

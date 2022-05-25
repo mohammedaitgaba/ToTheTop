@@ -5,6 +5,7 @@ import Registration from '../views/Registration.vue'
 import Login from '../views/Login.vue'
 import Messanger from '../views/Messanger.vue'
 import admin_dushboard from '../views/admin_dushboard.vue'
+import profile from '../views/profile.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,11 @@ const router = createRouter({
       path: '/admin_dushboard',
       name: 'admin_dushboard',
       component: admin_dushboard
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: profile
     }
     
   ]

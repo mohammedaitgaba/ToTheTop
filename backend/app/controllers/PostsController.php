@@ -83,4 +83,13 @@ class PostsController extends Controller{
             }
         }
     }
+    public function GetPostsByIdMaker(){
+        $data = json_decode(file_get_contents("php://input"));
+        $result=$this->Postsmodel->GetpostsById($data);
+        if ($result){
+            echo json_encode($result);
+        } else {
+            echo json_encode(['data'=>'error']);
+        }
+    }
 }

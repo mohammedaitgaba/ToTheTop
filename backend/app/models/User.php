@@ -74,6 +74,15 @@ class User
             return $e->getMessage();
         }
     }
+    public function GetUser($data){
+        $this->db->query('SELECT users.full_name,users.email,users.user_photo FROM users WHERE id_user = :id');
+        $this->db->bind(':id',$data->id);
+        try {
+            return $this->db->resultSet();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
     // public function getAllusers(){
     //     $this->db->query('SELECT * FROM client');
     //     try {

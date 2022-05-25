@@ -160,11 +160,11 @@ export default {
 .side_bar {
     @include flexColumn(center, space-between);
     position: sticky;
+    --header-height: 101px;
+    top: calc(var(--header-height) + 27px);
     background-color: $white;
     width: 30%;
     height: 65vh;
-    --header-height: 101px;
-    top: calc(var(--header-height) + 27px);
     padding-bottom: 12px;
     margin-left: 15px;
     border-radius: 8px;

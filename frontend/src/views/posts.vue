@@ -44,12 +44,15 @@
                                <label class="username">  </label>
                                <!-- <label class="username"> {{elements.id_post}} </label> -->
                            </div>
-                           <div class="time">
+                           <div class="time ">
                                <label > 20h Ago</label>
                                
                            </div>
                        </div>
                    </div>
+
+
+
                    
                     <div class="post_more"  @click="drop(elements.id_post)" v-if="elements.id_maker == loggedid">
                         
