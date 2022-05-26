@@ -31,6 +31,7 @@ class PostsController extends Controller{
                 'description' => $_POST['description'],
                 'id' => $_POST['id']
             ];
+            
             $Image = $_FILES['image']['name'];
             $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
             $extensions_arr = array("jpg", "jpeg", "png", "gif");
@@ -66,9 +67,8 @@ class PostsController extends Controller{
             'description' => $_POST['description'],
             'id' => $_POST['id_post']
         ];
+        var_dump($data);
         $Image = $_FILES['image']['name'];
-        
-
         $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
         $extensions_arr = array("jpg", "jpeg", "png", "gif");
         if (in_array($imageFileType, $extensions_arr)) {

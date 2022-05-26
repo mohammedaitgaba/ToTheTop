@@ -22,17 +22,17 @@ class UserController extends Controller
     public function check_user(){
     
             $data = json_decode(file_get_contents("php://input")); 
+            
             $result = $this->userModel->checkUser($data);
-            // var_dump($result);die;
             if($result){
                 if(password_verify($data->password,$result->password))
                 {
                     echo json_encode(["data" =>$result]);
                 }else{    
-                    echo json_encode(["message" => "you entred false info"]);
+                    echo json_encode(["message1" => "Password invalid"]);
                 }
             }else{
-                echo json_encode(["message" => "you entred false info"]);
+                echo json_encode(["message2" => "Invalid Info "]);
             }
     }
     public function GetRandUsers(){

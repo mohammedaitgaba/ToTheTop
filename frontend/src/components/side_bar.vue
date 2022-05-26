@@ -18,11 +18,11 @@
                         <div class="friendname">
                             <label> {{elements.full_name}} </label>
                             <!-- <input type="hidden" v-model="elements.id_user"> -->
-                            <label>  </label>
+                            <!-- <label>  </label> -->
                         </div>
                     </div>
-                    <form class="add_friend" >
-                    <button type="submit" @click="add_friend(elements.id_user)">
+                    <form class="add_friend" @submit.prevent="add_friend(elements.id_user)">
+                    <button type="submit" >
                         <img src="../assets/images/icons/addFriend.png" alt="">
                     </button>
                     </form>
@@ -85,7 +85,6 @@ export default {
             description:"",
             selectedImg:"",
             id:"",
-
             friends:[],
         }
     },
@@ -107,6 +106,7 @@ export default {
             console.log(this.selectedImg);
         },
         addPost() {
+            console.log(this.selectedImg);
             // const img =new FormData();
            let config = {
                 headers: {

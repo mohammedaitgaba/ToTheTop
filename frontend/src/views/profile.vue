@@ -80,7 +80,8 @@
                         </div>
 
                     </aside>
-                    <section class="posts_container">
+                        <!-- <label for="" v-if="postData.length = 0"> ooook</label> -->
+                    <section class="posts_container"  >
                         <section class="post" v-for="elements in postData ">
                             <div class="user_info">
                                 <div class="post_head">
@@ -379,7 +380,7 @@ export default {
     background-color: rgba(0, 0, 0, 0.55);
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     top: 0%;
     z-index: 1;
 

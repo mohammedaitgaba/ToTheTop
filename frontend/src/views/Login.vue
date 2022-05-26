@@ -13,13 +13,15 @@
                 Login
             </div>
             <div class="inputs">
-                <label for="">Email</label>
+                <label for="">Email </label>
                 <input type="text" placeholder="Your Email" v-model="email">
+                <span for=""> {{message2}} </span>
             </div> 
             
             <div class="inputs">
                 <label for="">Password</label>
                 <input type="Password" placeholder="Password" v-model="password" >
+                <span for=""> {{message}} </span>
             </div> 
             <button type="submit" name="submit" class="creat_acc">Sign in</button>
 
@@ -42,7 +44,9 @@ export default {
         return {
             email:"",
             password:"",
-            user:[]
+            user:[],
+            message:"",
+            message2:""
         }
     },
     methods:{
@@ -50,11 +54,12 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/User/check_user',{
                 email:this.email,
                 password:this.password
-            }).then((res) => {
+            }).then((res) => { 
+                this.message=res.data.message1
+                this.message2=res.data.message2
+                console.log(this.message)
                 sessionStorage.setItem('ID',res.data.data.id_user.toString())
-                console.log(sessionStorage.getItem('ID'));
                 this.$router.push("/")
-
                 })
         }
     }
@@ -110,6 +115,9 @@ export default {
                     font-size: 16px;
                     border: 0.8px solid $orange2;
                     border-radius: 7px;
+                }
+                span{
+                    color: red;
                 }
             }
             .creat_acc{
