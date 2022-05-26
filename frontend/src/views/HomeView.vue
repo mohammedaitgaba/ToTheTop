@@ -18,9 +18,9 @@
     </section >
 
 <!-- about section -->
-    <section class="about_home" >
+    <section class="about_home"  >
 
-        <div class="about_text">
+        <div data-aos="fade-right" class="about_text">
             <h1 class="big_title">
                 You Can Live Life To the Fullest Without Trading Off Any Aspect of Life
             </h1>
@@ -35,7 +35,7 @@
             </p>
        
         </div>
-         <div class="about_img">
+         <div data-aos="fade-left" class="about_img">
              <img src="../assets/images/others/motivated.jpg" alt="">
         </div>
     </section>
@@ -95,6 +95,9 @@ export default {
         Navigation,
         generator,
         home_solutions
+    },
+    mounted() {
+        AOS.init();
     },
 }
 </script>

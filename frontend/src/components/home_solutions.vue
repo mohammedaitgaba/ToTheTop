@@ -9,7 +9,7 @@
         </div>
         <div class="solutions_body">
 
-            <div class="solution sol1">
+            <div data-aos="fade-right" class="solution sol1">
                <p>Have Motivated Freinds</p> 
                <img src="../assets/images/others/freinds.jpg" alt=" motivation_freinds">
                 <div class="middle">
@@ -17,7 +17,7 @@
                </div>
             </div>
 
-            <div class="solution sol2">
+            <div data-aos="fade-left" class="solution sol2">
                <p>Share and have  Experience</p> 
                <img src="../assets/images/others/ideas.jpg" alt=" motivation_ideas">
                <div class="middle">
