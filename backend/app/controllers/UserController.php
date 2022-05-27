@@ -1,5 +1,7 @@
 <?php
 
+use LDAP\Result;
+
 class UserController extends Controller
 {    private $userModel;
   
@@ -49,7 +51,7 @@ class UserController extends Controller
         $data = json_decode(file_get_contents("php://input"));
         $result = $this->userModel->NewFreind($data);
         if ($result) {
-            echo json_encode(['message' =>'added']);
+            echo json_encode($result);
         } else {
             echo json_encode(['message'=> 'error']);
         }

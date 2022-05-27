@@ -2,7 +2,7 @@
     <div class="user_info" >
         <div class="post_head">
             <div class="profile_pic">
-                <img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt="">
+                <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ posts_data.user_photo" alt="">
             </div>
             <div class="username_time">
                 <div>
@@ -21,11 +21,13 @@
             <div class="dropdown_more" v-show="Visibe" >
                 <!-- <input v-model="elements.id_post"> -->
                 <div class="dropped_item_update">
-                    <button @click="update_popup(posts_data.id_post)">Update</button>
+                    <button @click="update_popup">Update</button>
                 </div>
-                <div class="dropped_item_delete">
-                    <button @click="deletePost(posts_data.id_post)">Delete  </button>
-                </div>
+                <form @submit="deletePost(posts_data.id_post)">
+                    <div class="dropped_item_delete">
+                        <button>Delete  </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -69,27 +71,18 @@ export default {
         this.loggedid = sessionStorage.getItem('ID')
     },
     methods: {
-        
         drop(){
             this.Visibe = !this.Visibe
-            // const dropped_id = id
-            // this.posts_data.forEach(element =>{
-            //     if (element.id_post==dropped_id) {
-            //     }
-            // })
-            
         },
-        update_popup(id){
-            console.log(id);
+        update_popup(){
             this.showPop = !this.showPop
-            // this.post.forEach(element =>{
-            //     if (element.id_post==id) {
-            //         this.title = element.title
-            //         this.description = element.description
-            //         this.id_post = id
-            //     }
-            // })
         },
+        deletePost(id_post){
+            alert("are you sure abt that ")
+            axios.post('http://localhost/ToTheTop/backend/Posts/DeletPost',{
+                id_post
+            }).then(res=>console.log(res))
+        }
     },
 }
 </script>

@@ -17,11 +17,9 @@
                         </div>
                         <div class="friendname">
                             <label> {{elements.full_name}} </label>
-                            <!-- <input type="hidden" v-model="elements.id_user"> -->
-                            <!-- <label>  </label> -->
                         </div>
                     </div>
-                    <form class="add_friend" @submit.prevent="add_friend(elements.id_user)">
+                    <form class="add_friend" @submit.prevent="add_friend(elements.id_user)" v-if="elements.id_user != added">
                     <button type="submit" >
                         <img src="../assets/images/icons/addFriend.png" alt="">
                     </button>
@@ -86,6 +84,7 @@ export default {
             selectedImg:"",
             id:"",
             friends:[],
+            added:""
         }
     },
     mounted() {
@@ -96,18 +95,10 @@ export default {
         show(){
             this.Visible = !this.Visible
         },
-        // selectedPic(event) {
-        //     this.selectedFile = event.target.files[0]
-
-        //     console.log(this.selectedFile);
-        // },
         AddedPic(event) {
             this.selectedImg = event.target.files[0]
-            console.log(this.selectedImg);
         },
         addPost() {
-            console.log(this.selectedImg);
-            // const img =new FormData();
            let config = {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -148,7 +139,9 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/User/AddFreind',{
                 id_sender:sessionStorage.getItem('ID'),
                 id_reciver:id
-            }).then(res=>console.log('res'))
+            }).then(res=>{
+                this.added = res.data
+            })
         }
     },
 

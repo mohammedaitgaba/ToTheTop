@@ -4,6 +4,7 @@
             <input type="text" placeholder="Write a public comment" v-model="comment">
             <button name="submit"><img src="../assets/images/icons/send.png" alt=""></button>
         </form>
+        
         <div class="all_cmnts" v-for="elements in comments">
         
             <div class="cmnt_maker_pic">
@@ -11,7 +12,7 @@
             </div>
             <div class="comments">
                 <label for="" class="name"> {{elements.full_name}} </label>
-                <label for=""> {{elements.body}} </label>
+                <label for=""> {{elements.body}}  </label>
             </div>
         </div>
         <div class="show_more">
@@ -31,6 +32,8 @@ export default {
         return {
             comment:"",
             comments:[],
+            show_cmnt:"",
+
         }
     },
     mounted() {
@@ -44,7 +47,11 @@ export default {
                 comment:this.comment,
                 id_maker:sessionStorage.getItem('ID')
             }
-            ).then(res =>console.log(res))
+            ).then(res =>
+            {
+                this.show_cmnt = res.data.comment
+            }
+            )
             
             
         },
@@ -135,7 +142,9 @@ export default {
                         margin: 0;
                     }
                     .cmnt_maker_pic{
+                        width: 40px;
                         height: 40px;
+                        min-width: 40px;
                     }
                 }
             }

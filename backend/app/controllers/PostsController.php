@@ -101,4 +101,13 @@ class PostsController extends Controller{
             echo json_encode(['data'=>'error']);
         }
     }
+    public function DeletPost(){
+        $data = json_decode(file_get_contents("php://input"));
+        $result = $this->Postsmodel->DeletPostById($data);
+        if ($result){
+            echo json_encode(['data'=>'Deleted']);
+        } else {
+            echo json_encode(['data'=>'error']);
+        }
+    }
 }

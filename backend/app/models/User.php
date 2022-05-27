@@ -57,7 +57,8 @@ class User
         $this->db->bind(":id_sender",$data->id_sender);
         $this->db->bind(":id_reciver",$data->id_reciver);
         try {
-            return $this->db->execute();
+            $this->db->execute();
+            return $data->id_reciver;
         } catch (PDOException $e) {
             return $e->getMessage();
         }

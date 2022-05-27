@@ -50,10 +50,13 @@ class Posts{
             return $e->getMessage();
         }
     }
-    //  public function CreatePosts($target_path){
-    //     $this->db->query("INSERT INTO posts (photo) VALUES (:photo)");
-    //     // $this->db->bind(':title',$data->title);
-    //     // $this->db->bind(':description',$data->description);
-    //     $this->db->execute();
-    // }
+    public function DeletPostById($data){
+        $this->db->query('DELETE FROM posts WHERE id_post = :id');
+        $this->db->bind(':id',$data->id_post);
+        try{
+            return $this->db->execute();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
 }

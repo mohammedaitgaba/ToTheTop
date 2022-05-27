@@ -29,14 +29,14 @@
             </div>
         </form>
     </div>
-    <section class="p-20 bg-gray-100 ">
+    <section class="p-4 lg:p-20 bg-gray-100 ">
         <div class=" mt-6 flex items-center justify-center" >
-            <div class="app bg-gray-100 w-11/12 flex ">
+            <div class="app bg-gray-100 lg:w-11/12 flex ">
 
                 <main class="grid grid-cols-1 lg:grid-cols-2  my-12 mx-12 w-2xl container px-2 mx-auto content-center">
 
-                    <aside class="w-11/12 sidebare_">
 
+                    <aside class="lg:w-11/12 sidebare_">
                         <div class="bg-white shadow rounded-lg p-5 User_info" >
                             <div class="flex flex-col gap-1 text-center items-center">
                                 <img class="h-32 w-32 bg-white p-2 rounded-full shadow mb-4"
@@ -69,9 +69,6 @@
                                 <li class="flex flex-col w-14 min-w-[50px] items-center space-y-2" v-for="elements in friends">
                                     <!-- Ring -->
                                         <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="freind">
-                                    <!-- <a class="block bg-white p-1 rounded-full" href="#">
-                                    </a> -->
-                                    <!-- Username -->
                                     <span class="text-xs text-gray-500">
                                         {{elements.full_name}}
                                     </span>
@@ -80,58 +77,12 @@
                         </div>
 
                     </aside>
-                        <!-- <label for="" v-if="postData.length = 0"> ooook</label> -->
-                    <section class="posts_container"  >
-                        <section class="post" v-for="elements in postData ">
-                            <div class="user_info">
-                                <div class="post_head">
-                                    <div class="profile_pic">
-                                        <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo">
-                                        
-                                    </div>
-                                    <div class="username_time">
-                                        <div>
-                                            <label class="username"> {{elements.full_name}} </label>
 
-                                            <!-- <label class="username"> {{elements.id_post}} </label> -->
-                                        </div>
-                                        <div class="time">
-                                            <label> 20h Ago</label>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="post_more">
-
-                                    <img src="../assets/images/icons/ep_more-filled.png" alt="">
-                                    <div class="dropdown_more">
-                                        <!-- <input v-model="elements.id_post"> -->
-                                        <div class="dropped_item_update">
-                                            <button>Update</button>
-                                        </div>
-                                        <div class="dropped_item_delete">
-                                            <button>Delete </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="post_title">
-
-                                {{elements.title}}
-                            </div>
-                            <div class="post_description">
-                                {{elements.description}}
-                            </div>
-                            <div class="post_pic">
-                                <img alt="" :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.photo" >
-                            </div>
-                            <Reacts/>
-                            <!-- <comments_section  /> -->
-<!-- :post_id="elements.id_post" -->
+                    <section class="posts_container">
+                        <section class="post" v-for="elements in postData">
+                            <posts :posts_data="elements" />
                         </section>
-                    </section>
+                    </section> 
                 </main>
 
             </div>
@@ -142,13 +93,15 @@
 <script>
 import Navigation from '@/components/Navigation.vue';
 import Reacts from '@/components/Reacts.vue';
+import posts from '@/components/posts.vue';
 import comments_section from '@/components/comments_section.vue';
 import axios from 'axios';
 export default {
     components: {
         Navigation,
         Reacts,
-        comments_section
+        comments_section,
+        posts
         
     },
     data() {
@@ -250,7 +203,6 @@ export default {
 @import '../assets/styles/config';
 
 .posts_container {
-
     @include flexColumn(stretch, flex-start);
     width: 100%;
 
@@ -261,103 +213,105 @@ export default {
         margin-bottom: 30px;
     }
 
-    .post_head {
-        @include flexRow(center, space-between);
+    // .post_head {
+    //     @include flexRow(center, space-between);
+    // }
+
+    // .post_more {
+    //     position: relative;
+    //     cursor: pointer;
+
+    //     img {
+    //         width: 25px;
+    //     }
+
+    //     .dropdown_more {
+    //         @include flexColumn(center, space-between);
+    //         box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    //         background-color: #F4F4F4;
+    //         position: absolute;
+    //         border-radius: 5px;
+    //         right: 0px;
+    //         width: 130px;
+    //         height: 50px;
+
+    //         .dropped_item_update {
+    //             width: 100%;
+
+    //             button {
+    //                 width: 100%;
+    //                 border-radius: 5px;
+    //             }
+
+    //             button:hover {
+    //                 background-color: #EAEAEA;
+    //             }
+    //         }
+
+    //         .dropped_item_delete {
+    //             width: 100%;
+
+    //             button {
+    //                 width: 100%;
+    //                 border-radius: 5px;
+    //             }
+
+    //             button:hover {
+    //                 color: red;
+    //                 background-color: #EAEAEA;
+    //             }
+    //         }
+
+    //     }
+    // }
+
+    // .user_info {
+    //     padding: 10px;
+    //     @include flexRow(center, space-between);
+
+    //     .profile_pic {
+    //         width: 60px;
+    //         height: 60px;
+
+    //         img {
+    //             width: 100%;
+    //             height: 100%;
+    //             border-radius: 50%;
+    //         }
+    //     }
+
+    //     .username_time {
+    //         padding: 5px;
+
+    //         .time {
+    //             color: rgb(100, 99, 99);
+    //         }
+    //     }
+    // }
+
+    // .post_title {
+    //     font-size: 20px;
+    //     @include flexRow(center, center);
+    //     width: 100%;
+
+    // }
+
+    // .post_description {
+    //     padding: 10px 30px 5px 30px;
+    //     font-size: 16px;
+    // }
+
+    // .post_pic {
+    //     width: 100%;
+    //     padding: 5px;
+
+    //     img {
+    //         width: 100%;
+    //     }
+    // }
+    @include tablet {
+        margin-top: 30px;
     }
-
-    .post_more {
-        position: relative;
-        cursor: pointer;
-
-        img {
-            width: 25px;
-        }
-
-        .dropdown_more {
-            @include flexColumn(center, space-between);
-            box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-            background-color: #F4F4F4;
-            position: absolute;
-            border-radius: 5px;
-            right: 0px;
-            width: 130px;
-            height: 50px;
-
-            .dropped_item_update {
-                width: 100%;
-
-                button {
-                    width: 100%;
-                    border-radius: 5px;
-                }
-
-                button:hover {
-                    background-color: #EAEAEA;
-                }
-            }
-
-            .dropped_item_delete {
-                width: 100%;
-
-                button {
-                    width: 100%;
-                    border-radius: 5px;
-                }
-
-                button:hover {
-                    color: red;
-                    background-color: #EAEAEA;
-                }
-            }
-
-        }
-    }
-
-    .user_info {
-        padding: 10px;
-        @include flexRow(center, space-between);
-
-        .profile_pic {
-            width: 60px;
-            height: 60px;
-
-            img {
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-            }
-        }
-
-        .username_time {
-            padding: 5px;
-
-            .time {
-                color: rgb(100, 99, 99);
-            }
-        }
-    }
-
-    .post_title {
-        font-size: 20px;
-        @include flexRow(center, center);
-        width: 100%;
-
-    }
-
-    .post_description {
-        padding: 10px 30px 5px 30px;
-        font-size: 16px;
-    }
-
-    .post_pic {
-        width: 100%;
-        padding: 5px;
-
-        img {
-            width: 100%;
-        }
-    }
-
 
 }
 .User_info{

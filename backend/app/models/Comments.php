@@ -12,7 +12,8 @@ class Comments {
         $this->db->bind(':id_post',$data->id_post);
 
         try{
-            return $this->db->execute();
+            $this->db->execute();
+            return $data;
         }catch(PDOException $e){
             return $e->getMessage();
         }
