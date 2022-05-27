@@ -40,7 +40,7 @@
     <div class="post_pic">
         <img alt="" :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ posts_data.photo" >
     </div>
-            <Reacts/>
+            <Reacts :post_id="posts_data.id_post"/>
             <comments_section :post_id="posts_data.id_post" />
             <update_post :show_data="posts_data" :displayed="showPop" @update_popup="update_popup" /> 
 </template>

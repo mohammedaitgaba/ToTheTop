@@ -15,7 +15,6 @@ class RendezController extends Controller
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $data = json_decode(file_get_contents("php://input"), true);
             $result = $this->RendezModel->addRendez($data);
-            
             if($result){
                 echo json_encode(["message" => "success", "data" => $result]);
             }else{

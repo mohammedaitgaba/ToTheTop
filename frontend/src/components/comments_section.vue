@@ -1,6 +1,7 @@
 <template>
     <div class="comments_container">
         <form class="make_cmnt" @submit.prevent="addcomment">
+         <label for=""> {{post_id}}  </label>
             <input type="text" placeholder="Write a public comment" v-model="comment">
             <button name="submit"><img src="../assets/images/icons/send.png" alt=""></button>
         </form>
@@ -13,6 +14,7 @@
             <div class="comments">
                 <label for="" class="name"> {{elements.full_name}} </label>
                 <label for=""> {{elements.body}}  </label>
+               
             </div>
         </div>
         <div class="show_more">
