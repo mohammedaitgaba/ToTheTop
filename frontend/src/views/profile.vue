@@ -62,12 +62,12 @@
                         </div>
 
                         <div class="bg-white shadow mt-6  rounded-lg p-6 ">
-                            <h3 class="text-gray-600 text-sm font-semibold mb-4">Freinds</h3>
+                            <h3 class="text-gray-600 text-lg font-semibold mb-4">Freinds</h3>
                             <ul class="flex items-center space-x-2 overflow-x-scroll">
                                 <!-- Story #1 -->
-                                <li class="flex flex-col w-14 min-w-[50px] items-center space-y-2" v-for="elements in friends">
+                                <li class="flex flex-col w-14 min-w-[80px] items-center space-y-2" v-for="elements in friends">
                                     <!-- Ring -->
-                                        <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="freind">
+                                        <img class="w-[80px] h-[80px] rounded-full" :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="freind">
                                     <span class="text-xs text-gray-500">
                                         {{elements.full_name}}
                                     </span>
@@ -115,8 +115,6 @@ export default {
 
             selectedFile:"",
             Updater:false
-
-
         }
     },
     mounted() {
@@ -203,7 +201,10 @@ export default {
 
 .posts_container {
     @include flexColumn(stretch, flex-start);
-    width: 100%;
+    width: 110%;
+    display: block;
+    overflow-y: scroll;
+    height: 91vh;
 
     .post {
         background-color: $white;
@@ -211,105 +212,9 @@ export default {
         box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
         margin-bottom: 30px;
     }
-
-    // .post_head {
-    //     @include flexRow(center, space-between);
-    // }
-
-    // .post_more {
-    //     position: relative;
-    //     cursor: pointer;
-
-    //     img {
-    //         width: 25px;
-    //     }
-
-    //     .dropdown_more {
-    //         @include flexColumn(center, space-between);
-    //         box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-    //         background-color: #F4F4F4;
-    //         position: absolute;
-    //         border-radius: 5px;
-    //         right: 0px;
-    //         width: 130px;
-    //         height: 50px;
-
-    //         .dropped_item_update {
-    //             width: 100%;
-
-    //             button {
-    //                 width: 100%;
-    //                 border-radius: 5px;
-    //             }
-
-    //             button:hover {
-    //                 background-color: #EAEAEA;
-    //             }
-    //         }
-
-    //         .dropped_item_delete {
-    //             width: 100%;
-
-    //             button {
-    //                 width: 100%;
-    //                 border-radius: 5px;
-    //             }
-
-    //             button:hover {
-    //                 color: red;
-    //                 background-color: #EAEAEA;
-    //             }
-    //         }
-
-    //     }
-    // }
-
-    // .user_info {
-    //     padding: 10px;
-    //     @include flexRow(center, space-between);
-
-    //     .profile_pic {
-    //         width: 60px;
-    //         height: 60px;
-
-    //         img {
-    //             width: 100%;
-    //             height: 100%;
-    //             border-radius: 50%;
-    //         }
-    //     }
-
-    //     .username_time {
-    //         padding: 5px;
-
-    //         .time {
-    //             color: rgb(100, 99, 99);
-    //         }
-    //     }
-    // }
-
-    // .post_title {
-    //     font-size: 20px;
-    //     @include flexRow(center, center);
-    //     width: 100%;
-
-    // }
-
-    // .post_description {
-    //     padding: 10px 30px 5px 30px;
-    //     font-size: 16px;
-    // }
-
-    // .post_pic {
-    //     width: 100%;
-    //     padding: 5px;
-
-    //     img {
-    //         width: 100%;
-    //     }
-    // }
     @include tablet {
         margin-top: 30px;
+        width: 100%;
     }
 
 }
@@ -324,16 +229,13 @@ export default {
             width: 30px;
         }
     }
-    .edit_info_user:hover{
-
-    }
 }
 .update_popup {
     @include flexColumn(center, center);
     background-color: rgba(0, 0, 0, 0.55);
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 140vh;
     top: 0%;
     z-index: 1;
 
@@ -414,6 +316,7 @@ export default {
     }
 
     @include tablet {
+        height: 216vh;
         form {
             width: 60%;
 

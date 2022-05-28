@@ -1,12 +1,14 @@
 <template>
     <section class="side_bar">
-        <div class="helpers">
-            <div class="add" @click="show"><img src="../assets/images/icons/add.png" alt=""></div>
-            <div class="add"><img src="../assets/images/icons/home.png" alt=""></div>
-        </div>
-        <div class="search">
-            <input type="search" placeholder="search">
-            <img src="../assets/images/icons/dashicons_search.png" alt="">
+        <div class="sidbar_head">
+            <div class="helpers">
+                <div class="add" @click="show"><img src="../assets/images/icons/add.png" alt=""></div>
+                <div class="add"><img src="../assets/images/icons/home.png" alt=""></div>
+            </div>
+            <div class="search">
+                <input type="search" placeholder="search">
+                <img src="../assets/images/icons/dashicons_search.png" alt="">
+            </div>
         </div>
 
         <div class="friends_holder">
@@ -167,11 +169,13 @@ export default {
     top: calc(var(--header-height) + 27px);
     background-color: $white;
     width: 30%;
-    height: 65vh;
+    z-index: 20;
+    height: 70vh;
     padding-bottom: 12px;
-    margin-left: 15px;
     border-radius: 8px;
-
+    .sidbar_head{
+        @include flexColumn(center, center);
+    }
     .helpers {
         @include flexRow(center, center);
 
@@ -276,15 +280,36 @@ export default {
         }
 
     @include tablet {
+        @include flexColumn(center, center);
         position: fixed;
-        top: 54px;
+        top: 60px;
         width: 100%;
-        height: 57px;
+        height: 120px;
         border-radius: 0;
-        @include flexRow(center, center);
-        flex-direction: row-reverse;
         background-color: #F4F4F4;
-
+        box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; 
+        .sidbar_head{
+            @include flexRow(center, center);
+            flex-direction: row-reverse;
+        }
+        .friends_holder{
+            @include flexRow(center, flex-start);
+            overflow-y: hidden;
+            overflow-x: scroll;
+            margin: 0;
+            .friend{
+                @include flexRow(center, center);
+                min-width: 100px;
+                min-height: 80px;
+                padding: 0 10px 0 10px;
+                .friendinfo{
+                    @include flexColumn(center, center);
+                }
+                .add_friend{
+                    min-width: 50px;
+                }
+            }
+        }
         .posts_footer {
             display: none;
         }

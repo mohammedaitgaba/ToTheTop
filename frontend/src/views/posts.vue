@@ -68,29 +68,21 @@ export default {
         position: relative;
         background-color: #F4F4F4;
         .posts_container{
-        
-        @include flexColumn(stretch,space-evenly);
-        width: 55%;
+            @include flexColumn(stretch,space-evenly);
+            width: 55%;
+            .post{
+                background-color: $white; 
+                border-radius: 10px;
+                box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;  
+                margin-bottom: 30px;  
+            }
         }
-
-
-        .post{
-            
-            background-color: $white; 
-            border-radius: 10px;
-            box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;  
-            margin-bottom: 30px;  
-        }
-             @include tablet {
+        @include tablet {
             width: 100%;
-            .post_title{
-                font-size: 16px;
+            margin-top: 100px;
+            .posts_container{
+                width: 100%;
             }
-            .post_description{
-                font-size: 14px;
-                padding: 20px 10px 20px 10px;
-            }
-            
         }
         @include phone{
             padding: 90px 15px 70px 15px   ;

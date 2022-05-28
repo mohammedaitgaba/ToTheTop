@@ -1,7 +1,6 @@
 <template>
     <div class="comments_container">
         <form class="make_cmnt" @submit.prevent="addcomment">
-         <label for=""> {{post_id}}  </label>
             <input type="text" placeholder="Write a public comment" v-model="comment">
             <button name="submit"><img src="../assets/images/icons/send.png" alt=""></button>
         </form>
@@ -120,6 +119,7 @@ export default {
             }
             .comments{
                 @include flexColumn(flex-start,center);
+                width: 80%;
                 margin-left: 10px;
                 background-color: #EAEAEA;
                 border-radius: 10px;

@@ -98,8 +98,6 @@ export default {
 </script>
 <style lang="scss" scoped>
     @import '../assets/styles/config';
-
-
 header{
     @include flexRow(center,space-around);
     background-color: $white ;
@@ -195,7 +193,7 @@ nav{
         max-width: 350px;
         height: 70%;
         background-color: $white;
-        top: 8vh;
+        top: 12vh;
         right: 0;
     }
     .mobile_nav-enter-active,
