@@ -18,26 +18,43 @@ class Admin
             return $e->getMessage();
         }
     }
-    public function updateInfo($data)
-    {
-        $this->db->query("UPDATE client SET 
-
-        name=:name,
-        date_nais = :date_nais,
-        CIN =:CIN,
-        profession = :profession WHERE id=:id");
-        // Bind value
-        // 
-
-        $this->db->bind(':name', $data['name']);
-        $this->db->bind(':date_nais', $data['date_nais']);
-        $this->db->bind(':CIN', $data['CIN']);
-        $this->db->bind(':profession', $data['profession']);
-        $this->db->bind(':id', $data['id']);
-
-        try{
-            return $this->db->execute();
-        }catch(PDOException $e){
+    public function get_info(){
+        $this->db->query('SELECT name, photo, email, CIN FROM admin');
+        try {
+            return $this->db->single();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function get_users_num(){
+        $this->db->query('SELECT COUNT(*) as counter FROM users');
+        try {
+            return $this->db->single();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function get_Posts_num(){
+        $this->db->query('SELECT COUNT(*) as counter FROM posts');
+        try {
+            return $this->db->single();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }  
+    public function get_comments_num(){
+        $this->db->query('SELECT COUNT(*) as counter FROM comments');
+        try {
+            return $this->db->single();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function getUsers(){
+        $this->db->query('SELECT * FROM users');
+        try {
+            return $this->db->resultSet();
+        } catch (PDOException $e) {
             return $e->getMessage();
         }
     }

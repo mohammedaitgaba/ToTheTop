@@ -37,6 +37,46 @@ class AdminController extends Controller
 
         }
     }
-
+    public function GetInfoAdmin(){
+        $result= $this->adminModel->get_info();
+        if($result){
+            echo json_encode($result);
+        }else{
+            echo json_encode(["message" => "error"]);
+        }
+    }
+    public function getNumberUser(){
+        $result= $this->adminModel->get_users_num();
+        if($result){
+            echo json_encode($result);
+        }else{
+            echo json_encode(["message" => "error"]);
+        }
+    }
+    public function getNumberPosts(){
+        $result= $this->adminModel->get_Posts_num();
+        if($result){
+            echo json_encode($result);
+        }else{
+            echo json_encode(["message" => "error"]);
+        }
+    }
+    public function getNumberComments(){
+        $result= $this->adminModel->get_comments_num();
+        if($result){
+            echo json_encode($result);
+        }else{
+            echo json_encode(["message" => "error"]);
+        }
+    }
+    public function getAllUsers(){
+        $result= $this->adminModel->getUsers();
+        if($result){
+            echo json_encode($result);
+        }else{
+            echo json_encode(["message" => "error"]);
+        }
+    }
+ 
     
 }

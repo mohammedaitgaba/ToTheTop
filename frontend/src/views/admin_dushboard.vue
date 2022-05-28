@@ -6,44 +6,71 @@
          <h1> Welcome to Admin's dushboard</h1>
         </div> 
         <div class="container">
-            <section class="statistics">
-                <div class="users_counter">
-                    <div class="flex flex-col gap-1 text-center items-center">
-                        <img class="h-32 w-32 bg-white p-2 rounded-full shadow mb-4"
-                            :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ ProfilePic"
-                            alt="profile pic">
-                        <p class="font-semibold"> ook </p>
-                        <div class="text-sm leading-normal text-gray-400 flex justify-center items-center">
-                            ooooo@gmail.com
+            <div class="admin">
+                <div class="flex flex-col gap-1 text-center items-center">
+                    <p class="font-semibold"> {{info_admin.name}} </p>
+                    <img class="h-32 w-32 bg-white p-2 rounded-full shadow mb-4"
+                        :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ info_admin.photo"
+                        alt="profile pic">
+                    <div class="text-sm leading-normal text-gray-400 flex justify-center items-center">
+                        {{info_admin.email}}
+                    </div>
+                    <p class="font-semibold"> {{info_admin.CIN}} </p>
+                </div>
+            </div>
+            <section class="statistics_holder">
+                <div class="statistics">
+                    <div class="users_counter">
+                        <div class="title">
+                            <img src="../assets/images/icons/userss.png" alt="">
+                            users :    
+                            <div class="number">
+                                {{users_num}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="users_counter">
+                        <div class="title">
+                            <img src="../assets/images/icons/posts.png" alt="">
+                            Posts :
+                            <div class="number">
+                                {{posts_num}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="users_counter">
+                        <div class="title">
+                            <img src="../assets/images/icons/commentss.png" alt="">
+                            Comments :
+                            <div class="number">
+                                {{comments_num}}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="users_counter">
-                    <div class="title">
-                        Number of users     
-                    </div>
-                    <div class="number">
-                        45
-                    </div>
-                    <div class="more">
-                        More info
-                    </div>
-                </div>
-                <div class="users_counter">
-                    <div class="title">
-                        Number of Posts
-                    </div>
-                    <div class="number">
-                        20
-                    </div>
-                </div>
-                <div class="users_counter">
-                    <div class="title">
-                        Number of Comments
-                    </div>
-                    <div class="number">
-                        45
-                    </div>
+
+                <!-- users table  -->
+
+
+                <div class="recent_orders">
+                    <h2>Users table</h2>
+                    <table class="table_users">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr v-for="elements in users">
+                                <td> <div class="user"><img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="">
+                                 {{elements.full_name}} </div> </td>
+                                <td>{{elements.email}}</td>
+                                <td class="delete_user">Delete</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
         </div>
@@ -53,6 +80,7 @@
 
 <script>
     import Navigation from '@/components/Navigation.vue';
+    import axios from 'axios';
 export default {
      components :{
         Navigation,
@@ -60,10 +88,20 @@ export default {
     data() {
         return {
             admin:"",
+            info_admin:[],
+            users_num:"",
+            posts_num:"",
+            comments_num:"",
+            users:[],
         }
     },
     mounted() {
         this.checkadmin()
+        this.getadmininfo()
+        this.getNumberUser()
+        this.getNumberPosts()
+        this.getNumberComments()
+        this.getAllUsers()
     },
     methods: {
         checkadmin(){
@@ -72,6 +110,37 @@ export default {
                 this.$router.push('/')
             }
             console.log(this.admin)
+        },
+        getadmininfo(){
+            axios.get('http://localhost/ToTheTop/backend/Admin/GetInfoAdmin')
+            .then(res => {
+                this.info_admin = res.data
+            })
+        },
+        getNumberUser(){
+            axios.get('http://localhost/ToTheTop/backend/Admin/getNumberUser')
+            .then(res => {
+                this.users_num = res.data.counter
+            })
+        },
+        getNumberComments(){
+             axios.get('http://localhost/ToTheTop/backend/Admin/getNumberComments')
+            .then(res => {
+                this.comments_num = res.data.counter
+            })
+        },
+        getNumberPosts(){
+            axios.get('http://localhost/ToTheTop/backend/Admin/getNumberPosts')
+            .then(res => {
+                this.posts_num = res.data.counter
+            })
+        },
+        getAllUsers(){
+            axios.get('http://localhost/ToTheTop/backend/Admin/getAllUsers')
+            .then(res => {
+                this.users = res.data
+                console.log(this.users);
+            })
         }
     },
 }
@@ -81,11 +150,11 @@ export default {
 @import '../assets/styles/config';
     .dushboard{
             @include flexColumn(center, space-evenly);
-            padding: 110px 50px 45px 50px;
+            padding: 100px 40px 45px 40px;
             background-color: #F4F4F4; 
             // height: 100vh;
             .heading{
-                margin: 20px 0 20px 0;
+                margin-bottom: 50px;
                 width: 100% ;
                 text-align: center;
                 h1{
@@ -96,95 +165,149 @@ export default {
                 padding: 80px 20px 45px 20px;
 
             }
-        }
+        
     .container{
-        @include flexRow(center, space-evenly);
+        @include flexRow(flex-start, space-evenly);
         width: 100%;
-        .admin_holder{
-            @include flexColumn(center, space-evenly);
-            width: 25%;
-            box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; 
-            .admin_info{
+        .admin{
+            @include flexColumn(center, space-between);
+            position: sticky;
+            --header-height: 101px;
+            top: calc(var(--header-height) + 27px);
+            background-color: $white;
+            width: 30%;
+            height: 42vh;
+            padding-bottom: 12px;
+            border-radius: 8px;
+            box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+        }
+        .statistics_holder{
+             @include flexColumn(center, space-evenly);
+                width: 100%;
+    
+            .statistics{
                 @include flexRow(center, space-evenly);
                 width: 100%;
-                background-color: $orange3;
-                padding: 5px;
-                .admin_pic{
-                    img{
-                        width: 60px;
-                        height: 60px;
-                        border-radius: 50%;
+    
+                .users_counter{
+                    @include flexColumn(center, space-between);
+                    width: 30%;
+                    margin: 0 10px 0 10px;
+                    height: 10vh;
+                    border-radius: 10px;
+                    background-color: $white;
+                    
+                    box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; 
+                    .title{
+                        @include flexRow(center,center);
+                        font-size: 20px;
+                        padding-right: 5px;
+                        width: 98%;
+                        height: 100%;
+                        font-weight: 700;
+                    }
+                    .number{
+                        // width: 100%;
+                        padding-left: 25px;
+                        font-size: 20px;
                     }
                 }
-                .admin_name{
-                    font-weight: 600;
-                    font-size:20px;
-                }
             }
-
-        }
-        .statistics{
-            @include flexRow(center, space-evenly);
-            width: 100%;
-        
-            .users_counter{
+            .recent_orders{
                 @include flexColumn(center, space-between);
-                width: 30%;
-                height: 40vh;
-                background-color: $white;
                 
-                box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; 
-                .title{
-                    @include flexRow(center, space-evenly);
-                    width: 100%;
-                    height: 35%;
-                    font-weight: 700;
+                width: 100%;
+                h2{
+                    margin:20px 0 20px 0;
+                    font-size: 24px;
+                    text-align: center;
+                }
+                .table_users{
                     box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; 
-                }
-                .number{
-                    width: 100%;
-                    padding-left: 20px;
-                    font-size: 26px;
-                }
-                .more{
-                    margin-bottom: 10px;
-                    padding-bottom: 2px; 
-                    position: relative;
-                    cursor: pointer;
-                }
-                .more::before{
-                    content:"";
-                    position: absolute;
-                    bottom: 0;
-                    width: 0;
-                    height: 3px;
+                    width: 67%;
+                    // margin: 0 30px 0 30px ;
                     border-radius: 10px;
-                    background-color: $orange1;
-                    transition: width 0.35s ease-out;
-            }
-                .more:hover::before{
-                    width: 100%;
-
+                    thead{
+                        // background-color: rgba(241, 241, 240, 0.543)
+                        background-color: rgba(255, 255, 255, 0.429);
+                        
+                    }
+                    tbody{
+                        background-color: rgb(255, 255, 255);
+                        text-align: center;
+                        td{
+                            padding: 10px;
+                            border-bottom: 0.3px solid rgb(215, 209, 209) ;
+                            .user{
+                                @include flexRow(center, flex-start);
+                                width: 100%;
+                                img{
+                                    width: 50px;
+                                    height: 50px;
+                                    border-radius: 50%;
+                                    margin: 5px;
+                                }
+                            }
+                        }
+                        .delete_user:hover{
+                            color: red;
+                            cursor: pointer;
+                        }
+                    }
                 }
 
             }
-    }
-        @include phone {
+        }
+        }
+        @include tablet {
             @include flexColumn(center, space-between);
-            .admin_holder{
-                
-                width: 100%;
-                }
+            padding: 60px 20px 45px 20px;
 
-            .statistics{
+            .container{
                 @include flexColumn(center, space-between);
-                width: 100%;
-                .users_counter{
+                .admin{
+                    position: static;
                     width: 100%;
-                    margin: 20px 0 20px 0;
+                    height: 50vh;
+                }
+                .statistics_holder{
+
+                    .statistics{
+                        @include flexColumn(center, space-between);
+                        width: 100%;
+                        .users_counter{
+                            width: 100%;
+                            margin: 20px 0 20px 0;
+                            .title{
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                    .recent_orders{
+                        h2{
+                            font-size: 20px;
+                        }
+                        .table_users{
+                            width: 100%;
+                        }
+                    }
                 }
             }
         }
+        @include phone{
+            .container
+            .statistics_holder
+            .recent_orders{
+            .table_users{
+                overflow-x: scroll;
+                display: block;
+                td{
+                    min-width: 100px;
+                }
+                }
+            }
+        } 
+
 }
 
 </style>
