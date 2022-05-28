@@ -1,9 +1,4 @@
 <?php
-// header('Access-Control-Allow-Origin: *');
-// header('Content-Type: application/json');
-// header('Access-Control-Allow-Methods: POST');
-// header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
-
 class AdminController extends Controller
 {
     // public $data = [];
@@ -15,15 +10,17 @@ class AdminController extends Controller
     }
     public function check_admin()
     {
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $data = json_decode(file_get_contents("php://input"), true);
-            $result = $this->adminModel->checkAdminByID(strtoupper($data["id"]));
-            
-            if($result){
-                echo json_encode(["message" => "success", "data" => $result]);
-            }else{
-                echo json_encode(["message" => "error not created"]);
+        $data = json_decode(file_get_contents("php://input"));
+        $result = $this->adminModel->ValidAdmin($data);
+        
+        if($result){
+            if($data->password === "admin_1234"){
+                echo json_encode($result);
+            }else{    
+                echo json_encode(["message1" => "Password invalid"]);
             }
+        }else{
+            echo json_encode(["message2" => "Invalid Info "]);
         }
     }
     public function updateinfo(){

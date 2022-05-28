@@ -8,10 +8,10 @@ class Admin
         $this->db = new Database;
     }
 
-    public function checkAdminByID($id)
+    public function ValidAdmin($data)
     {
-        $this->db->query("SELECT * FROM admin WHERE id = :id");
-        $this->db->bind(':id',$id);
+        $this->db->query("SELECT name,CIN,email  FROM admin WHERE email = :email");
+        $this->db->bind('email',$data->email);
         try {
             return $this->db->single();
         } catch (PDOException $e) {

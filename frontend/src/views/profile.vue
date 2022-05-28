@@ -35,7 +35,6 @@
 
                 <main class="grid grid-cols-1 lg:grid-cols-2  my-12 mx-12 w-2xl container px-2 mx-auto content-center">
 
-
                     <aside class="lg:w-11/12 sidebare_">
                         <div class="bg-white shadow rounded-lg p-5 User_info" >
                             <div class="flex flex-col gap-1 text-center items-center">

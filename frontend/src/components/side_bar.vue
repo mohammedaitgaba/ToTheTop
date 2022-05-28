@@ -19,7 +19,9 @@
                             <label> {{elements.full_name}} </label>
                         </div>
                     </div>
-                    <form class="add_friend" @submit.prevent="add_friend(elements.id_user)" v-if="elements.id_user != added">
+                    
+                    <form class="add_friend" @submit.prevent="add_friend(elements.id_user)"  >
+                    <!-- v-if="elements.id_user != added" -->
                     <button type="submit" >
                         <img src="../assets/images/icons/addFriend.png" alt="">
                     </button>
@@ -84,7 +86,7 @@ export default {
             selectedImg:"",
             id:"",
             friends:[],
-            added:""
+            added:[]
         }
     },
     mounted() {
@@ -140,9 +142,17 @@ export default {
                 id_sender:sessionStorage.getItem('ID'),
                 id_reciver:id
             }).then(res=>{
-                this.added = res.data
+                this.added.push = res.data
+                // this.HideAddedFriends(this.added.push)
             })
-        }
+        },
+        // HideAddedFriends(data){
+        //     data.forEach(element => {
+        //         if (element = ) {
+                    
+        //         }
+        //     });
+        // }
     },
 
 }

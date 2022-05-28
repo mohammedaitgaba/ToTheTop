@@ -6,46 +6,46 @@
          <h1> Welcome to Admin's dushboard</h1>
         </div> 
         <div class="container">
-            <section class="admin_holder">
-            <div class="admin_info">
-                <div class="admin_pic">
-                    <img src="../assets/images/ProfilePic/preview.png" alt="">
+            <section class="statistics">
+                <div class="users_counter">
+                    <div class="flex flex-col gap-1 text-center items-center">
+                        <img class="h-32 w-32 bg-white p-2 rounded-full shadow mb-4"
+                            :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ ProfilePic"
+                            alt="profile pic">
+                        <p class="font-semibold"> ook </p>
+                        <div class="text-sm leading-normal text-gray-400 flex justify-center items-center">
+                            ooooo@gmail.com
+                        </div>
+                    </div>
                 </div>
-                <div class="admin_name">
-                    Jack le crack
+                <div class="users_counter">
+                    <div class="title">
+                        Number of users     
+                    </div>
+                    <div class="number">
+                        45
+                    </div>
+                    <div class="more">
+                        More info
+                    </div>
                 </div>
-
-            </div>
+                <div class="users_counter">
+                    <div class="title">
+                        Number of Posts
+                    </div>
+                    <div class="number">
+                        20
+                    </div>
+                </div>
+                <div class="users_counter">
+                    <div class="title">
+                        Number of Comments
+                    </div>
+                    <div class="number">
+                        45
+                    </div>
+                </div>
             </section>
-        <section class="statistics">
-            <div class="users_counter">
-                <div class="title">
-                    Number of users     
-                </div>
-                <div class="number">
-                    45
-                </div>
-                <div class="more">
-                    More info
-                </div>
-            </div>
-            <div class="users_counter">
-                <div class="title">
-                    Number of Posts
-                </div>
-                <div class="number">
-                    20
-                </div>
-            </div>
-            <div class="users_counter">
-                <div class="title">
-                    Number of Comments
-                </div>
-                <div class="number">
-                    45
-                </div>
-            </div>
-        </section>
         </div>
         
     </div>
@@ -56,6 +56,23 @@
 export default {
      components :{
         Navigation,
+    },
+    data() {
+        return {
+            admin:"",
+        }
+    },
+    mounted() {
+        this.checkadmin()
+    },
+    methods: {
+        checkadmin(){
+            this.admin = sessionStorage.getItem("name")
+            if (this.admin != "Med gaba") {
+                this.$router.push('/')
+            }
+            console.log(this.admin)
+        }
     },
 }
 </script>
@@ -71,6 +88,9 @@ export default {
                 margin: 20px 0 20px 0;
                 width: 100% ;
                 text-align: center;
+                h1{
+                    font-size: 28px;
+                }
             }
             @include phone{
                 padding: 80px 20px 45px 20px;
@@ -105,12 +125,12 @@ export default {
         }
         .statistics{
             @include flexRow(center, space-evenly);
-            width: 75%;
+            width: 100%;
         
             .users_counter{
                 @include flexColumn(center, space-between);
                 width: 30%;
-                height: 30vh;
+                height: 40vh;
                 background-color: $white;
                 
                 box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; 

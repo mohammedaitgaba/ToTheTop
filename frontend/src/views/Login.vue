@@ -51,16 +51,33 @@ export default {
     },
     methods:{
         checkUser(){
-            axios.post('http://localhost/ToTheTop/backend/User/check_user',{
-                email:this.email,
-                password:this.password
-            }).then((res) => { 
-                this.message=res.data.message1
-                this.message2=res.data.message2
-                console.log(this.message)
-                sessionStorage.setItem('ID',res.data.data.id_user.toString())
-                this.$router.push("/")
+            let password = this.password.slice(0,6)
+            if (password == "admin_") {
+                axios.post('http://localhost/ToTheTop/backend/Admin/check_admin',{
+                    email:this.email,
+                    password:this.password
+                }).then((res) => { 
+                    this.message=res.data.message1
+                    this.message2=res.data.message2
+                    if (res.data.name) {
+                        console.log(res.data)
+                        // sessionStorage.setItem('name',res.data.data.id_user.toString())
+                        sessionStorage.setItem('name',res.data.name)
+                        this.$router.push("admin_dushboard")
+                    }
                 })
+            }else{
+                axios.post('http://localhost/ToTheTop/backend/User/check_user',{
+                    email:this.email,
+                    password:this.password
+                }).then((res) => { 
+                    this.message=res.data.message1
+                    this.message2=res.data.message2
+                    console.log(this.message)
+                    sessionStorage.setItem('ID',res.data.data.id_user.toString())
+                    this.$router.push("/")
+                })
+            }
         }
     }
 }

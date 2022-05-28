@@ -11,10 +11,10 @@
                     <li><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
                 </ul>
     
-            <div class="auth" @click="destroyId" v-show ="!mobile" v-if="id">
+            <div class="auth" @click="destroyId" v-show ="!mobile" v-if="user">
                 <li ><router-link class="auth" to="/Login">logout </router-link>  </li>
             </div>
-            <div class="auth" v-show ="!mobile" v-if="!id">
+            <div class="auth" v-show ="!mobile" v-if="!user">
                 <li ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
             </div>
 
@@ -26,11 +26,12 @@
             <transition name="mobile_nav">
             <ul v-show ="mobileNav" class="dropdown-nav">
                 <li><router-link to="/"><a class="nav_item" href="">Home</a></router-link></li>
-                <li><router-link to=""><a class="nav_item" href="">Profile</a></router-link>  </li>
-                <li><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
-                <li><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
-                <li v-if="!id" ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
-                <li v-if="id" @click="destroyId"><router-link class="auth" to="/Login">logout</router-link>  </li>
+                <li v-if="user !='Med gaba'"><router-link to=""><a class="nav_item" href="">Profile</a></router-link>  </li>
+                <li ><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
+                <li v-if="user !='Med gaba'"><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
+                <li v-if="user =='Med gaba'"><router-link to="/admin_dushboard"><a class="nav_item" href="">admin_dushboard</a> </router-link> </li>
+                <li v-if="!user" ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
+                <li v-if="user" @click="destroyId"><router-link class="auth" to="/Login">logout</router-link>  </li>
             </ul>
             </transition>
         </nav>
@@ -45,7 +46,9 @@ export default {
         mobile: null,
         mobileNav: null,
         windowwidth: null,
-        id:""
+        user:"",
+        id:"",
+        name:""
   };
   
 },
@@ -77,11 +80,16 @@ export default {
         },
         checkregistration(){
             if(sessionStorage.getItem('ID')){
-                this.id = sessionStorage.getItem('ID')
+                this.user = sessionStorage.getItem('ID')
+            }
+            else if(sessionStorage.getItem('name')){
+                this.user = sessionStorage.getItem('name')
             }
         },
         destroyId(){
             sessionStorage.removeItem('ID');
+            sessionStorage.removeItem('name');
+
         }
 
     },
