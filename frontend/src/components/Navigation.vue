@@ -30,7 +30,7 @@
                 <li v-if="user !='Med gaba'"><router-link to=""><a class="nav_item" href="">Profile</a></router-link>  </li>
                 <li ><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
                 <li v-if="user !='Med gaba'"><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
-                <li v-if="user =='Med gaba'"><router-link to="/admin_dushboard"><a class="nav_item" href="">admin_dushboard</a> </router-link> </li>
+                <li v-if="user =='Med gaba'"><router-link to="/admin_dushboard"><a class="nav_item" href="">Dushboard</a> </router-link> </li>
                 <li v-if="!user" ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
                 <li v-if="user" @click="destroyId"><router-link class="auth" to="/Login">logout</router-link>  </li>
             </ul>

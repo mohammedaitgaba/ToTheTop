@@ -12,11 +12,10 @@
         </div>
 
         <div class="quote">
-
-            <label > {{quots}} </label>
+            <label> {{quots}} </label>
         </div>
 
-        <form class="generator_submit" v-on:submit.prevent="generate">
+        <form class="generator_submit" v-on:submit.prevent="generate" @click="animate">
             <div class="select_holder">
                 <select v-model="category" name="category" class="category" required>
                     <option value="" selected disabled>--choose a type</option>
@@ -46,15 +45,14 @@ export default {
         }
     },
     methods: {
-        generate() {
+        generate(){
             axios.post('http://localhost/ToTheTop/backend/Generator/generateQuote',{
                 type:this.category
             }).then(res => {
                 this.quots =(res.data.corp)
                 console.log(this.quots);
             })
-        }
-
+        },
     },
 
 }
@@ -99,6 +97,7 @@ export default {
         font-size: 20px;
         text-align: center;
         color: $white;
+        
     }
 
     .generator_submit {

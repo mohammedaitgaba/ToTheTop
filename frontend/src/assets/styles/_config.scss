@@ -6,7 +6,7 @@ $secondaryfont :'Barlow Condensed', sans-serif;
 $orange1 : #FF8C42;
 $orange2: #FCAF58;
 $orange3 : #F9C784;
-$secondary : #D6EFFF;
+$secondary : #8ad1ff;
 $white : #ffff;
 
 $resposive : (
@@ -36,6 +36,7 @@ $resposive : (
   color: $white;
   font-size: 18px;
   cursor: pointer;
+  transition: 0.3s;
 }
 @mixin  phone{
     @media(max-width : map-get($resposive, "phone")){

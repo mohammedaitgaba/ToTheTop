@@ -9,7 +9,7 @@
             <div class="admin">
                 <div class="flex flex-col gap-1 text-center items-center">
                     <p class="font-semibold"> {{info_admin.name}} </p>
-                    <img class="h-32 w-32 bg-white p-2 rounded-full shadow mb-4"
+                    <img class="h-32 w-32 bg-[#F9C784] p-2 rounded-full shadow mb-4"
                         :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ info_admin.photo"
                         alt="profile pic">
                     <div class="text-sm leading-normal text-gray-400 flex justify-center items-center">
@@ -46,6 +46,15 @@
                                 {{comments_num}}
                             </div>
                         </div>
+                    </div> 
+                    <div class="users_counter">
+                        <div class="title">
+                            <img src="../assets/images/icons/commentss.png" alt="">
+                            Contacts :
+                            <div class="number">
+                                {{contacts_num}}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -67,11 +76,34 @@
                                 <td> <div class="user"><img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="">
                                  {{elements.full_name}} </div> </td>
                                 <td>{{elements.email}}</td>
-                                <td class="delete_user">Delete</td>
+                                <td class="delete_user"><img src="../assets/images/icons/delete.png" alt=""> </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                
+                <div class="recent_orders">
+                    <h2>Contact messages</h2>
+                    <table class="table_users">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Messages</th>
+                                <th>option</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr v-for="elements in contacts">
+                                <td> {{elements.Full_name}}</td>
+                                <td>{{elements.email}}</td>
+                                <td> {{elements.message}} </td>
+                                <td class="delete_user"> <img src="../assets/images/icons/delete.png"> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </section>
         </div>
         
@@ -92,6 +124,8 @@ export default {
             users_num:"",
             posts_num:"",
             comments_num:"",
+            contacts_num:"",
+            contacts:[],
             users:[],
         }
     },
@@ -102,6 +136,8 @@ export default {
         this.getNumberPosts()
         this.getNumberComments()
         this.getAllUsers()
+        this.getNumberContacts()
+        this.getAllContacts()
     },
     methods: {
         checkadmin(){
@@ -139,7 +175,19 @@ export default {
             axios.get('http://localhost/ToTheTop/backend/Admin/getAllUsers')
             .then(res => {
                 this.users = res.data
-                console.log(this.users);
+            })
+        },
+        getNumberContacts(){
+            axios.get('http://localhost/ToTheTop/backend/Contact/getNumberContact')
+            .then(res => {
+                this.contacts_num = res.data.counter
+            })
+        },
+        getAllContacts(){
+            axios.get('http://localhost/ToTheTop/backend/Contact/getAllContacts')
+            .then(res => {
+                this.contacts = res.data
+                console.log(this.contacts);
             })
         }
     },
@@ -176,7 +224,7 @@ export default {
             top: calc(var(--header-height) + 27px);
             background-color: $white;
             width: 30%;
-            height: 42vh;
+            height: 47vh;
             padding-bottom: 12px;
             border-radius: 8px;
             box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
@@ -224,7 +272,7 @@ export default {
                 }
                 .table_users{
                     box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; 
-                    width: 67%;
+                    width: 80%;
                     // margin: 0 30px 0 30px ;
                     border-radius: 10px;
                     thead{
@@ -249,15 +297,28 @@ export default {
                                 }
                             }
                         }
-                        .delete_user:hover{
-                            color: red;
-                            cursor: pointer;
+                        .delete_user{
+                            img{
+                                min-width: 30px;
+                                cursor: pointer;
+                            }
                         }
                     }
                 }
 
             }
         }
+        }
+        @include large-tablet{
+            .container
+            .statistics_holder
+            .statistics{
+                flex-wrap: wrap;
+                .users_counter{
+                    width: 40%;
+                    margin: 10px
+                }
+            }
         }
         @include tablet {
             @include flexColumn(center, space-between);
@@ -306,7 +367,7 @@ export default {
                 }
                 }
             }
-        } 
+        }
 
 }
 

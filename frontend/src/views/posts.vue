@@ -62,6 +62,7 @@ export default {
     .container{
         @include flexRow(flex-start,space-around);
         width: 100%;
+        min-width: 100%;
         height: 100%;
         padding: 90px;
         margin-top: 40px;

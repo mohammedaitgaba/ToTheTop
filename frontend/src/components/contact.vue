@@ -1,21 +1,21 @@
 <template>
     <section class="contact_us">
-        <form action="">
+        <form @submit.prevent="sendmsg">
             <div class="title">
                 Send us a message
             </div>
             <div class="contact_inputs">
                 <div >
                     <label for="">Full Name</label>
-                    <input class="input" type="text" name="fullname">
+                    <input class="input" type="text" v-model="name"  required>
                 </div>
                 <div>
                     <label for="">Email</label>
-                    <input class="input" type="email" name="email">
+                    <input class="input" type="email" v-model="email" required>
                 </div>
                 <div>
                     <label for="">Message</label>
-                    <textarea class="input text" name="message" id="" ></textarea>
+                    <textarea class="input text" v-model="message" required ></textarea>
                 </div>
 
                
@@ -26,6 +26,33 @@
         </form>
     </section>
 </template>
+<script>
+import axios from 'axios';
+export default {
+    
+    data() {
+        return {
+            name:"",
+            email:"",
+            message:""
+        }
+    },
+    methods: {
+        sendmsg(){
+            // console.log(this.fromstate);
+            console.log();
+            axios.post('http://localhost/ToTheTop/backend/Contact/contact_us',{
+                name:this.name,
+                email:this.email,
+                message:this.message
+            }).then(res => console.log(res))
+                this.name = ""
+                this.email = ""
+                this.message = ""
+        }
+    },
+}
+</script>
 <style lang="scss" scoped>
     @import '../assets/styles/config';
     .contact_us{
@@ -33,12 +60,14 @@
         height: 86vh;
         form{
             @include flexColumn(center,space-evenly);
-            background-color: $secondary;
+            background-color: #FFE5C1;
             opacity: 0.8;
             width: 45%;
             height: 80%;
             border-radius: 10px;
-            box-shadow: rgb(0 0 0 / 3%) 5.4px 5.4px 3.2px;        
+            // box-shadow: rgb(0 0 0 / 3%) 5.4px 5.4px 3.2px;
+            box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; 
+
             }
         .contact_inputs{
             width: 80%;
@@ -51,7 +80,7 @@
             padding:8px;
             display:block;
             border:none;
-            background-color:$secondary ;
+            background-color:$white ;
             border-bottom:1px solid $orange1;
             width:100%;
             margin-bottom: 10px;
@@ -65,6 +94,11 @@
         }
         .contact_send{
             @include button;
+        }
+        .contact_send:hover{
+            background-color: $secondary;
+            //  background-color: $orange1;
+            color: black;
         }
     
     @include phone{
