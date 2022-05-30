@@ -49,6 +49,9 @@ export default {
             message2:""
         }
     },
+    mounted() {
+        this.checkauth()
+    },
     methods:{
         checkUser(){
             let password = this.password.slice(0,6)
@@ -77,6 +80,11 @@ export default {
                     sessionStorage.setItem('ID',res.data.data.id_user.toString())
                     this.$router.push("/")
                 })
+            }
+        },
+        checkauth(){
+            if (sessionStorage.getItem('ID')) {
+                this.$router.push('/')
             }
         }
     }

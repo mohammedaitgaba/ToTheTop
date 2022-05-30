@@ -42,6 +42,7 @@ export default {
     },
     mounted() {
         this.getallposts()
+        this.checkauth()
         this.loggedid = sessionStorage.getItem('ID')
     },
     methods: {
@@ -53,6 +54,11 @@ export default {
                 this.post_id = res.data.id
             })
         },
+        checkauth(){
+            if (!sessionStorage.getItem('ID')) {
+                this.$router.push('/Login')
+            }
+        }
     },
 }
 </script>

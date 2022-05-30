@@ -123,6 +123,7 @@ export default {
         this.PostsCounter();
         this.FriendsCounter();
         this.getFriends()
+        this.checkauth()
     },
     methods: {
         GetUser(){
@@ -193,6 +194,11 @@ export default {
                     formData
                 ,config).then(res => console.log(res))
         },
+        checkauth(){
+            if (!sessionStorage.getItem('ID')) {
+                this.$router.push('/Login')
+            }
+        }
     },
 }
 </script>

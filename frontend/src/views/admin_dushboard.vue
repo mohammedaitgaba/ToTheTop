@@ -77,7 +77,7 @@
                                  {{elements.full_name}} </div> </td>
                                 <td>{{elements.email}}</td>
                                 <!-- <td>{{elements.id_user}}</td> -->
-                                <td class="delete_user"><img @click="DeletUser(elements.id_user)" src="../assets/images/icons/delete.png" alt=""> </td>
+                                <td class="delete_user"><img @click="DeletUser(elements.id_user,elements.full_name)" src="../assets/images/icons/delete.png" alt=""> </td>
                             </tr>
                         </tbody>
                     </table>
@@ -91,7 +91,7 @@
                                 <th>Full Name</th>
                                 <th>Email</th>
                                 <th>Messages</th>
-                                <th>option</th>
+                                <th>options</th>
                             </tr>
                         </thead>
                         <tbody >
@@ -99,7 +99,7 @@
                                 <td> {{elements.Full_name}}</td>
                                 <td>{{elements.email}}</td>
                                 <td> {{elements.message}} </td>
-                                <td class="delete_user"> <img src="../assets/images/icons/delete.png"> </td>
+                                <td class="delete_user"> <img @click="DeleteMessage(elements.id)" src="../assets/images/icons/delete.png"> </td>
                             </tr>
                         </tbody>
                     </table>
@@ -191,10 +191,15 @@ export default {
                 console.log(this.contacts);
             })
         },
-        DeletUser(id){
-            alert("Are you Sure you want to delete this user"+id);
-            console.log(id);
+        DeletUser(id,name){
+            alert("Are you Sure you want to delete :"+name);
              axios.post('http://localhost/ToTheTop/backend/admin/DeleteUserById',id
+             ).then(res => console.log(res))
+        },
+        DeleteMessage(id){
+            alert("Are you Sure you want to delete this Message");
+            console.log(id);
+             axios.post('http://localhost/ToTheTop/backend/admin/DeleteMessageById',id
              ).then(res => console.log(res))
         }
     },

@@ -107,6 +107,7 @@ export default {
     mounted() {
         this.getFriends()
         this.connected()
+        this.checkauth()
         // this.startConnection()
 
     },
@@ -138,6 +139,11 @@ export default {
                 console.log(e.data);
                 console.log('ok');
             };
+        },
+        checkauth(){
+            if (!sessionStorage.getItem('ID')) {
+                this.$router.push('/Login')
+            }
         }
     },
 }

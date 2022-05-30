@@ -63,6 +63,7 @@ export default {
     },
     mounted() {
         this.checkregistration()
+        this.checkauth()
     },
     methods: {
         add_user() {
@@ -76,6 +77,11 @@ export default {
         },
         checkregistration(){
             if(sessionStorage.getItem('ID')){
+                this.$router.push('/')
+            }
+        },
+        checkauth(){
+            if (sessionStorage.getItem('ID')) {
                 this.$router.push('/')
             }
         }

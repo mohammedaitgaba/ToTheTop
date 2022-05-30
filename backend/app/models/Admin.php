@@ -67,4 +67,13 @@ class Admin
             return $e->getMessage();
         }
     }
+    public function DeleteMessage($data){
+        $this->db->query('DELETE FROM contact WHERE id = :id');
+        $this->db->bind(':id',$data);
+        try {
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }
