@@ -58,4 +58,13 @@ class Admin
             return $e->getMessage();
         }
     }
+    public function DeleteUser($data){
+        $this->db->query('DELETE FROM users WHERE id_user = :id');
+        $this->db->bind(':id',$data);
+        try {
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }

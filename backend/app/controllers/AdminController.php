@@ -77,6 +77,15 @@ class AdminController extends Controller
             echo json_encode(["message" => "error"]);
         }
     }
+    public function DeleteUserById(){
+        $data = json_decode(file_get_contents("php://input"));
+        $result = $this->adminModel->DeleteUser($data);
+        if($result){
+            echo json_encode($result);
+        }else{
+            echo json_encode(["message" => "error"]);
+        }
+    }
  
     
 }

@@ -76,7 +76,8 @@
                                 <td> <div class="user"><img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="">
                                  {{elements.full_name}} </div> </td>
                                 <td>{{elements.email}}</td>
-                                <td class="delete_user"><img src="../assets/images/icons/delete.png" alt=""> </td>
+                                <!-- <td>{{elements.id_user}}</td> -->
+                                <td class="delete_user"><img @click="DeletUser(elements.id_user)" src="../assets/images/icons/delete.png" alt=""> </td>
                             </tr>
                         </tbody>
                     </table>
@@ -189,6 +190,12 @@ export default {
                 this.contacts = res.data
                 console.log(this.contacts);
             })
+        },
+        DeletUser(id){
+            alert("Are you Sure you want to delete this user"+id);
+            console.log(id);
+             axios.post('http://localhost/ToTheTop/backend/admin/DeleteUserById',id
+             ).then(res => console.log(res))
         }
     },
 }

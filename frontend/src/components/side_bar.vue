@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     
-                    <form class="add_friend" @submit.prevent="add_friend(elements.id_user)"  >
+                    <form class="add_friend" @submit.prevent="add_friend(elements.id_user)" v-if="hidefriend"  >
                     <!-- v-if="elements.id_user != added" -->
                     <button type="submit" >
                         <img src="../assets/images/icons/addFriend.png" alt="">
@@ -144,17 +144,26 @@ export default {
                 id_sender:sessionStorage.getItem('ID'),
                 id_reciver:id
             }).then(res=>{
-                this.added.push = res.data
+                this.added = res.data
+                this.hidefriend()
                 // this.HideAddedFriends(this.added.push)
             })
         },
-        // HideAddedFriends(data){
-        //     data.forEach(element => {
-        //         if (element = ) {
-                    
-        //         }
-        //     });
-        // }
+        hidefriend(){
+            // console.log(this.added);
+            // // this.friends.forEach(element => {
+            // //     if (element != this.added) {
+            // //         console.log(this.added);
+            // //     }
+            // //     // console.log(element);
+            // //     // if (element == this.added.forEach(id)) {
+            // //     //     console.log(id);
+            // //     //     return true
+            // //     // }else
+            // //     // return false
+            // // });
+        }
+
     },
 
 }
