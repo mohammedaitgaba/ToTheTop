@@ -7,12 +7,20 @@ class Posts{
         $this->db = new Database;
     }
     public function CreatePost($target_path,$data){
+        
         $this->db->query("INSERT INTO posts (title,description,photo,id_maker ) VALUES (:title,:description,:photo,:id)");
         $this->db->bind(':title',$data['title']);
         $this->db->bind(':id',$data['id']);
         $this->db->bind(':description',$data['description']);
         $this->db->bind(':photo',$target_path);
-        $this->db->execute();
+        return $this->db->execute();
+    }
+    public function CreatePost_withoutPic($data){
+        $this->db->query("INSERT INTO posts (title,description,id_maker) VALUES (:title,:description,:id)");
+        $this->db->bind(':title',$data['title']);
+        $this->db->bind(':id',$data['id']);
+        $this->db->bind(':description',$data['description']);
+        return $this->db->execute();
     }
 
     public function getposts(){

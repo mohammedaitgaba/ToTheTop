@@ -55,7 +55,7 @@ export default {
             })
         },
         checkauth(){
-            if (!sessionStorage.getItem('ID')) {
+            if (!sessionStorage.getItem('ID')&&!sessionStorage.getItem('name')) {
                 this.$router.push('/Login')
             }
         }

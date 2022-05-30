@@ -3,7 +3,7 @@
         <div class="sidbar_head">
             <div class="helpers">
                 <div class="add" @click="show"><img src="../assets/images/icons/add.png" alt=""></div>
-                <div class="add"><img src="../assets/images/icons/home.png" alt=""></div>
+                <div class="add" @click="reload"><img src="../assets/images/icons/home.png" alt=""></div>
             </div>
             <div class="search">
                 <input type="search" placeholder="search">
@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <div class="friends_holder">
+        <div class="friends_holder" v-if="user">
                 <div class="friend" v-for="elements in friends">
                     <div class="friendinfo">
                         <div class="friendpic">
@@ -55,11 +55,11 @@
             </div>
             <div class="post_title">
                 <label> Post title </label>
-                <input type="text" placeholder="Title" v-model="title">
+                <input type="text" placeholder="Title" v-model="title" required >
             </div>
             <div class="post_title">
                 <label> Post description </label>
-                <textarea placeholder="description" v-model="description"></textarea>
+                <textarea placeholder="description" v-model="description" required ></textarea>
             </div>
             <div class="add_img">
                 <span> Post photo </span>
@@ -88,12 +88,15 @@ export default {
             selectedImg:"",
             id:"",
             friends:[],
-            added:[]
+            added:[],
+            user:"",
+            success:""
         }
     },
     mounted() {
       this.checkregistration();
       this.RandomFriends();
+      this.user = sessionStorage.getItem('ID')
     },
     methods: {
         show(){
@@ -121,7 +124,22 @@ export default {
             });
             axios.post('http://localhost/ToTheTop/backend/Posts/AddNewPosts',
                     asformData
-                ,config).then(res => console.log(res))
+                ,config).then(res => {this.success = res.data
+                    console.log(this.success);
+                    if (this.success == 'ok') {
+                        this.$swal(
+                        {
+                        title:'Succesfully!',
+                        text:'Your post has been added.',
+                        icon: 'success'
+                        }
+                    )
+                    this.$router.go('/posts')
+                    }
+                }
+                
+                )
+                
             
         },
         checkregistration(){
@@ -162,6 +180,9 @@ export default {
             // //     // }else
             // //     // return false
             // // });
+        },
+        reload(){
+            this.$router.go('/posts')
         }
 
     },
@@ -360,7 +381,7 @@ export default {
     width: 100%;
     height: 100%;
     top: 0%;
-    z-index: 1;
+    z-index: 100;
 
     form {
         @include flexColumn(center, space-around);

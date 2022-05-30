@@ -9,6 +9,7 @@
         <div class="heading">
             <div class="big_heading">
                 MAKE YOUR DREAMS COME TRUE 
+                
             </div>
             <div class="mid_heading">
              Let the journey began
@@ -98,6 +99,12 @@ export default {
     },
     mounted() {
         AOS.init();
+    },
+    methods: {
+
+        
+
+        
     },
 }
 </script>

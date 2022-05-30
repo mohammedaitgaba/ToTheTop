@@ -23,9 +23,9 @@
                 <div class="dropped_item_update">
                     <button @click="update_popup">Update</button>
                 </div>
-                <form @submit="deletePost(posts_data.id_post)">
+                <form @submit.prevent="deletePost(posts_data.id_post)">
                     <div class="dropped_item_delete">
-                        <button>Delete  </button>
+                        <button>Delete </button>
                     </div>
                 </form>
             </div>
@@ -78,10 +78,35 @@ export default {
             this.showPop = !this.showPop
         },
         deletePost(id_post){
-            alert("are you sure abt that ")
-            axios.post('http://localhost/ToTheTop/backend/Posts/DeletPost',{
+
+            this.$swal(
+                {
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }
+            ).then((result) => {
+            if (result.isConfirmed){
+                axios.post('http://localhost/ToTheTop/backend/Posts/DeletPost',{
                 id_post
-            }).then(res=>console.log(res))
+                }).then(res=>console.log(res))
+                this.$swal(
+                {
+                title:'Post Deleted!',
+                icon: 'success'
+                }
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    this.$router.go('/posts')
+                }})
+            }
+            })
+
+           
         }
     },
 }
@@ -151,10 +176,11 @@ export default {
                 }
             }
         }
-         .post_title{
-        font-size: 20px;
+        .post_title{
         @include flexRow(center,center);
+        font-size: 20px;
         width: 100%;
+        font-weight: 700;
 
     }
         .post_description{

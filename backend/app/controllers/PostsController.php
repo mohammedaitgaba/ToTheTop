@@ -11,19 +11,29 @@ class PostsController extends Controller{
                 'description' => $_POST['description'],
                 'id' => $_POST['id']
             ];
-            
-            $Image = $_FILES['image']['name'];
-            $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
-            $extensions_arr = array("jpg", "jpeg", "png", "gif");
-            if (in_array($imageFileType, $extensions_arr)) {
-                $file_name = uniqid('', true) . '.' . $imageFileType;
-                $target_path = $file_name;
+            if (empty($_FILES['image'])) {
                 
-                if (move_uploaded_file($_FILES['image']['tmp_name'], 'C:\xampp\htdocs\ToTheTop\backend\public\imgUploaded\\' . $target_path)) {
-                    $result=$this->Postsmodel->CreatePost($target_path,$data);
-                    echo json_encode(['message' => 'ok']);
+                $result=$this->Postsmodel->CreatePost_withoutPic($data);
+                if ($result){
+                    echo json_encode("ok");
                 } else {
-                    echo json_encode(['message' => 'Error uploading file']);
+                    echo json_encode(['data'=>'error']);
+                }
+            }
+            else{
+                $Image = $_FILES['image']['name'];
+                $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
+                $extensions_arr = array("jpg", "jpeg", "png", "gif");
+                if (in_array($imageFileType, $extensions_arr)) {
+                    $file_name = uniqid('', true) . '.' . $imageFileType;
+                    $target_path = $file_name;
+                    
+                    if (move_uploaded_file($_FILES['image']['tmp_name'], 'C:\xampp\htdocs\ToTheTop\backend\public\imgUploaded\\' . $target_path)) {
+                        $result=$this->Postsmodel->CreatePost($target_path,$data);
+                        echo json_encode("ok");
+                    } else {
+                        echo json_encode(['message' => 'Error uploading file']);
+                    }
                 }
             }
 
@@ -44,19 +54,33 @@ class PostsController extends Controller{
             'description' => $_POST['description'],
             'id' => $_POST['id_post']
         ];
-        var_dump($data);
-        $Image = $_FILES['image']['name'];
-        $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
-        $extensions_arr = array("jpg", "jpeg", "png", "gif");
-        if (in_array($imageFileType, $extensions_arr)) {
-            $file_name = uniqid('', true) . '.' . $imageFileType;
-            $target_path = $file_name;
-            
-            if (move_uploaded_file($_FILES['image']['tmp_name'], 'C:\xampp\htdocs\ToTheTop\backend\public\imgUploaded\\' . $target_path)) {
-                $result=$this->Postsmodel->UpdatePost($target_path,$data);
+        var_dump($_FILES['image']['name']);die;
+        if (empty($_FILES['image'])) {
+            var_dump("1");die;
+            $oldimage = $_POST['old_image'];
+            $result=$this->Postsmodel->UpdatePost($oldimage,$data);
+            if ($result) {
                 echo json_encode(['message' => 'ok']);
-            } else {
+            }
+            else {
                 echo json_encode(['message' => 'Error uploading file']);
+            }
+        }
+        else{
+            var_dump("eeeee");die;
+            $Image = $_FILES['image']['name'];
+            $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
+            $extensions_arr = array("jpg", "jpeg", "png", "gif");
+            if (in_array($imageFileType, $extensions_arr)) {
+                $file_name = uniqid('', true) . '.' . $imageFileType;
+                $target_path = $file_name;
+                
+                if (move_uploaded_file($_FILES['image']['tmp_name'], 'C:\xampp\htdocs\ToTheTop\backend\public\imgUploaded\\' . $target_path)) {
+                    $result=$this->Postsmodel->UpdatePost($target_path,$data);
+                    echo json_encode(['message' => 'ok']);
+                } else {
+                    echo json_encode(['message' => 'Error uploading file']);
+                }
             }
         }
     }

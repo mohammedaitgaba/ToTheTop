@@ -170,7 +170,6 @@ export default {
         },
         modifiedPic(event) {
             this.selectedFile = event.target.files[0]
-            console.log(this.selectedFile);
         },
 
         update_user_info(){

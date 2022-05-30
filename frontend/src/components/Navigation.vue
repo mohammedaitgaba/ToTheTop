@@ -102,7 +102,7 @@ header{
     @include flexRow(center,space-around);
     background-color: $white ;
     position: fixed;
-    z-index: 100;
+    z-index: 101;
     top: 0;
     left: 0;
     width: 100%;

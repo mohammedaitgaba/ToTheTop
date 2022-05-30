@@ -1,6 +1,6 @@
 <template>
      <div class="update_popup" v-show="displayed">
-        <form enctype="multipart/form-data" @submit.prevent="update_post">
+        <form enctype="multipart/form-data" @submit.prevent="update_post(show_data.photo)">
             <div class="title">
                 Update Post
             </div>
@@ -15,7 +15,7 @@
             <div class="add_img">
                 <span> Post photo </span>
                 <label for="pic"> Choose picture </label>
-                <input type="file" id="pic" name="image" hidden @change="Image">
+                <input type="file" id="pic" name="image" hidden @change="ImageSelected">
             </div>
             <div class="post_submit">
                 <button class="submit" type="submit" >Update</button>
@@ -41,7 +41,7 @@ export default {
             titre:this.show_data.title,
             desc:this.show_data.description,
             id_post:this.show_data.id_post,
-            selectedImg:""
+            selectfile:"",
         }
     },
     created() {
@@ -52,12 +52,13 @@ export default {
     },
     methods: {
         
-        Image(event) {
-            this.selectedImg = event.target.files[0];          
-            console.log(this.selectedImg );
+        ImageSelected(event) {
+            this.selectfile = event.target.files[0];               
+            console.log(this.selectfile);
         },
-        update_post(){
-            console.log(this.selectedImg );
+        update_post(old_pic){
+            console.log("here");
+            console.log(this.selectfile);
              let config = {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -66,7 +67,8 @@ export default {
             const data = {
                 title: this.titre,
                 description: this.desc,
-                image: this.selectedImg,
+                image: this.selectfile,
+                old_image :old_pic,
                 id_post:this.id_post
             };
             console.log(data);
@@ -95,7 +97,7 @@ export default {
     height: 100%;
     top: 0%;
     left: 0;
-    z-index: 1;
+    z-index: 100;
 
     form {
         @include flexColumn(center, space-around);
