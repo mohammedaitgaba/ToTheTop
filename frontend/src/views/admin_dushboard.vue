@@ -192,15 +192,56 @@ export default {
             })
         },
         DeletUser(id,name){
-            alert("Are you Sure you want to delete :"+name);
-             axios.post('http://localhost/ToTheTop/backend/admin/DeleteUserById',id
-             ).then(res => console.log(res))
+            this.$swal(
+                {
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }
+            ).then((result) => {
+            if (result.isConfirmed){
+                axios.post('http://localhost/ToTheTop/backend/admin/DeleteUserById',id
+                ).then(res => console.log(res))
+                this.$swal(
+                {
+                title:'Deleted!',
+                text:'Your file has been deleted.',
+                icon: 'success'
+                }
+            )
+            }
+            })
+             
         },
         DeleteMessage(id){
-            alert("Are you Sure you want to delete this Message");
-            console.log(id);
-             axios.post('http://localhost/ToTheTop/backend/admin/DeleteMessageById',id
-             ).then(res => console.log(res))
+            this.$swal(
+                {
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }
+            ).then((result) => {
+            if (result.isConfirmed){
+                axios.post('http://localhost/ToTheTop/backend/admin/DeleteMessageById',id
+                ).then(res => console.log(res))
+                this.$swal(
+                {
+                title:'Message Deleted!',
+                icon: 'success'
+                }
+            )
+            router.go('/admin_dushboard')
+            }
+            })
+             
         }
     },
 }

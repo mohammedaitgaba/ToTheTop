@@ -5,13 +5,6 @@ import AOS from "aos"
 import "aos/dist/aos.css"
 import './index.css'
 
-// import ScrollAnimation from './directives/ScrollAnimation';
-
-// Vue.directives('scrollanimation',ScrollAnimation);
-// import Vue from 'vue'
-// import { VueTypedJs } from 'vue-typed-js'
- 
-// Vue.use(VueTypedJs)
 
 const app = createApp(App)
 
@@ -19,3 +12,7 @@ app.use(router)
 
 app.mount('#app')
 
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+// createApp(App).use(VueSweetalert2)
+app.use(VueSweetalert2);

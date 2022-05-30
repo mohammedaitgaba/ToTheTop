@@ -16,7 +16,8 @@
     "socket.io-client": "^4.5.1",
     "vue": "^3.2.33",
     "vue-emoji-picker": "^1.0.3",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vue-sweetalert2": "^5.0.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",
