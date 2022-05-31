@@ -1,21 +1,15 @@
 <template>
     <div class="post_react">
         <!-- <label for="">{{checker}} </label> -->
-        <div class="claps">
-            <img src="../assets/images/icons/love.png" alt="" v-if="like" @click="LikePost">
-            <img src="../assets/images/icons/love full.png" alt="" v-if="unlike" @click="LikePost">
-
-            <!-- <img src="../assets/images/icons/love.png" alt="" v-if="post_id = !post_liked" @click="like">
-            <img src="../assets/images/icons/love full.png" alt="" v-if="post_id =post_liked" @click="unlike"> -->
+        <div class="claps" @click="LikePost">
+            <img src="../assets/images/icons/love.png" alt="" v-if="like" >
+            <img src="../assets/images/icons/love full.png" alt="" v-if="unlike" >
             <label for=""> {{likes}}  </label>
-            
-            <!-- <form @submit.prevent="CheckUserlike">
-                <button CheckUserlike>ssssssssssss</button>
-            </form> -->
         </div>
-        <div class="claps">
-            <img src="../assets/images/icons/claps.png" alt="" v-show="clap" @click="claped">
-            <img src="../assets/images/icons/claps full.png" alt="" v-show="!clap" @click="unclaped">
+
+        <div class="claps" @click="clapeOnPost">
+            <img src="../assets/images/icons/claps.png" alt="" v-if="clap" >
+            <img src="../assets/images/icons/claps full.png" alt="" v-if="unclap">
             <label for=""> {{claps}}  </label>
 
         </div>
@@ -37,15 +31,18 @@ export default {
             like:true,
             unlike:false,
             clap:true,
+            unclap:false,
             likes:"",
             claps:"",
-            checker:""
-            // post_liked:""
+            checker:"",
+            checker2:"",
         }
     },
     mounted() {
         this.GetLikes()
-        // this.CheckUserlike()
+        this.CheckUserlike()
+        this.GetClaps()
+        this.CheckUserClap()
     },
     methods: {
         LikePost(){
@@ -56,7 +53,6 @@ export default {
             }
             ).then(res => {
                 this.checker= res.data 
-                console.log(this.checker);
                 if (this.checker == 1) {
                     this.like = !this.like
                     this.unlike = !this.unlike
@@ -72,52 +68,66 @@ export default {
             })
             
         },
-        // like(){
-        //     this.liked = !this.liked
-        //     this.likes = this.likes + 1
-        //     console.log(this.post_id);
-        //     axios.post('http://localhost/ToTheTop/backend/React/AddLike',{
-        //         id_post:this.post_id,
-        //         id_user:sessionStorage.getItem('ID')
-        //     }
-        //     ).then(res => console.log(res))
-        // },
-        // unlike(){
-        //     this.liked = !this.liked
-        //     this.likes = this.likes - 1
-        //     axios.post('http://localhost/ToTheTop/backend/React/DeletLike',{
-        //         id_post:this.post_id,
-        //         id_user:sessionStorage.getItem('ID')
-        //     }
-        //     ).then(res => console.log(res))
-        // },
-        claped(){
-            this.clap = !this.clap
-        },
-        unclaped(){
-            this.clap = !this.clap
-
-        },
         GetLikes(){
             axios.post('http://localhost/ToTheTop/backend/React/LikesCounter',{
                 id_post:this.post_id,
             }).then(res=> {
                 this.likes=res.data.counter
             })
+        }, 
+      
+        CheckUserlike(){
+            axios.post('http://localhost/ToTheTop/backend/React/CheckUserLike',{
+                id_post:this.post_id,
+                id_user:sessionStorage.getItem('ID'),
+            }).then(res=> {console.log(res)
+
+                if ((res.data.id_user == sessionStorage.getItem('ID'))) {
+                    this.like=!this.like
+                    this.unlike=!this.unlike
+                }
+            })
         },
-        // CheckUserlike(){
-        //     axios.post('http://localhost/ToTheTop/backend/React/CheckUserLike',{
-        //         id_post:this.post_id,
-        //         id_user:sessionStorage.getItem('ID'),
-        //     }).then(res=> {
-        //         // this.post_liked = res.data.id_post
-        //         if ((res.data.id_user = sessionStorage.getItem('ID')) && (res.data.id_post = this.post_id)) {
-        //             this.liked = !this.liked
-        //             // console.log(this.post_id);
-        //             // console.log(res.data.id_post);
-        //         }
-        //     })
-        // }
+        clapeOnPost(){
+             axios.post('http://localhost/ToTheTop/backend/React/AddClap',{
+                id_post:this.post_id,
+                id_user:sessionStorage.getItem('ID')
+            }
+            ).then(res => {
+                this.checker2= res.data 
+                if (this.checker2 == 1) {
+                    this.clap = !this.clap
+                    this.unclap = !this.unclap
+                    this.claps = this.claps + 1
+                console.log(this.checker2)
+                }
+                if(this.checker2 == 2){
+                    this.unclap = !this.unclap
+                    this.clap = !this.clap
+                    this.claps = this.claps - 1
+                    console.log(this.checker2)
+                }
+            })
+        },
+        GetClaps(){
+            axios.post('http://localhost/ToTheTop/backend/React/CountClpas',{
+                id_post:this.post_id,
+            }).then(res=> {
+                this.claps=res.data.counter
+            })
+        },
+         CheckUserClap(){
+            axios.post('http://localhost/ToTheTop/backend/React/CheckUserClap',{
+                id_post:this.post_id,
+                id_user:sessionStorage.getItem('ID'),
+            }).then(res=> {console.log(res)
+
+                if ((res.data.id_user == sessionStorage.getItem('ID'))) {
+                    this.clap=!this.clap
+                    this.unclap=!this.unclap
+                }
+            })
+        },
 
     },
 }

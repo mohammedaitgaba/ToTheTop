@@ -46,6 +46,12 @@ export default {
                 email:this.email,
                 message:this.message
             }).then(res => console.log(res))
+            this.$swal(
+                {
+                title:'Message Deleted!',
+                icon: 'success'
+                }
+            )
                 this.name = ""
                 this.email = ""
                 this.message = ""
@@ -60,7 +66,7 @@ export default {
         height: 86vh;
         form{
             @include flexColumn(center,space-evenly);
-            background-color: #FFE5C1;
+            background-color: #fab861;
             opacity: 0.8;
             width: 45%;
             height: 80%;

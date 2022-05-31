@@ -24,9 +24,9 @@
                     
                     <form class="add_friend" @submit.prevent="add_friend(elements.id_user)" v-if="hidefriend"  >
                     <!-- v-if="elements.id_user != added" -->
-                    <button type="submit" >
-                        <img src="../assets/images/icons/addFriend.png" alt="">
-                    </button>
+                        <button type="submit" >
+                            <img src="../assets/images/icons/addFriend.png" alt="">
+                        </button>
                     </form>
                 </div>
         </div>
