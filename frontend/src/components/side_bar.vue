@@ -298,7 +298,11 @@ export default {
             }
             .add_friend{
                 cursor: pointer;
+                img{
+                    transition: 0.4s;
+                }
                 img:hover{
+                    width: 30px;
                     background-color: $orange3;
                     border-radius: 50%;
                 }
@@ -306,6 +310,7 @@ export default {
         }
         .friend:hover{
         background-color: #F4F4F4;
+        cursor: pointer;
         }
         }
 

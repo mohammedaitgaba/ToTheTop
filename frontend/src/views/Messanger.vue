@@ -121,7 +121,7 @@ export default {
             })
         },
         startConnection() {
-            const socket = io("ws://localhost:8080");
+            const socket = io("ws://localhost:8181");
             // receiveamessage from the server
             socket.on("hello", (arg) => {
                 console.log(arg);// prints"world"
@@ -130,15 +130,17 @@ export default {
             socket.emit("howdy", "stranger");
         },
         connected() {
-            var conn = new WebSocket('ws://localhost:8080');
+            var conn = new WebSocket('ws://localhost:8181');
             conn.onopen = function (e) {
                 console.log("Connection established!");
+                
             };
 
             conn.onmessage = function (e) {
-                console.log(e.data);
+                // console.log(e.data);
                 console.log('ok');
             };
+            // conn.send("here")
         },
         checkauth(){
             if (!sessionStorage.getItem('ID')) {
@@ -155,7 +157,7 @@ export default {
     @include flexRow(center, space-evenly);
     padding: 120px 130px 20px 130px;
     background-color: #F4F4F4;
-
+    min-width: 100%;
     .ChatList {
         @include flexColumn(center, flex-start);
         width: 25%;
