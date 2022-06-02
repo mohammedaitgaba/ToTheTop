@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     
-                    <form class="add_friend" @submit.prevent="add_friend(elements.id_user)" v-if="hidefriend"  >
+                    <form class="add_friend" @submit.prevent="add_friend(elements.id_user)">
                     <!-- v-if="elements.id_user != added" -->
                         <button type="submit" >
                             <img src="../assets/images/icons/addFriend.png" alt="">
@@ -154,7 +154,6 @@ export default {
             )
             .then(res => {
                 this.friends = res.data
-                // console.log(this.friends);
             })
         },
         add_friend(id){
@@ -163,24 +162,10 @@ export default {
                 id_reciver:id
             }).then(res=>{
                 this.added = res.data
-                this.hidefriend()
-                // this.HideAddedFriends(this.added.push)
+                this.RandomFriends()
             })
         },
-        hidefriend(){
-            // console.log(this.added);
-            // // this.friends.forEach(element => {
-            // //     if (element != this.added) {
-            // //         console.log(this.added);
-            // //     }
-            // //     // console.log(element);
-            // //     // if (element == this.added.forEach(id)) {
-            // //     //     console.log(id);
-            // //     //     return true
-            // //     // }else
-            // //     // return false
-            // // });
-        },
+
         reload(){
             this.$router.go('/posts')
         }

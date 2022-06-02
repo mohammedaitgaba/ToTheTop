@@ -1,8 +1,8 @@
 <template>
     <div class="comments_container">
-        <!-- <div @click="countcomments">aaaaaaaa</div> -->
         <div class="show_more">
             <label @click="showCmnts">Show all comments : </label>
+            <label for=""> {{comments.length}} </label>
         </div>
         <form class="make_cmnt" @submit.prevent="addcomment">
             <input type="text" placeholder="Write a public comment" v-model="comment">
@@ -46,6 +46,7 @@ export default {
     mounted() {
         this.GetAllComments()
 
+
     },
     methods: {
         addcomment(){
@@ -55,11 +56,11 @@ export default {
                 comment:this.comment,
                 id_maker:sessionStorage.getItem('ID')
             }
-            ).then(res =>
-            {
-                this.show_cmnt = res.data.comment
-            }
-            )
+            ).then(res =>{this.show_cmnt = res.data.comment 
+            this.GetAllComments()
+            this.comment = ""
+            })
+            
         },
         GetAllComments(){
             console.log(this.post_id);
@@ -67,21 +68,14 @@ export default {
                 id_post:this.post_id
             }).then(res =>{
                 this.comments = res.data
-                this.counter =Array.length(this.comment) 
-                console.log(this.counter);
+                // this.counter =Array.length(this.comment) 
+                console.log(this.comments);
             })
         },
         showCmnts(){
             this.Isvisibe = !this.Isvisibe
         },
-        countcomments(){
-            console.log(this.id_post);
-            // axios.post('http://localhost/ToTheTop/backend/Comments/CountComment',{
-            //     id_post:this.post_id
-            // }).then(res =>{
-            //     this.comments = res.data
-            // })
-        }
+
 
     },
 }
@@ -144,6 +138,8 @@ export default {
             .all_cmnts_holder{
                 @include flexColumn(center,flex-start);
                 width: 100%;
+                 max-height: 55vh;
+                overflow-y: scroll;
                 // padding: 10px 0 10px 0;
                 // border-top: 0.3px solid gray;
 
@@ -152,6 +148,7 @@ export default {
                 @include flexRow(flex-start,flex-start);
                 width: 93%;
                 margin-top: 10px;
+               
                 .cmnt_maker_pic{
                     width: 60px;
                     height: 55px;

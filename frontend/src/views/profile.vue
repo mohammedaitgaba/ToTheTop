@@ -63,25 +63,37 @@
 
                         <div class="bg-white shadow mt-6  rounded-lg p-6 ">
                             <h3 class="text-gray-600 text-lg font-semibold mb-4">Freinds</h3>
-                            <ul class="flex items-center space-x-2 overflow-x-scroll">
-                                <!-- Story #1 -->
+                            <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="friendsCounter != 0" > 
                                 <li class="flex flex-col w-14 min-w-[80px] items-center space-y-2" v-for="elements in friends">
-                                    <!-- Ring -->
                                         <img class="w-[80px] h-[80px] rounded-full" :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="freind">
                                     <span class="text-xs text-gray-500">
                                         {{elements.full_name}}
                                     </span>
                                 </li>
                             </ul>
+
+                            <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="friendsCounter == 0">
+                                <li>
+                                    You have no friends 
+                                    <img src="" alt="">
+                                </li>
+                            </ul>
                         </div>
 
                     </aside>
 
-                    <section class="posts_container">
+                    <section class="posts_container" v-if="counter != 0">
                         <section class="post" v-for="elements in postData">
                             <posts :posts_data="elements" />
                         </section>
                     </section> 
+
+                    <section class="posts_container" v-if="counter == 0" >
+                        <div class="No_posts">
+                            <label for="">Oups  </label>
+                            <label for="">You have no posts yet !!</label>
+                        </div>
+                    </section>
                 </main>
 
             </div>
@@ -140,6 +152,7 @@ export default {
                 id:sessionStorage.getItem('ID')
             }).then(res=>{
                 this.postData=res.data
+
             })
         },
         PostsCounter(){
@@ -151,8 +164,7 @@ export default {
             )
         },
         FriendsCounter(){
-            axios.post('http://localhost/ToTheTop/backend/User/CountUserFriends',{
-                id:sessionStorage.getItem('ID')
+            axios.post('http://localhost/ToTheTop/backend/User/CountUserFriends',{id:sessionStorage.getItem('ID'),
             }).then(res=>{
                 this.friendsCounter = res.data.COUNTER
             })
@@ -217,10 +229,17 @@ export default {
         box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
         margin-bottom: 30px;
     }
+    .No_posts{
+         @include flexColumn(stretch, flex-start);
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+    }
     @include tablet {
         margin-top: 30px;
         width: 100%;
     }
+
 
 }
 .User_info{

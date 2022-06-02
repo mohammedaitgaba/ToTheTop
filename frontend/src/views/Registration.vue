@@ -31,7 +31,8 @@
 
                 <div class="inputs">
                     <label for="">Confirme password</label>
-                    <input type="Password" placeholder="rentre password" name="Confirmation" required>
+                    <input v-model="form.passwordConfirmation" type="Password" placeholder="rentre password" name="Confirmation" required>
+                    <span> {{errormessage}} </span>
                 </div>
 
                 <button type="submit" name="submit" class="creat_acc">Create</button>
@@ -49,7 +50,8 @@ import axios from 'axios';
 const formState = {
     full_name: "",
     email: "",
-    password: ""
+    password: "",
+    passwordConfirmation:"",
 
 }
 export default {
@@ -58,7 +60,8 @@ export default {
     },
     data() {
         return {
-            form: formState
+            form: formState,
+            errormessage:"",
         }
     },
     mounted() {
@@ -67,12 +70,23 @@ export default {
     },
     methods: {
         add_user() {
-            axios.post('http://localhost/ToTheTop/backend/User/add_user', {
-                form: this.form
-            }).then(res => {
-                console.log(res)
-                this.$router.push("/Login")
-            })
+            if (this.form.password == this.form.passwordConfirmation) {
+                
+                axios.post('http://localhost/ToTheTop/backend/User/add_user', {
+                    form: this.form
+                }).then(res => {
+                    this.$swal(
+                    {
+                    title:'Your account has been created!',
+                    icon: 'success'
+                    }
+                    )
+                    this.$router.push("/Login")
+                })
+            } else {
+                this.errormessage = "Please confirm your password"
+            }
+            
 
         },
         checkregistration(){
@@ -146,6 +160,9 @@ export default {
                 font-size: 16px;
                 border: 0.8px solid $orange2;
                 border-radius: 7px;
+            }
+            span{
+                color: red;
             }
         }
 
