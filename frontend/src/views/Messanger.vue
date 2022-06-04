@@ -106,9 +106,7 @@ export default {
     },
     mounted() {
         this.getFriends()
-        this.connected()
         this.checkauth()
-        // this.startConnection()
 
     },
     methods: {
@@ -120,28 +118,7 @@ export default {
                 console.log(this.friends);
             })
         },
-        startConnection() {
-            const socket = io("ws://localhost:8181");
-            // receiveamessage from the server
-            socket.on("hello", (arg) => {
-                console.log(arg);// prints"world"
-            });
-            // sendamessage to the server
-            socket.emit("howdy", "stranger");
-        },
-        connected() {
-            var conn = new WebSocket('ws://localhost:8181');
-            conn.onopen = function (e) {
-                console.log("Connection established!");
-                
-            };
 
-            conn.onmessage = function (e) {
-                // console.log(e.data);
-                console.log('ok');
-            };
-            // conn.send("here")
-        },
         checkauth(){
             if (!sessionStorage.getItem('ID')) {
                 this.$router.push('/Login')

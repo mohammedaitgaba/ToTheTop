@@ -61,7 +61,7 @@ export default {
         this.checkScreen();
     },
     mounted() {
-            // console.log(sessionStorage.getItem('ID'));
+        // console.log(sessionStorage.getItem('ID'));
         this.checkregistration()
 
     },
@@ -86,11 +86,13 @@ export default {
             else if(sessionStorage.getItem('name')){
                 this.user = sessionStorage.getItem('name')
             }
+            
         },
         destroyId(){
             sessionStorage.removeItem('ID');
             sessionStorage.removeItem('name');
-
+            this.user = ""
+            console.log(this.user);
         }
 
     },

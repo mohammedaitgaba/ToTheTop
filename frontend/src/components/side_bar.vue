@@ -6,11 +6,12 @@
                 <div class="add" @click="reload"><img src="../assets/images/icons/home.png" alt=""></div>
             </div>
             <div class="search">
-                <input type="search" placeholder="search">
-                <img src="../assets/images/icons/dashicons_search.png" alt="">
+                <!-- <input type="search" placeholder="search">
+                <img src="../assets/images/icons/dashicons_search.png" alt=""> -->
+                friends suggestions 
             </div>
         </div>
-
+        <div for=""> </div>
         <div class="friends_holder" v-if="user">
                 <div class="friend" v-for="elements in friends">
                     <div class="friendinfo">
