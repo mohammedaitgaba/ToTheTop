@@ -24,7 +24,7 @@
                 </div>
 
             </div>
-        </section>
+    </section>
 
         <section class="conversation">
             <div class="head">
@@ -32,18 +32,19 @@
                 <div class="friendname"><label>Kayn darkblade</label></div>
             </div>
             <div class="body">
-                <div class="sender">
+                <div class="sender" >
                     <div class="name">
                         You
                     </div>
-                    <div class="message">
-                        <p> Hello med how are yousssssss
-                        </p>
+                    <div class="message" >
+                        <p> Hello med how are yousssssss</p>
+                        <p ></p>
                     </div>
                     <div class="time">
                         15min ago
                     </div>
                 </div>
+
                 <div class="reciver">
                     <div class="name">
                         Kayn darkblade
@@ -71,20 +72,23 @@
                     <div class="name">
                         You
                     </div>
-                    <div class="message">
+                    <div class="message" >
                         <p> Hello med how are yousssssss
                         </p>
+                        <p v-html="ok"></p>
+                    </div>
+                    <div v-html="ok">
+
                     </div>
                     <div class="time">
                         15min ago
                     </div>
                 </div>
             </div>
-            <div class="send_message">
+            <form class="send_message" @submit.prevent="sendMessage">
                 <input type="text">
-                <button type="submit" name="submit"><img src="../assets/images/icons/send.png" alt=""></button>
-
-            </div>
+                <button name="submit"><img src="../assets/images/icons/send.png" alt="" ></button>
+            </form>
         </section>
     </section>
 
@@ -93,6 +97,7 @@
 <script>
 import Navigation from '@/components/Navigation.vue';
 import axios from 'axios';
+import Pusher from 'pusher-js'
 import { io } from "socket.io-client";
 
 export default {
@@ -102,11 +107,13 @@ export default {
     data() {
         return {
             friends: [],
+            ok:[]
         }
     },
     mounted() {
         this.getFriends()
         this.checkauth()
+        this.connected()
 
     },
     methods: {
@@ -123,7 +130,22 @@ export default {
             if (!sessionStorage.getItem('ID')) {
                 this.$router.push('/Login')
             }
-        }
+        },
+        connected(){
+            // console.log(Pusher);
+            Pusher.logToConsole = true;
+            const pusher = new Pusher('4ac9543eb3d4fb8af512', {
+            cluster: 'eu'
+            });
+
+            const channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', data => {
+            app.messages.push(JSON.stringify(data));
+            });
+        },
+        // sendMessage(){
+        //     this.ok = this.ok.push("ooo")
+        // }
     },
 }
 </script>
