@@ -16,7 +16,10 @@
                     <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="">
                 </div>
                 <div class="comments">
-                    <label for="" class="name"> {{elements.full_name}} </label>
+                    <label for="" class="name"> {{elements.full_name}} 
+                    <p v-if="elements.id_user == 1"> admin</p>
+                    </label>
+                    
                     <label for=""> {{elements.body}}  </label>
                 </div>
             </div>
@@ -54,21 +57,22 @@ export default {
             {
                 id_post:this.post_id,
                 comment:this.comment,
-                id_maker:sessionStorage.getItem('ID')
+                id_maker:sessionStorage.getItem('ID'),
+                id_admin:sessionStorage.getItem('id_admin')
             }
             ).then(res =>{this.show_cmnt = res.data.comment 
+            console.log(res);
             this.GetAllComments()
             this.comment = ""
             })
             
         },
         GetAllComments(){
-            console.log(this.post_id);
             axios.post('http://localhost/ToTheTop/backend/Comments/GetComment',{
-                id_post:this.post_id
+                id_post:this.post_id,
+                id_admin:sessionStorage.getItem('id_admin')
             }).then(res =>{
                 this.comments = res.data
-                // this.counter =Array.length(this.comment) 
                 console.log(this.comments);
             })
         },
@@ -168,8 +172,15 @@ export default {
                 border-radius: 10px;
                 padding: 7px;
                .name{
-                   text-decoration: underline;
                    cursor: pointer;
+                   display: flex;
+                   p{
+                       margin-left: 10px;
+                       background-color: #ffc267;
+                       border-radius: 20px;
+                       padding: 5px;
+                       font-size: 13px;
+                   }
                }
             }
     }

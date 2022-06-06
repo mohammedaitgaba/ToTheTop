@@ -63,9 +63,9 @@ export default {
                     this.message=res.data.message1
                     this.message2=res.data.message2
                     if (res.data.name) {
-                        console.log(res.data)
-                        // sessionStorage.setItem('name',res.data.data.id_user.toString())
                         sessionStorage.setItem('name',res.data.name)
+                        sessionStorage.setItem('id_admin',res.data.id)
+                        console.log(sessionStorage.getItem('id_admin'));
                         this.$router.push("admin_dushboard")
                     }
                 })

@@ -5,12 +5,13 @@ class PostsController extends Controller{
     {
         $this->Postsmodel = $this->model('Posts');
     }
-    public function AddNewPosts(){       
+    public function AddNewPosts(){   
             $data = [
                 'title' => $_POST['title'],
                 'description' => $_POST['description'],
                 'id' => $_POST['id']
             ];
+            
             if (empty($_FILES['image'])) {
                 
                 $result=$this->Postsmodel->CreatePost_withoutPic($data);
@@ -47,14 +48,25 @@ class PostsController extends Controller{
             echo json_encode(['data'=>'error']);
         }
         
-    }
+    }  
+    // public function GetPostsAdmin(){
+    //     $result=$this->Postsmodel->getadminposts();
+    //     if ($result){
+    //         echo json_encode($result);
+    //     } else {
+    //         echo json_encode(['data'=>'error']);
+    //     }
+        
+    // }
+
     public function UpdatePost(){
         $data = [
             'title' => $_POST['title'],
+            'image'=>$_POST['old_image'],
             'description' => $_POST['description'],
             'id' => $_POST['id_post']
         ];
-        var_dump($_FILES['image']['name']);die;
+        var_dump($_FILES['image']);die;
         if (empty($_FILES['image'])) {
             var_dump("1");die;
             $oldimage = $_POST['old_image'];

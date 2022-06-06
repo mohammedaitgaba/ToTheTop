@@ -8,7 +8,7 @@
                 <img src="../assets/images/icons/dashicons_search.png" alt="">
             </div>
             <div class="friends_holder">
-                <div class="friend" v-for="elements in friends">
+                <div class="friend" v-for="elements in friends" @click="getmyfriend(elements.id_user)">
                     <div class="friendinfo">
                         <div class="friendpic">
                             <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/' + elements.user_photo"
@@ -24,7 +24,7 @@
                 </div>
 
             </div>
-    </section>
+        </section>
 
         <section class="conversation">
             <div class="head">
@@ -33,9 +33,6 @@
             </div>
             <div class="body">
                 <div class="sender" >
-                    <div class="name">
-                        You
-                    </div>
                     <div class="message" >
                         <p> Hello med how are yousssssss</p>
                         <p ></p>
@@ -46,9 +43,7 @@
                 </div>
 
                 <div class="reciver">
-                    <div class="name">
-                        Kayn darkblade
-                    </div>
+                    <!-- <div class="name"> Kayn darkblade </div> -->
                     <div class="message">
                         <p> Hello med how are dude its been a long time </p>
                     </div>
@@ -57,9 +52,9 @@
                     </div>
                 </div>
                 <div class="sender">
-                    <div class="name">
+                    <!-- <div class="name">
                         You
-                    </div>
+                    </div> -->
                     <div class="message">
                         <p> Hello med how are yousssssss
                         </p>
@@ -69,9 +64,9 @@
                     </div>
                 </div>
                 <div class="sender">
-                    <div class="name">
+                    <!-- <div class="name">
                         You
-                    </div>
+                    </div> -->
                     <div class="message" >
                         <p> Hello med how are yousssssss
                         </p>
@@ -143,9 +138,10 @@ export default {
             app.messages.push(JSON.stringify(data));
             });
         },
-        // sendMessage(){
-        //     this.ok = this.ok.push("ooo")
-        // }
+        getmyfriend(id){
+            console.log(id);
+        }
+
     },
 }
 </script>
@@ -294,7 +290,7 @@ export default {
             }
 
             .message {
-                padding: 5px;
+                padding: 8px;
                 max-width: 100%;
             }
 
@@ -310,6 +306,7 @@ export default {
             }
 
             .name {
+                align-self: flex-end;
                 padding: 5px;
             }
         }

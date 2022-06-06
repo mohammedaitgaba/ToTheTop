@@ -205,7 +205,7 @@ export default {
             ).then((result) => {
             if (result.isConfirmed){
                 axios.post('http://localhost/ToTheTop/backend/admin/DeleteUserById',id
-                ).then(res => console.log(res))
+                ).then(res => this.getAllUsers())
                 this.$swal(
                 {
                 title:'Deleted!',
@@ -231,14 +231,14 @@ export default {
             ).then((result) => {
             if (result.isConfirmed){
                 axios.post('http://localhost/ToTheTop/backend/admin/DeleteMessageById',id
-                ).then(res => console.log(res))
+                ).then(res => this.getAllContacts())
                 this.$swal(
                 {
                 title:'Message Deleted!',
                 icon: 'success'
                 }
+
             )
-            router.go('/admin_dushboard')
             }
             })
              

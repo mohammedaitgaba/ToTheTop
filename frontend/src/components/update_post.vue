@@ -15,7 +15,7 @@
             <div class="add_img">
                 <span> Post photo </span>
                 <label for="pic"> Choose picture </label>
-                <input type="file" id="pic" name="image" hidden @change="ImageSelected">
+                <input type="file" id="pic" name="image" hidden @change="AddedPic">
             </div>
             <div class="post_submit">
                 <button class="submit" type="submit" >Update</button>
@@ -38,10 +38,10 @@ export default {
     },
     data() {
         return {
+            selectedImg:"",
             titre:this.show_data.title,
             desc:this.show_data.description,
             id_post:this.show_data.id_post,
-            selectfile:"",
         }
     },
     created() {
@@ -52,34 +52,34 @@ export default {
     },
     methods: {
         
-        ImageSelected(event) {
-            this.selectfile = event.target.files[0];               
-            console.log(this.selectfile);
+     AddedPic(event) {
+            this.selectedImg = event.target.files[0]
+            console.log(this.selectedImg);
         },
-        update_post(old_pic){
-            console.log("here");
-            console.log(this.selectfile);
-             let config = {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            };
-            const data = {
-                title: this.titre,
-                description: this.desc,
-                image: this.selectfile,
-                old_image :old_pic,
-                id_post:this.id_post
-            };
-            console.log(data);
-            const formData = new FormData();
-            Object.keys(data).forEach((key) => {
-                formData.append(key, data[key]);
-            });
-            axios.post('http://localhost/ToTheTop/backend/Posts/UpdatePost',
-                    formData
-                ,config).then(res => console.log(res))
+
+    update_post(old_pic){
+        console.log(this.selectedImg + "az");
+        let config = {
+        headers: {
+            "Content-Type": "multipart/form-data",
         },
+        };
+        const data = {
+            title:this.titre,
+            description:this.desc,
+            image:this.selectedImg,
+            old_image:old_pic,
+            id_post:this.id_post
+        };
+        console.log(data);
+        const formData = new FormData();
+        Object.keys(data).forEach((key) => {
+            formData.append(key, data[key]);
+        });
+        axios.post('http://localhost/ToTheTop/backend/Posts/UpdatePost',
+                formData
+            ,config).then(res => console.log("ok"))
+    },
         hide_pop(){
             this.$emit("update_popup");
         }

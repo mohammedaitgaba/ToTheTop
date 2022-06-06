@@ -10,7 +10,7 @@ class Admin
 
     public function ValidAdmin($data)
     {
-        $this->db->query("SELECT name,CIN,email  FROM admin WHERE email = :email");
+        $this->db->query("SELECT name,CIN,email,id  FROM admin WHERE email = :email");
         $this->db->bind('email',$data->email);
         try {
             return $this->db->single();
@@ -19,7 +19,7 @@ class Admin
         }
     }
     public function get_info(){
-        $this->db->query('SELECT name, photo, email, CIN FROM admin');
+        $this->db->query('SELECT name,photo, email,CIN FROM admin');
         try {
             return $this->db->single();
         } catch (PDOException $e) {

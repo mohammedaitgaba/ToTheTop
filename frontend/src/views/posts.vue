@@ -30,6 +30,7 @@ export default {
         return {
             
             post:[],
+            // postadmin:[],
             // Updater: false,
             post_id:null,
             // title: "",
@@ -43,6 +44,7 @@ export default {
     mounted() {
         this.getallposts()
         this.checkauth()
+        // this.getpostsadmin()
         this.loggedid = sessionStorage.getItem('ID')
     },
     methods: {
@@ -50,10 +52,16 @@ export default {
             axios.get('http://localhost/ToTheTop/backend/Posts/GetAllPosts')
             .then(res=>{
                 this.post = res.data
-                console.log(this.post);
                 this.post_id = res.data.id
             })
         },
+        // getpostsadmin(){
+        //     axios.get('http://localhost/ToTheTop/backend/Posts/GetPostsAdmin')
+        //     .then(res=>{
+        //         this.postadmin = res.data
+        //         this.post_id = res.data.id
+        //     })
+        // },
         checkauth(){
             if (!sessionStorage.getItem('ID')&&!sessionStorage.getItem('name')) {
                 this.$router.push('/Login')

@@ -9,8 +9,9 @@ class CommentsController extends Controller
     }
     public function NewComment(){
         $data = json_decode(file_get_contents("php://input")); 
+        // var_dump($data);die;
         $result = $this->CommentsModel->AddComment($data);
-
+        
         if ($result) {
             echo json_encode($result);
         } else {

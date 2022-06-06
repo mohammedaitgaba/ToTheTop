@@ -48,7 +48,7 @@ export default {
             }).then(res => console.log(res))
             this.$swal(
                 {
-                title:'Message Deleted!',
+                title:'Message Sent!',
                 icon: 'success'
                 }
             )
@@ -66,7 +66,7 @@ export default {
         height: 86vh;
         form{
             @include flexColumn(center,space-evenly);
-            background-color: #fab861;
+            background-color: #fdd5a0;
             opacity: 0.8;
             width: 45%;
             height: 80%;
