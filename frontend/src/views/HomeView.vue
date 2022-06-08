@@ -116,6 +116,7 @@ export default {
         position: relative;
         width: 100%;
         height: 100vh;
+        min-width: 100%;
         .background_holder {
             background-image:linear-gradient(#ded2c912,#f3a0334b,#0000008a ), url('../assets/images/backgrounds/homeback.jpg');
             background-size: cover;

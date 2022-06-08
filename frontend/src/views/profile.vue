@@ -203,7 +203,7 @@ export default {
             });
             axios.post('http://localhost/ToTheTop/backend/User/UpdateUserInfo',
                     formData
-                ,config).then(res => console.log(res))
+                ,config).then(res => this.GetUser())
         },
         checkauth(){
             if (!sessionStorage.getItem('ID')) {

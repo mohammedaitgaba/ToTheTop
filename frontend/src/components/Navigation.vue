@@ -195,7 +195,7 @@ nav{
         max-width: 350px;
         height: 70%;
         background-color: $white;
-        top: 12vh;
+        top: 10vh;
         right: 0;
     }
     .mobile_nav-enter-active,

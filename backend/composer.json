@@ -1,11 +1,10 @@
 {
     "autoload": {
         "psr-4": {
-            "MyApp\\": "src"
+            "MyApp\\": "src/"
         }
     },
     "require": {
-        "cboden/ratchet": "^0.4",
-        "pusher/pusher-php-server": "^7.0"
+        "cboden/ratchet": "^0.4"
     }
 }

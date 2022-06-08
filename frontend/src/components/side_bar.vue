@@ -191,6 +191,7 @@ export default {
     border-radius: 8px;
     .sidbar_head{
         @include flexColumn(center, center);
+        width: 100%;
     }
     .helpers {
         @include flexRow(center, center);
@@ -209,6 +210,7 @@ export default {
         @include flexRow(center, center);
         position: relative;
         width: 80%;
+        font-size: 15px;
 
         input {
             width: 100%;

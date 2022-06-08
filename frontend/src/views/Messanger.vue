@@ -8,7 +8,7 @@
                 <img src="../assets/images/icons/dashicons_search.png" alt="">
             </div>
             <div class="friends_holder">
-                <div class="friend" v-for="elements in friends" @click="getmyfriend(elements.id_user)">
+                <div class="friend" v-for="elements in friends" @click="getmyfriend(elements.id_user,elements.full_name,elements.user_photo)">
                     <div class="friendinfo">
                         <div class="friendpic">
                             <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/' + elements.user_photo"
@@ -18,43 +18,53 @@
                             <label> {{ elements.full_name }} </label>
                         </div>
                     </div>
-                    <div class="status">
+                    <div class="status" v-if="online == 1">
                         <img src="../assets/images/icons/online.png" alt="">
+                    </div>
+                    <div class="status" v-if="online != 1">
+                        <img src="../assets/images/icons/offline.png" alt="">
+                    </div>
+                    <div>
+                        {{online}}
                     </div>
                 </div>
 
             </div>
         </section>
+        <section class="conversation" v-if="!friend_id">
+            <div class="empty_conv">
+                Would like to start a conversation ! <br>
+                Go Select who you wanna talk with
+            </div> 
+        </section>
 
-        <section class="conversation">
+        <section class="conversation" v-if="friend_id">
             <div class="head">
-                <div class="friendpic"><img src="../assets/images/ProfilePic/dog-dating-app-2.jpg" alt=""></div>
-                <div class="friendname"><label>Kayn darkblade</label></div>
+                <div class="friendpic"><img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/' + friend_pic " alt=""></div>
+                <div class="friendname"><label> {{friend_name}} </label></div>
             </div>
             <div class="body">
-                <div class="sender" >
+                <div class="sender" v-for="elements in mymsg">
                     <div class="message" >
-                        <p> Hello med how are yousssssss</p>
-                        <p ></p>
+                        <!-- <p> Hello med how are yousssssss</p> -->
+                        <p v-html="elements"></p>
                     </div>
                     <div class="time">
                         15min ago
                     </div>
                 </div>
 
-                <div class="reciver">
+                <div class="reciver" v-for="elements in msgsended">
                     <!-- <div class="name"> Kayn darkblade </div> -->
-                    <div class="message">
-                        <p> Hello med how are dude its been a long time </p>
+                    <div class="message" >
+                        <!-- <p> Hello med how are dude its been a long time </p> -->
+                        <p v-html="elements"></p>
                     </div>
                     <div class="time">
                         15min ago
                     </div>
                 </div>
-                <div class="sender">
-                    <!-- <div class="name">
-                        You
-                    </div> -->
+                <!-- <div class="sender">
                     <div class="message">
                         <p> Hello med how are yousssssss
                         </p>
@@ -62,11 +72,8 @@
                     <div class="time">
                         15min ago
                     </div>
-                </div>
-                <div class="sender">
-                    <!-- <div class="name">
-                        You
-                    </div> -->
+                </div> -->
+                <!-- <div class="sender">
                     <div class="message" >
                         <p> Hello med how are yousssssss
                         </p>
@@ -78,10 +85,10 @@
                     <div class="time">
                         15min ago
                     </div>
-                </div>
+                </div> -->
             </div>
             <form class="send_message" @submit.prevent="sendMessage">
-                <input type="text">
+                <input type="text" v-model="message">
                 <button name="submit"><img src="../assets/images/icons/send.png" alt="" ></button>
             </form>
         </section>
@@ -102,13 +109,25 @@ export default {
     data() {
         return {
             friends: [],
-            ok:[]
+            ok:[],
+            friend_id:"",
+            friend_name:"",
+            friend_pic:"",
+            conn:{},
+            online:"",
+            msgsended:[],
+            mymsg:[],
+            message:"",
+
         }
+    },
+    created() {
+        this.connected()
     },
     mounted() {
         this.getFriends()
         this.checkauth()
-        this.connected()
+        
 
     },
     methods: {
@@ -117,7 +136,7 @@ export default {
                 id: sessionStorage.getItem('ID')
             }).then(res => {
                 this.friends = res.data
-                console.log(this.friends);
+                // console.log(this.friends);
             })
         },
 
@@ -126,20 +145,43 @@ export default {
                 this.$router.push('/Login')
             }
         },
-        connected(){
-            // console.log(Pusher);
-            Pusher.logToConsole = true;
-            const pusher = new Pusher('4ac9543eb3d4fb8af512', {
-            cluster: 'eu'
-            });
 
-            const channel = pusher.subscribe('my-channel');
-            channel.bind('my-event', data => {
-            app.messages.push(JSON.stringify(data));
-            });
+        connected(){
+                this.conn = new WebSocket('ws://localhost:8080');
+                    console.log(this.conn);
+                this.conn.onopen = function(e) {
+                    console.log("Online!");
+                    console.log(this.conn);
+                    // this.conn.send(this.friend_id)
+
+                    
+                };
+
+                
         },
-        getmyfriend(id){
-            console.log(id);
+        getmyfriend(id,name,pic){
+            this.friend_id = id
+            this.friend_name = name
+            this.friend_pic = pic
+        },
+        sendMessage(){
+            // console.log(this.conn);
+            this.conn.send(this.friend_id)
+            this.conn.send(this.message)
+            this.getmessage()
+
+            this.mymsg.push(this.message)
+            this.message = ""
+        },
+        getmessage(){
+            this.conn.onmessage = (e) => {
+                console.log(e.data);
+                this.msgsended.push(e.data)
+            };
+                console.log(this.msgsended);
+        },
+        disconnected(){
+            this.conn.onclose()
         }
 
     },
@@ -233,7 +275,14 @@ export default {
         background-color: #E1E1E1;
         border-radius: 10px;
 
-
+        .empty_conv{
+           @include flexRow(center,center); 
+           height: 100%;
+           font-size: 20px;
+           font-weight: 600;
+           width: 80%;
+           text-align: center
+        }
         .head {
             @include flexRow(center, flex-start);
             width: 100%;
