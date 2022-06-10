@@ -84,6 +84,7 @@ export default {
         },
         checkauth(){
             if (sessionStorage.getItem('ID')) {
+                
                 this.$router.push('/')
             }
         }

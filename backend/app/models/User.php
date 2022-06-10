@@ -65,9 +65,9 @@ class User
     }
 
     public function GetFriends($data){
-        $this->db->query("SELECT users.id_user,user_photo,full_name FROM users JOIN friends ON friends.id_reciver = users.id_user WHERE id_sender = :id
+        $this->db->query("SELECT users.id_user,user_photo,full_name,status FROM users JOIN friends ON friends.id_reciver = users.id_user WHERE id_sender = :id
         UNION
-        SELECT users.id_user,user_photo,full_name FROM users JOIN friends ON friends.id_sender = users.id_user WHERE id_reciver = :id");
+        SELECT users.id_user,user_photo,full_name,status FROM users JOIN friends ON friends.id_sender = users.id_user WHERE id_reciver = :id");
         $this->db->bind(":id",$data->id);
         try {
             return $this->db->resultSet();
@@ -102,54 +102,25 @@ class User
         $this->db->bind(':photo',$target_path);
         $this->db->execute();
     }
-    // public function getAllusers(){
-    //     $this->db->query('SELECT * FROM client');
-    //     try {
-    //         return $this->db->resultSet();
-    //     } catch (PDOException $e) {
-    //         return $e->getMessage();
-    //     } 
-    // }
-    // public function delet_user($data){
-    //     $this->db->query('DELETE  FROM client WHERE id = :id');
-    //     $this->db->bind(":id", $data);
-    //     try {
-    //         return $this->db->execute();
-    //     } catch (PDOException $e) {
-    //         return $e->getMessage();
-    //     }
-    // }
+    public function UpdateStatusOnline($data){
+        
+        $this->db->query('UPDATE users SET status = 1 WHERE id_user = :id');
+        $this->db->bind(':id',$data->id);
+        try{
+            return $this->db->execute();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+    public function UpdateStatusOffline($data){
+        
+        $this->db->query('UPDATE users SET status = 0 WHERE id_user = :id');
+        $this->db->bind(':id',$data->id);
+        try{
+            return $this->db->execute();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
 
-    // public function updateInfo($data)
-    // {
-    //     $this->db->query("UPDATE client SET 
-
-    //     name=:name,
-    //     date_nais = :date_nais,
-    //     CIN =:CIN,
-    //     profession = :profession WHERE id=:id");
-    //     // Bind value
-    //     // 
-
-    //     $this->db->bind(':name', $data['name']);
-    //     $this->db->bind(':date_nais', $data['date_nais']);
-    //     $this->db->bind(':CIN', $data['CIN']);
-    //     $this->db->bind(':profession', $data['profession']);
-    //     $this->db->bind(':id', $data['id']);
-
-    //     try{
-    //         return $this->db->execute();
-    //     }catch(PDOException $e){
-    //         return $e->getMessage();
-    //     }
-    // }
-    // public function getInfor($id){
-    //     $this->db->query('SELECT * FROM  client WHERE id = :id');
-    //     $this->db->bind(":id",$id);
-    //     try{
-    //         return $this->db->single();
-    //     }catch(PDOException $e){
-    //         return $e->getMessage();
-    //     }
-    // }
 }

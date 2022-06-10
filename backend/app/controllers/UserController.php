@@ -122,6 +122,28 @@ class UserController extends Controller
         }
         
     }
+    public function UserStatusOnline(){
+        $data = json_decode(file_get_contents("php://input"));
+        $result = $this->userModel->UpdateStatusOnline($data);
+        if ($result) {
+            echo json_encode($result);
+        }
+        else{
+            echo json_encode(['message'=> 'error']);
+        }
+        
+    }
+    public function UserStatusOffline(){
+        $data = json_decode(file_get_contents("php://input"));
+        $result = $this->userModel->UpdateStatusOffline($data);
+        if ($result) {
+            echo json_encode($result);
+        }
+        else{
+            echo json_encode(['message'=> 'error']);
+        }
+        
+    }
     // public function getAllusers(){
        
     //         $result = $this->userModel->getAllusers(); 

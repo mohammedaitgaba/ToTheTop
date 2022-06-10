@@ -18,14 +18,11 @@
                             <label> {{ elements.full_name }} </label>
                         </div>
                     </div>
-                    <div class="status" v-if="online == 1">
+                    <div class="status" v-if="elements.status == 1">
                         <img src="../assets/images/icons/online.png" alt="">
                     </div>
-                    <div class="status" v-if="online != 1">
+                    <div class="status" v-if="elements.status != 1">
                         <img src="../assets/images/icons/offline.png" alt="">
-                    </div>
-                    <div>
-                        {{online}}
                     </div>
                 </div>
 
@@ -44,26 +41,34 @@
                 <div class="friendname"><label> {{friend_name}} </label></div>
             </div>
             <div class="body">
-                <div class="sender" v-for="elements in mymsg">
+                <div v-for="elements in msgsended" :class="{ 'sender' : (elements.id_sender == idnow), 'reciver' : (elements.id_reciver == idnow)}" >
                     <div class="message" >
                         <!-- <p> Hello med how are yousssssss</p> -->
-                        <p v-html="elements"></p>
+                        <p > {{elements.message}} </p>
                     </div>
                     <div class="time">
-                        15min ago
+                        {{elements.Created_at}}
                     </div>
                 </div>
-
-                <div class="reciver" v-for="elements in msgsended">
-                    <!-- <div class="name"> Kayn darkblade </div> -->
+                <!-- <div v-for="elements in MessageWs" :class="{ 'sender' : (elements.id_sender == idnow), 'reciver' : (elements.id_reciver == idnow)}" >
                     <div class="message" >
-                        <!-- <p> Hello med how are dude its been a long time </p> -->
+                        <p > {{elements.message}} </p>
+                    </div>
+                    <div class="time">
+                        {{elements.Created_at}}
+                    </div>
+                </div> -->
+
+                <!-- <div class="reciver" v-for="elements in msgsended">
+                    <div class="name"> Kayn darkblade </div>
+                    <div class="message" >
+                        <p> Hello med how are dude its been a long time </p>
                         <p v-html="elements"></p>
                     </div>
                     <div class="time">
                         15min ago
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="sender">
                     <div class="message">
                         <p> Hello med how are yousssssss
@@ -114,23 +119,39 @@ export default {
             friend_name:"",
             friend_pic:"",
             conn:{},
+            idnow:sessionStorage.getItem('ID'),
             online:"",
             msgsended:[],
-            mymsg:[],
             message:"",
+            MessageWs:[],
+
+            fullmessage:{
+                id_sender:"",
+                id_reciver:"",
+                message:"",
+                time:""
+            }
+            // mymsg:[],
 
         }
     },
-    created() {
-        this.connected()
-    },
     mounted() {
-        this.getFriends()
         this.checkauth()
+        this.connected()
+        this.getFriends()
+        this.UserStatusOnline()
         
-
     },
+    unmounted() {
+        this.UserStatusOffline()
+    },
+
     methods: {
+        checkauth(){
+            if (!sessionStorage.getItem('ID')) {
+                this.$router.push('/Login')
+            }
+        },
         getFriends() {
             axios.post('http://localhost/ToTheTop/backend/User/GetAllFriends', {
                 id: sessionStorage.getItem('ID')
@@ -140,48 +161,68 @@ export default {
             })
         },
 
-        checkauth(){
-            if (!sessionStorage.getItem('ID')) {
-                this.$router.push('/Login')
-            }
-        },
-
         connected(){
-                this.conn = new WebSocket('ws://localhost:8080');
-                    console.log(this.conn);
-                this.conn.onopen = function(e) {
-                    console.log("Online!");
-                    console.log(this.conn);
-                    // this.conn.send(this.friend_id)
-
-                    
-                };
-
-                
+        this.conn = new WebSocket('ws://localhost:8080');
+            this.conn.onopen = (e) => {
+                console.log("Online!");
+            };
+            this.conn.onClose = (e) => {
+                console.log("disconnected");
+            }
+            this.conn.onmessage = (e) => {
+            this.MessageWs.push(e.data)
+            console.log(JSON.parse(e.data));
+            };
+        
         },
+        
+        
         getmyfriend(id,name,pic){
             this.friend_id = id
             this.friend_name = name
             this.friend_pic = pic
+            this.getmessages()
         },
         sendMessage(){
-            // console.log(this.conn);
-            this.conn.send(this.friend_id)
-            this.conn.send(this.message)
-            this.getmessage()
+            this.fullmessage.message = this.message
+            this.fullmessage.id_sender = sessionStorage.getItem("ID")
+            this.fullmessage.id_reciver = this.friend_id
+            this.fullmessage.time = Date.now()
+            console.log(this.fullmessage);
+            this.conn.send(JSON.stringify(this.fullmessage))
+            // console.log(sessionStorage.getItem('ID'));
+            // axios.post('http://localhost/ToTheTop/backend/Messanger/AddMessage',{
+            //     message:this.message,
+            //     id_sender:sessionStorage.getItem('ID'),
+            //     id_reciver:this.friend_id
+            // }).then(res=>console.log(res))
+            // this.MessageWs.push(this.message)
+            // // this.getmessage()
+            // this.message = ""
 
-            this.mymsg.push(this.message)
-            this.message = ""
         },
-        getmessage(){
-            this.conn.onmessage = (e) => {
-                console.log(e.data);
-                this.msgsended.push(e.data)
-            };
-                console.log(this.msgsended);
+        getmessages(){
+            axios.post('http://localhost/ToTheTop/backend/Messanger/GetConversation',{
+                id_sender:sessionStorage.getItem('ID'),
+                id_reciver:this.friend_id
+            }).then(res=>{
+                console.log(res.data)
+                this.msgsended =res.data
+                })
+            
         },
         disconnected(){
-            this.conn.onclose()
+            
+        },
+        UserStatusOnline(){
+            axios.post('http://localhost/ToTheTop/backend/User/UserStatusOnline',{
+                id: sessionStorage.getItem('ID')
+            }).then(res => this.online = 1)
+        },
+        UserStatusOffline(){
+            axios.post('http://localhost/ToTheTop/backend/User/UserStatusOffline',{
+                id: sessionStorage.getItem('ID')
+            }).then(res => this.online = 0)
         }
 
     },

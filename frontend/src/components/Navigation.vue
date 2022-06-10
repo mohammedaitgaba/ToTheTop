@@ -27,7 +27,7 @@
             <transition name="mobile_nav">
             <ul v-show ="mobileNav" class="dropdown-nav">
                 <li><router-link to="/"><a class="nav_item" href="">Home</a></router-link></li>
-                <li v-if="user !='Med gaba'"><router-link to=""><a class="nav_item" href="">Profile</a></router-link>  </li>
+                <li v-if="user !='Med gaba'"><router-link to="/profile"><a class="nav_item" href="">Profile</a></router-link>  </li>
                 <li ><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
                 <li v-if="user !='Med gaba'"><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
                 <li v-if="user =='Med gaba'"><router-link to="/admin_dushboard"><a class="nav_item" href="">Dushboard</a> </router-link> </li>
