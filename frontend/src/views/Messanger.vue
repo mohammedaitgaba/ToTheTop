@@ -44,21 +44,31 @@
                 <div v-for="elements in msgsended" :class="{ 'sender' : (elements.id_sender == idnow), 'reciver' : (elements.id_reciver == idnow)}" >
                     <div class="message" >
                         <!-- <p> Hello med how are yousssssss</p> -->
-                        <p > {{elements.message}} </p>
+                        {{elements.message}}
                     </div>
                     <div class="time">
                         {{elements.Created_at}}
                     </div>
                 </div>
-                <!-- <div v-for="elements in MessageWs" :class="{ 'sender' : (elements.id_sender == idnow), 'reciver' : (elements.id_reciver == idnow)}" >
+                
+                <div v-for="elements in MessageWs" :class="{ 'sender' : (elements.id_sender == idnow ), 'reciver' : (elements.id_reciver == idnow)}" >
+                <div v-if="elements.id_sender == idnow && elements.id_reciver == friend_id">
+                    <div class="message" >
+                        {{elements.message}}
+                    </div>
+                    <div class="time">
+                        {{elements.Created_at}}
+                    </div>
+                </div>
+                <div v-if="elements.id_sender == friend_id && elements.id_reciver == idnow">
                     <div class="message" >
                         <p > {{elements.message}} </p>
                     </div>
                     <div class="time">
                         {{elements.Created_at}}
                     </div>
-                </div> -->
-
+                </div>
+                </div>
                 <!-- <div class="reciver" v-for="elements in msgsended">
                     <div class="name"> Kayn darkblade </div>
                     <div class="message" >
@@ -119,17 +129,18 @@ export default {
             friend_name:"",
             friend_pic:"",
             conn:{},
-            idnow:sessionStorage.getItem('ID'),
+            idnow:parseInt(sessionStorage.getItem('ID')),
             online:"",
             msgsended:[],
             message:"",
             MessageWs:[],
+            
 
             fullmessage:{
                 id_sender:"",
                 id_reciver:"",
                 message:"",
-                time:""
+                Created_at:""
             }
             // mymsg:[],
 
@@ -142,6 +153,7 @@ export default {
         this.UserStatusOnline()
         
     },
+    
     unmounted() {
         this.UserStatusOffline()
     },
@@ -157,7 +169,6 @@ export default {
                 id: sessionStorage.getItem('ID')
             }).then(res => {
                 this.friends = res.data
-                // console.log(this.friends);
             })
         },
 
@@ -170,7 +181,10 @@ export default {
                 console.log("disconnected");
             }
             this.conn.onmessage = (e) => {
-            this.MessageWs.push(e.data)
+                if (toFriend.id_sender == this.friend_id) {
+                    this.MessageWs.push(JSON.parse(e.data))
+                }
+            // this.MessageWs.push(e.data)
             console.log(JSON.parse(e.data));
             };
         
@@ -181,24 +195,31 @@ export default {
             this.friend_id = id
             this.friend_name = name
             this.friend_pic = pic
+            console.log(this.friend_id);
             this.getmessages()
         },
         sendMessage(){
-            this.fullmessage.message = this.message
-            this.fullmessage.id_sender = sessionStorage.getItem("ID")
-            this.fullmessage.id_reciver = this.friend_id
-            this.fullmessage.time = Date.now()
-            console.log(this.fullmessage);
-            this.conn.send(JSON.stringify(this.fullmessage))
-            // console.log(sessionStorage.getItem('ID'));
-            // axios.post('http://localhost/ToTheTop/backend/Messanger/AddMessage',{
-            //     message:this.message,
-            //     id_sender:sessionStorage.getItem('ID'),
-            //     id_reciver:this.friend_id
-            // }).then(res=>console.log(res))
-            // this.MessageWs.push(this.message)
-            // // this.getmessage()
-            // this.message = ""
+
+        this.fullmessage.message = this.message
+        this.fullmessage.id_sender = this.idnow
+        this.fullmessage.id_reciver = this.friend_id
+        this.fullmessage.Created_at = Date.now()
+
+            let msg = {
+                message : this.message,
+                id_sender : this.idnow,
+                id_reciver :this.friend_id,
+                Created_at : Date.now()
+                }
+        this.MessageWs.push(msg)
+        this.conn.send(JSON.stringify(this.fullmessage))
+        axios.post('http://localhost/ToTheTop/backend/Messanger/AddMessage',{
+            message:this.message,
+            id_sender:sessionStorage.getItem('ID'),
+            id_reciver:this.friend_id
+        }).then(res=>console.log(res))
+        this.MessageWs.push(this.message)
+        this.message = ""
 
         },
         getmessages(){
@@ -209,6 +230,23 @@ export default {
                 console.log(res.data)
                 this.msgsended =res.data
                 })
+
+            this.conn.onmessage = (e) => {
+                let toFriend = JSON.parse(e.data)
+                console.log(toFriend.id_reciver);
+                console.log(toFriend.id_sender);
+                console.log(this.friend_id);
+                console.log(this.idnow);
+                if (toFriend.id_sender == this.friend_id) {
+                    this.MessageWs.push(JSON.parse(e.data))
+                }
+            // console.log(JSON.parse(e.data));
+            
+            // this.test=JSON.parse(e.data)
+            // console.log(this.test);
+            // console.log(this.MessageWs);
+            };
+                
             
         },
         disconnected(){
@@ -223,7 +261,8 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/User/UserStatusOffline',{
                 id: sessionStorage.getItem('ID')
             }).then(res => this.online = 0)
-        }
+        },
+        
 
     },
 }
