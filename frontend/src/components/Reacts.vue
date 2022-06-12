@@ -28,10 +28,10 @@ export default {
     },
     data() {
         return {
-            like:true,
-            unlike:false,
-            clap:true,
-            unclap:false,
+            like:false,
+            unlike:true,
+            clap:false,
+            unclap:true,
             likes:"",
             claps:"",
             checker:"",
@@ -46,10 +46,11 @@ export default {
     },
     methods: {
         LikePost(){
-            
+
             axios.post('http://localhost/ToTheTop/backend/React/AddLike',{
                 id_post:this.post_id,
-                id_user:sessionStorage.getItem('ID')
+                id_user:sessionStorage.getItem('ID'),
+                id_admin:sessionStorage.getItem('id_admin')
             }
             ).then(res => {
                 this.checker= res.data 
@@ -78,8 +79,13 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/React/CheckUserLike',{
                 id_post:this.post_id,
                 id_user:sessionStorage.getItem('ID'),
-            }).then(res=> {
+                id_admin:sessionStorage.getItem('id_admin'),
+            }).then(res=> { console.log(res);
                 if ((res.data.id_user == sessionStorage.getItem('ID'))) {
+                    this.like=!this.like
+                    this.unlike=!this.unlike
+                }
+                if ((res.data.id_admin == sessionStorage.getItem('id_admin'))) {
                     this.like=!this.like
                     this.unlike=!this.unlike
                 }
@@ -88,9 +94,10 @@ export default {
         clapeOnPost(){
              axios.post('http://localhost/ToTheTop/backend/React/AddClap',{
                 id_post:this.post_id,
-                id_user:sessionStorage.getItem('ID')
+                id_user:sessionStorage.getItem('ID'),
+                id_admin:sessionStorage.getItem('id_admin'),
             }
-            ).then(res => {
+            ).then(res => { console.log(res);
                 this.checker2= res.data 
                 if (this.checker2 == 1) {
                     this.clap = !this.clap
@@ -115,8 +122,13 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/React/CheckUserClap',{
                 id_post:this.post_id,
                 id_user:sessionStorage.getItem('ID'),
-            }).then(res=> {
+                id_admin:sessionStorage.getItem('id_admin'),
+            }).then(res=> { 
                 if ((res.data.id_user == sessionStorage.getItem('ID'))) {
+                    this.clap=!this.clap
+                    this.unclap=!this.unclap
+                }
+                if ((res.data.id_admin == sessionStorage.getItem('id_admin'))) {
                     this.clap=!this.clap
                     this.unclap=!this.unclap
                 }

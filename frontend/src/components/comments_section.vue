@@ -116,7 +116,6 @@ export default {
                 id_admin:sessionStorage.getItem('id_admin')
             }).then(res =>{
                 this.comments = res.data
-                console.log(this.comments);
             })
         },
         showCmnts(){
@@ -142,7 +141,6 @@ export default {
                 id_maker:sessionStorage.getItem("ID"),
                 id_admin:sessionStorage.getItem('id_admin'),
             }).then(res=>{
-                console.log(res);
                 if (res.data == "ok") {
                     this.GetAllComments()
                 }

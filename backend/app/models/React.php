@@ -6,9 +6,16 @@ class React{
         $this->db = new Database;
     }
     public function addLike($data){
+
         if ($this->CheckLike($data)==false) {
-            $this->db->query("INSERT INTO likes (id_user,id_post)VALUES(:id_user,:id_post)");
-            $this->db->bind('id_user',$data->id_user);
+
+            if (empty($data->id_user)) {
+                $this->db->query("INSERT INTO likes (id_admin,id_post)VALUES(:id_admin,:id_post)");
+                $this->db->bind('id_admin',$data->id_admin);
+            } else {
+                $this->db->query("INSERT INTO likes (id_user,id_post)VALUES(:id_user,:id_post)");
+                $this->db->bind('id_user',$data->id_user);
+            }
             $this->db->bind('id_post',$data->id_post);
             try{
                 $this->db->execute();
@@ -16,9 +23,15 @@ class React{
             }catch(PDOException $e){
                 return $e->getMessage();
             }
+
         }else{
-            $this->db->query('DELETE FROM likes WHERE id_user = :id_user AND id_post = :id_post');
-            $this->db->bind('id_user',$data->id_user);
+            if (empty($data->id_user)) {
+                $this->db->query('DELETE FROM likes WHERE id_admin = :id_admin AND id_post = :id_post');
+                $this->db->bind('id_admin',$data->id_admin);
+            }else {
+                $this->db->query('DELETE FROM likes WHERE id_user = :id_user AND id_post = :id_post');
+                $this->db->bind('id_user',$data->id_user);
+            }
             $this->db->bind('id_post',$data->id_post);
             try{
                 $this->db->execute();
@@ -41,9 +54,13 @@ class React{
         }
     }
     public function CheckLike($data){
-        // var_dump($data);die;
-        $this->db->query('SELECT * FROM likes WHERE id_user = :id_user AND id_post = :id_post');
-        $this->db->bind('id_user',$data->id_user);
+        if (empty($data->id_user)) {
+            $this->db->query('SELECT * FROM likes WHERE id_admin = :id_admin AND id_post = :id_post');
+            $this->db->bind('id_admin',$data->id_admin);
+        } else {
+            $this->db->query('SELECT * FROM likes WHERE id_user = :id_user AND id_post = :id_post');
+            $this->db->bind('id_user',$data->id_user);
+        }
         $this->db->bind('id_post',$data->id_post);
         try{
             return $this->db->single();
@@ -56,8 +73,14 @@ class React{
 
     public function addClaps($data){
         if ($this->CheckClap($data)==false) {
-            $this->db->query("INSERT INTO claps (id_user,id_post)VALUES(:id_user,:id_post)");
-            $this->db->bind('id_user',$data->id_user);
+
+            if (empty($data->id_user)) {
+                $this->db->query("INSERT INTO claps (id_admin,id_post)VALUES(:id_admin,:id_post)");
+                $this->db->bind('id_admin',$data->id_admin);
+            } else {
+                $this->db->query("INSERT INTO claps (id_user,id_post)VALUES(:id_user,:id_post)");
+                $this->db->bind('id_user',$data->id_user);
+            }
             $this->db->bind('id_post',$data->id_post);
             try{
                 $this->db->execute();
@@ -65,9 +88,15 @@ class React{
             }catch(PDOException $e){
                 return $e->getMessage();
             }
+
         }else{
-            $this->db->query('DELETE FROM claps WHERE id_user = :id_user AND id_post = :id_post');
-            $this->db->bind('id_user',$data->id_user);
+            if (empty($data->id_user)) {
+                $this->db->query('DELETE FROM claps WHERE id_admin = :id_admin AND id_post = :id_post');
+                $this->db->bind('id_admin',$data->id_admin);
+            }else {
+                $this->db->query('DELETE FROM claps WHERE id_user = :id_user AND id_post = :id_post');
+                $this->db->bind('id_user',$data->id_user);
+            }
             $this->db->bind('id_post',$data->id_post);
             try{
                 $this->db->execute();
@@ -79,8 +108,13 @@ class React{
         
     }
     public function CheckClap($data){
-        $this->db->query('SELECT * FROM claps WHERE id_user = :id_user AND id_post = :id_post');
-        $this->db->bind('id_user',$data->id_user);
+        if (empty($data->id_user)) {
+            $this->db->query('SELECT * FROM claps WHERE id_admin = :id_admin AND id_post = :id_post');
+            $this->db->bind('id_admin',$data->id_admin);
+        } else {
+            $this->db->query('SELECT * FROM claps WHERE id_user = :id_user AND id_post = :id_post');
+            $this->db->bind('id_user',$data->id_user);
+        }
         $this->db->bind('id_post',$data->id_post);
         try{
             return $this->db->single();

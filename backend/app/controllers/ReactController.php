@@ -46,7 +46,6 @@ class ReactController extends Controller{
 
     public function AddClap (){
         $data = json_decode(file_get_contents("php://input"));
-
         $result = $this->Reactmodel->addClaps($data);
         if ($result) {
             echo json_encode($result);

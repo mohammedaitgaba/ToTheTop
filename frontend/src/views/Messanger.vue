@@ -43,7 +43,6 @@
             <div class="body">
                 <div v-for="elements in msgsended" :class="{ 'sender' : (elements.id_sender == idnow), 'reciver' : (elements.id_reciver == idnow)}" >
                     <div class="message" >
-                        <!-- <p> Hello med how are yousssssss</p> -->
                         {{elements.message}}
                     </div>
                     <div class="time">
@@ -69,38 +68,6 @@
                     </div>
                 </div>
                 </div>
-                <!-- <div class="reciver" v-for="elements in msgsended">
-                    <div class="name"> Kayn darkblade </div>
-                    <div class="message" >
-                        <p> Hello med how are dude its been a long time </p>
-                        <p v-html="elements"></p>
-                    </div>
-                    <div class="time">
-                        15min ago
-                    </div>
-                </div> -->
-                <!-- <div class="sender">
-                    <div class="message">
-                        <p> Hello med how are yousssssss
-                        </p>
-                    </div>
-                    <div class="time">
-                        15min ago
-                    </div>
-                </div> -->
-                <!-- <div class="sender">
-                    <div class="message" >
-                        <p> Hello med how are yousssssss
-                        </p>
-                        <p v-html="ok"></p>
-                    </div>
-                    <div v-html="ok">
-
-                    </div>
-                    <div class="time">
-                        15min ago
-                    </div>
-                </div> -->
             </div>
             <form class="send_message" @submit.prevent="sendMessage">
                 <input type="text" v-model="message">
@@ -114,8 +81,6 @@
 <script>
 import Navigation from '@/components/Navigation.vue';
 import axios from 'axios';
-import Pusher from 'pusher-js'
-import { io } from "socket.io-client";
 
 export default {
     components: {
@@ -135,14 +100,12 @@ export default {
             message:"",
             MessageWs:[],
             
-
             fullmessage:{
                 id_sender:"",
                 id_reciver:"",
                 message:"",
                 Created_at:""
             }
-            // mymsg:[],
 
         }
     },
