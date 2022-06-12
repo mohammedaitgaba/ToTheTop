@@ -38,7 +38,11 @@ class Posts{
         $this->db->bind(':id',$data['id']);
         $this->db->bind(':description',$data['description']);
         $this->db->bind(':photo',$target_path);
-        $this->db->execute();
+        try{
+            return $this->db->execute();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
     }
     public function GetpostsById($data){
         $this->db->query('SELECT posts.*,users.full_name,users.user_photo FROM posts INNER JOIN users ON posts.id_maker = users.id_user  WHERE id_maker = :id ORDER BY id_post DESC');

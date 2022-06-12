@@ -57,13 +57,11 @@ export default {
                     this.like = !this.like
                     this.unlike = !this.unlike
                     this.likes = this.likes + 1
-                console.log(this.checker)
                 }
                 if(this.checker == 2){
                     this.unlike = !this.unlike
                     this.like = !this.like
                     this.likes = this.likes - 1
-                    console.log(this.checker)
                 }
             })
             
@@ -80,8 +78,7 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/React/CheckUserLike',{
                 id_post:this.post_id,
                 id_user:sessionStorage.getItem('ID'),
-            }).then(res=> {console.log(res)
-
+            }).then(res=> {
                 if ((res.data.id_user == sessionStorage.getItem('ID'))) {
                     this.like=!this.like
                     this.unlike=!this.unlike
@@ -99,13 +96,11 @@ export default {
                     this.clap = !this.clap
                     this.unclap = !this.unclap
                     this.claps = this.claps + 1
-                console.log(this.checker2)
                 }
                 if(this.checker2 == 2){
                     this.unclap = !this.unclap
                     this.clap = !this.clap
                     this.claps = this.claps - 1
-                    console.log(this.checker2)
                 }
             })
         },
@@ -120,8 +115,7 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/React/CheckUserClap',{
                 id_post:this.post_id,
                 id_user:sessionStorage.getItem('ID'),
-            }).then(res=> {console.log(res)
-
+            }).then(res=> {
                 if ((res.data.id_user == sessionStorage.getItem('ID'))) {
                     this.clap=!this.clap
                     this.unclap=!this.unclap

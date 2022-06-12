@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "sass": "^1.50.1",
+    "vue-emoji-picker": "^1.0.3",
     "vue-typed-js": "^0.1.2"
   }
 }

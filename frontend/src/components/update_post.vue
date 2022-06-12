@@ -30,7 +30,7 @@ export default {
     emits:['displayed'],
     props:{
         show_data: {
-            type:Array
+            type:Object
         },
         displayed:{
             type:Boolean
@@ -39,46 +39,51 @@ export default {
     data() {
         return {
             selectedImg:"",
-            titre:this.show_data.title,
-            desc:this.show_data.description,
-            id_post:this.show_data.id_post,
+            // NewTitle:this.show_data.title,
+            // NewDesc:this.show_data.description,
+            // id_post:this.show_data.id_post,
         }
     },
     created() {
-        // this.$emit('displayed')
-    },
-    mounted() {
-        console.log(this.displayed);
     },
     methods: {
         
-     AddedPic(event) {
+    AddedPic(event) {
             this.selectedImg = event.target.files[0]
             console.log(this.selectedImg);
         },
 
     update_post(old_pic){
-        console.log(this.selectedImg + "az");
         let config = {
         headers: {
             "Content-Type": "multipart/form-data",
         },
         };
         const data = {
-            title:this.titre,
-            description:this.desc,
-            image:this.selectedImg,
+            title:this.show_data.title,
+            description:this.show_data.description,
+            images:this.selectedImg,
             old_image:old_pic,
-            id_post:this.id_post
+            id_post:this.show_data.id_post
         };
-        console.log(data);
         const formData = new FormData();
         Object.keys(data).forEach((key) => {
             formData.append(key, data[key]);
         });
         axios.post('http://localhost/ToTheTop/backend/Posts/UpdatePost',
                 formData
-            ,config).then(res => console.log("ok"))
+            ,config).then(res => {console.log(res)
+            if (res.data== 'ok') {
+                        this.$swal(
+                        {
+                        title:'Succesfully!',
+                        text:'Your post has been added.',
+                        icon: 'success'
+                        }
+                    )
+                    this.$router.go('/posts')
+                    }
+            })
     },
         hide_pop(){
             this.$emit("update_popup");

@@ -52,7 +52,7 @@ import update_post from '@/components/update_post.vue';
 export default {
     props:{
         posts_data:{
-            type:Array
+            type:Object
         }
     },
     components:{

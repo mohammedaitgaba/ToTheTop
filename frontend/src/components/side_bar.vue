@@ -113,9 +113,9 @@ export default {
                 },
             };
             const data = {
-                title: this.title,
-                description: this.description,
-                image: this.selectedImg,
+                title:this.title,
+                description:this.description,
+                image:this.selectedImg,
                 id_post:this.id_post,
                 id:this.id
             };
@@ -126,7 +126,6 @@ export default {
             axios.post('http://localhost/ToTheTop/backend/Posts/AddNewPosts',
                     asformData
                 ,config).then(res => {this.success = res.data
-                    console.log(this.success);
                     if (this.success == 'ok') {
                         this.$swal(
                         {
@@ -177,7 +176,7 @@ export default {
 </script>
 <style lang="scss" scooped>
 @import '../assets/styles/config';
-
+        
 .side_bar {
     @include flexColumn(center, space-between);
     position: sticky;
@@ -258,6 +257,8 @@ export default {
         margin-top: 20px;
         overflow-y: scroll;
 
+       
+
         .friend {
             @include flexRow(center, space-between);
             padding: 5px;
@@ -319,6 +320,7 @@ export default {
             @include flexRow(center, flex-start);
             overflow-y: hidden;
             overflow-x: scroll;
+
             margin: 0;
             .friend{
                 @include flexRow(center, center);

@@ -421,6 +421,7 @@ export default {
             .message {
                 padding: 8px;
                 max-width: 100%;
+                overflow-wrap: break-word;
             }
 
             .time {

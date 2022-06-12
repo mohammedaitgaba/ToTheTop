@@ -62,32 +62,28 @@ class PostsController extends Controller{
     public function UpdatePost(){
         $data = [
             'title' => $_POST['title'],
-            'image'=>$_POST['old_image'],
             'description' => $_POST['description'],
             'id' => $_POST['id_post']
         ];
-        var_dump($_FILES['image']);die;
-        if (empty($_FILES['image'])) {
-            var_dump("1");die;
+        if (empty($_FILES['images'])) {
             $oldimage = $_POST['old_image'];
             $result=$this->Postsmodel->UpdatePost($oldimage,$data);
             if ($result) {
-                echo json_encode(['message' => 'ok']);
+                echo json_encode("ok");
             }
             else {
-                echo json_encode(['message' => 'Error uploading file']);
+                echo json_encode("Error updating post");
             }
         }
         else{
-            var_dump("eeeee");die;
-            $Image = $_FILES['image']['name'];
+            $Image = $_FILES['images']['name'];
             $imageFileType = strtolower(pathinfo($Image, PATHINFO_EXTENSION));
             $extensions_arr = array("jpg", "jpeg", "png", "gif");
             if (in_array($imageFileType, $extensions_arr)) {
                 $file_name = uniqid('', true) . '.' . $imageFileType;
                 $target_path = $file_name;
                 
-                if (move_uploaded_file($_FILES['image']['tmp_name'], 'C:\xampp\htdocs\ToTheTop\backend\public\imgUploaded\\' . $target_path)) {
+                if (move_uploaded_file($_FILES['images']['tmp_name'], 'C:\xampp\htdocs\ToTheTop\backend\public\imgUploaded\\' . $target_path)) {
                     $result=$this->Postsmodel->UpdatePost($target_path,$data);
                     echo json_encode(['message' => 'ok']);
                 } else {

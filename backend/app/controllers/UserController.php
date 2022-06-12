@@ -95,7 +95,6 @@ class UserController extends Controller
         ];
         if (empty($_FILES['image'])) {
             $oldPic=$_POST['oldimage'];
-            // var_dump($oldPic);die;
             $result=$this->userModel->UpdateUser($oldPic,$data);
             if ($result) {
                 echo json_encode(['message' => 'ok']);
