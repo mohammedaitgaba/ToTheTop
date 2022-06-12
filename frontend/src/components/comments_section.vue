@@ -45,11 +45,17 @@
                     <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="">
                 </div>
                 <div class="comments">
-                    <label for="" class="name"> {{elements.full_name}} 
-                    <p v-if="elements.id_user == 1"> admin</p>
-                    </label>
-                    
-                    <label for=""> {{elements.body}}  </label>
+                    <div>
+                        <label for="" class="name"> {{elements.full_name}} 
+                        <p v-if="elements.id_user == 1"> admin</p>
+                        </label>
+                        
+                        <label for=""> {{elements.body}} </label>
+                        <label for=""> {{elements.id_user}} </label>
+                    </div>
+                    <div v-if="elements.id_user == idnow || id_admin" class="delete_cmnt" @click="deleteComment(elements.id_post,elements.id_comment)">
+                        <img  src="../assets/images/icons/delete.png" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,6 +82,8 @@ export default {
             myImage:"../assets/images/icons/send.png",
             otherImage:"",
             counter:"",
+            idnow:sessionStorage.getItem('ID'),
+            id_admin:sessionStorage.getItem('id_admin'),
 
 
         input: '',
@@ -85,8 +93,6 @@ export default {
     },
     mounted() {
         this.GetAllComments()
-
-
     },
     methods: {
         addcomment(){
@@ -110,10 +116,48 @@ export default {
                 id_admin:sessionStorage.getItem('id_admin')
             }).then(res =>{
                 this.comments = res.data
+                console.log(this.comments);
             })
         },
         showCmnts(){
             this.Isvisibe = !this.Isvisibe
+        },
+        deleteComment(idpost,id_comment){
+
+            this.$swal(
+                {
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }
+            ).then((result) => {
+            if (result.isConfirmed){
+                axios.post('http://localhost/ToTheTop/backend/Comments/DeleteComment',{
+                id_post:idpost,
+                id:id_comment,
+                id_maker:sessionStorage.getItem("ID"),
+                id_admin:sessionStorage.getItem('id_admin'),
+            }).then(res=>{
+                console.log(res);
+                if (res.data == "ok") {
+                    this.GetAllComments()
+                }
+                })
+                this.$swal({
+                title:'Comment Deleted!',
+                icon: 'success'
+                })
+            }
+            }
+            )
+             
+
+
+            
         },
 
     insert(emoji) {
@@ -205,7 +249,7 @@ export default {
                 }
             }
             .comments{
-                @include flexColumn(flex-start,center);
+                @include flexRow(flex-start,space-between);
                 width: 80%;
                 margin-left: 10px;
                 background-color: #EAEAEA;
@@ -221,6 +265,13 @@ export default {
                        padding: 5px;
                        font-size: 13px;
                    }
+               }
+               .delete_cmnt{
+                cursor: pointer;
+                img{
+                    width: 20px;
+                    height: 20px;
+                }
                }
             }
     }

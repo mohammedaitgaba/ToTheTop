@@ -237,7 +237,6 @@ export default {
                 title:'Message Deleted!',
                 icon: 'success'
                 }
-
             )
             }
             })

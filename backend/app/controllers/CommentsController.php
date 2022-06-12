@@ -26,4 +26,13 @@ class CommentsController extends Controller
         }
         
     }
+    public function DeleteComment(){
+        $data = json_decode(file_get_contents("php://input"));
+        $result =  $this->CommentsModel->DeleteCommentById($data);
+        if ($result) {
+            echo json_encode("ok");
+        } else {
+            echo json_encode('error');
+        } 
+    }
 }

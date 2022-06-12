@@ -16,7 +16,6 @@
             </div>
         </div>
         <div class="post_more"  @click="drop()" v-if="posts_data.id_maker == loggedid || admin ==1 "  >
-            
             <img src="../assets/images/icons/ep_more-filled.png" alt="">
             <div class="dropdown_more" v-show="Visibe" >
                 <!-- <input v-model="elements.id_post"> -->

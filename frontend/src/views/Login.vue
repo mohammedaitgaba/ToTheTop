@@ -83,9 +83,8 @@ export default {
             }
         },
         checkauth(){
-            if (sessionStorage.getItem('ID')) {
-                
-                this.$router.push('/')
+            if (sessionStorage.getItem('ID')){
+                this.$router.push('/profile')
             }
         }
     }

@@ -215,13 +215,23 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../assets/styles/config';
-
+  ::-webkit-scrollbar{
+            width: 8px;
+            margin-left: 2px;
+            height: 5px;
+        }
+    ::-webkit-scrollbar-thumb{
+          background: rgb(122, 121, 121);
+          border-radius: 5px;
+    }
 .posts_container {
     @include flexColumn(stretch, flex-start);
     width: 110%;
     display: block;
     overflow-y: scroll;
     height: 91vh;
+
+  
 
     .post {
         background-color: $white;

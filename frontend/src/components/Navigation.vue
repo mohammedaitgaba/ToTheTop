@@ -7,16 +7,16 @@
                 <ul v-show ="!mobile"  class="navigation">
                     <li><router-link to="/"><a class="nav_item" href="">Home</a></router-link></li>
                     <li v-if="user !='Med gaba'"><router-link to="/profile"><a class="nav_item" href="">Profile</a></router-link>  </li>
-                    <li ><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link>  </li>
+                    <li ><router-link to="/posts"><a class="nav_item" href="">Posts</a></router-link> </li>
                     <li v-if="user !='Med gaba'"><router-link to="/Messanger"><a class="nav_item" href="">Messanger</a> </router-link> </li>
                     <li v-if="user =='Med gaba'"><router-link to="/admin_dushboard"><a class="nav_item" href="">Dushboard</a> </router-link> </li>
                 </ul>
     
             <div class="auth" @click="destroyId" v-show ="!mobile" v-if="user">
-                <li ><router-link class="auth" to="/Login">logout </router-link>  </li>
+                <li ><router-link to="/Login" class="auth" >logout </router-link>  </li>
             </div>
             <div class="auth" v-show ="!mobile" v-if="!user">
-                <li ><router-link class="auth" to="/Login">Sign in </router-link>  </li>
+                <li ><router-link to="/Login" class="auth">Sign in </router-link>  </li>
             </div>
 
             <div  @click="toggleMobileNav" v-show="mobile" class="menu" :class="{'icon-active':mobileNav} " >
@@ -92,7 +92,6 @@ export default {
             sessionStorage.removeItem('ID');
             sessionStorage.removeItem('name');
             this.user = ""
-            console.log(this.user);
         }
 
     },
