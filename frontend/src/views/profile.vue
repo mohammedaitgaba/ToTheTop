@@ -31,9 +31,9 @@
     </div>
     <section class="p-4 lg:p-20 bg-gray-100 ">
         <div class=" mt-6 flex items-center justify-center" >
-            <div class="app bg-gray-100 lg:w-11/12 flex ">
+            <div class="app bg-gray-100 w-full lg:w-11/12 flex ">
 
-                <main class="grid grid-cols-1 lg:grid-cols-2  my-12 mx-12 w-2xl container px-2 mx-auto content-center">
+                <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  my-12 mx-12 w-2xl container px-2 mx-auto content-center">
 
                     <aside class="lg:w-11/12 sidebare_">
                         <div class="bg-white shadow rounded-lg p-5 User_info" >
@@ -52,7 +52,7 @@
                                     <span class="text-gray-400">Posts</span>
                                 </div>
                                 <div class="font-semibold text-center mx-4">
-                                    <p class="text-black">{{friendsCounter}} </p>
+                                    <p class="text-black">{{friends.length}} </p>
                                     <span class="text-gray-400">Friends</span>
                                 </div>
                             </div>
@@ -65,16 +65,36 @@
                             <h3 class="text-gray-600 text-lg font-semibold mb-4">Freinds</h3>
                             <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="friendsCounter != 0" > 
                                 <li class="flex flex-col w-14 min-w-[80px] items-center space-y-2" v-for="elements in friends">
-                                        <img class="w-[80px] h-[80px] rounded-full" :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="freind">
+                                    <img class="w-[80px] h-[80px] rounded-full" :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="freind">
                                     <span class="text-xs text-gray-500">
                                         {{elements.full_name}}
                                     </span>
                                 </li>
                             </ul>
-
                             <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="friendsCounter == 0">
                                 <li>
                                     You have no friends 
+                                    <img src="" alt="">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white shadow mt-6  rounded-lg p-6" >
+                            <h3 class="text-gray-600 text-lg font-semibold mb-4">Freinds Requests {{requests.length}} </h3>
+                            <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="requests" > 
+                                <li class="flex flex-col w-14 min-w-[80px] items-center space-y-2" v-for="elements in requests">
+                                    <img class="w-[80px] h-[80px] rounded-full" :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="freind">
+                                    <span class="text-xs text-gray-500">
+                                        {{elements.full_name}}
+                                    </span>
+                                    <div class="flex cursor-pointer">
+                                        <img class="w-[25px]" src="../assets/images/icons/success.png" alt="accept friend" @click="accept_friend(elements.id_user)">
+                                        <img class="w-[25px]" src="../assets/images/icons/close.png" alt="remove friend" @click="reject_friend(elements.id_user)" >
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="requests.length==0">
+                                <li>
+                                    You have no friends Requests
                                     <img src="" alt="">
                                 </li>
                             </ul>
@@ -123,7 +143,8 @@ export default {
             postData:[],
             counter:"",
             friendsCounter:"",
-            friends:"",
+            friends:[],
+            requests:[],
 
             selectedFile:"",
             Updater:false
@@ -136,6 +157,7 @@ export default {
         this.FriendsCounter();
         this.getFriends()
         this.checkauth()
+        this.getRequests()
     },
     methods: {
         GetUser(){
@@ -174,8 +196,34 @@ export default {
                 id:sessionStorage.getItem('ID')
                 }).then(res=>{
                     this.friends = res.data
-                    console.log(this.friends);
                 })
+        },
+        getRequests(){
+            axios.post('http://localhost/ToTheTop/backend/User/GetAllRequests',{
+                id:sessionStorage.getItem('ID')
+            }).then(res=> { this.requests = res.data }
+            )
+        },
+        accept_friend(id){
+            axios.post('http://localhost/ToTheTop/backend/User/accept_friend',{
+                id:sessionStorage.getItem('ID'),
+                id_user:id
+            }).then(res=> {
+                if (res.data==true) {
+                    this.getFriends()
+                    this.getRequests()
+                }
+            })
+        }, 
+        reject_friend(id){
+            axios.post('http://localhost/ToTheTop/backend/User/reject_friend',{
+                id:sessionStorage.getItem('ID'),
+                id_user:id
+            }).then(res=> {
+                if (res.data==true) {
+                    this.getRequests()
+                }
+            })
         },
         UpdateInfo(){
             this.Updater = !this.Updater

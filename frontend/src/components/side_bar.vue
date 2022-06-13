@@ -8,7 +8,7 @@
             <div class="search">
                 <!-- <input type="search" placeholder="search">
                 <img src="../assets/images/icons/dashicons_search.png" alt=""> -->
-                friends suggestions 
+                People You May Know
             </div>
         </div>
         <div for=""> </div>

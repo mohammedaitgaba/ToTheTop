@@ -53,7 +53,7 @@ class User
         }
     }
     public function NewFreind($data){
-        $this->db->query("INSERT INTO friends (id_sender,id_reciver)VALUES(:id_sender,:id_reciver)");
+        $this->db->query("INSERT INTO friends (id_sender,id_reciver,request)VALUES(:id_sender,:id_reciver,0)");
         $this->db->bind(":id_sender",$data->id_sender);
         $this->db->bind(":id_reciver",$data->id_reciver);
         try {
@@ -65,13 +65,43 @@ class User
     }
 
     public function GetFriends($data){
-        $this->db->query("SELECT users.id_user,user_photo,full_name,status FROM users JOIN friends ON friends.id_reciver = users.id_user WHERE id_sender = :id
+        $this->db->query("SELECT users.id_user,user_photo,full_name,status FROM users JOIN friends ON friends.id_reciver = users.id_user WHERE id_sender = :id AND friends.request = 1
         UNION
-        SELECT users.id_user,user_photo,full_name,status FROM users JOIN friends ON friends.id_sender = users.id_user WHERE id_reciver = :id");
+        SELECT users.id_user,user_photo,full_name,status FROM users JOIN friends ON friends.id_sender = users.id_user WHERE id_reciver = :id AND friends.request = 1");
         $this->db->bind(":id",$data->id);
         try {
             return $this->db->resultSet();
         } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    } 
+    public function GetRequests($data){
+        $this->db->query("SELECT users.id_user,user_photo,full_name,status,friends.request 
+        FROM users JOIN friends ON friends.id_sender = users.id_user WHERE id_reciver = :id AND friends.request = 0");
+        $this->db->bind(":id",$data->id);
+        try {
+            return $this->db->resultSet();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function AcceptRequests($data){
+        $this->db->query("UPDATE friends SET request = 1 WHERE id_sender =:id_user AND id_reciver=:id");
+        $this->db->bind(":id_user",$data->id_user);
+        $this->db->bind(":id",$data->id);
+        try{
+            return $this->db->execute();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+    public function RejectRequests($data){
+        $this->db->query("DELETE FROM friends WHERE id_sender =:id_user AND id_reciver=:id");
+        $this->db->bind(":id_user",$data->id_user);
+        $this->db->bind(":id",$data->id);
+        try{
+            return $this->db->execute();
+        }catch(PDOException $e){
             return $e->getMessage();
         }
     }
