@@ -58,14 +58,8 @@ class UserController extends Controller
     }
     public function GetAllFriends(){
         $data = json_decode(file_get_contents("php://input"));
-        // var_dump($data);die;
         $result = $this->userModel->GetFriends($data);
-        if ($result) {
-            echo json_encode($result);
-        }
-        else{
-            echo json_encode(['message'=> 'error']);
-        }
+        echo json_encode($result);
     }
     public function GetAllRequests(){
         $data = json_decode(file_get_contents("php://input"));

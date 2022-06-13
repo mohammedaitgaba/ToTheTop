@@ -21,7 +21,6 @@
                         </label>
                         
                         <label for=""> {{elements.body}} </label>
-                        <label for=""> {{elements.id_user}} </label>
                     </div>
                     <div v-if="elements.id_user == idnow || id_admin" class="delete_cmnt" @click="deleteComment(elements.id_post,elements.id_comment)">
                         <img  src="../assets/images/icons/delete.png" alt="">
@@ -204,6 +203,7 @@ export default {
                 @include flexRow(flex-start,flex-start);
                 width: 93%;
                 margin-top: 10px;
+                padding-bottom: 10px;
                
                 .cmnt_maker_pic{
                     width: 60px;

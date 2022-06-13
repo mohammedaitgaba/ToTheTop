@@ -6,8 +6,6 @@
                 <div class="add" @click="reload"><img src="../assets/images/icons/home.png" alt=""></div>
             </div>
             <div class="search">
-                <!-- <input type="search" placeholder="search">
-                <img src="../assets/images/icons/dashicons_search.png" alt=""> -->
                 People You May Know
             </div>
         </div>
@@ -188,9 +186,21 @@ export default {
     height: 70vh;
     padding-bottom: 12px;
     border-radius: 8px;
+
+    ::-webkit-scrollbar{
+        width: 10px;
+        }
+    ::-webkit-scrollbar-thumb{
+        background: linear-gradient(transparent,$orange2);
+        border-radius: 5px;
+        }
+
     .sidbar_head{
         @include flexColumn(center, center);
         width: 100%;
+        .search{
+            font-weight: 600
+        }
     }
     .helpers {
         @include flexRow(center, center);
@@ -308,10 +318,18 @@ export default {
         position: fixed;
         top: 60px;
         width: 100%;
-        height: 120px;
+        height: 130px;
         border-radius: 0;
         background-color: #F4F4F4;
         box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; 
+
+        ::-webkit-scrollbar{
+        height: 5px;
+        }
+        ::-webkit-scrollbar-thumb{
+        background: linear-gradient(transparent,$orange2);
+        border-radius: 5px;
+        }
         .sidbar_head{
             @include flexRow(center, center);
             flex-direction: row-reverse;
