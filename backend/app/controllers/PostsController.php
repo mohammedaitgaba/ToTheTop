@@ -9,7 +9,8 @@ class PostsController extends Controller{
             $data = [
                 'title' => $_POST['title'],
                 'description' => $_POST['description'],
-                'id' => $_POST['id']
+                'id' => $_POST['id'],
+                'id_admin' =>$_POST['id_admin']
             ];
             
             if (empty($_FILES['image'])) {
@@ -49,15 +50,15 @@ class PostsController extends Controller{
         }
         
     }  
-    // public function GetPostsAdmin(){
-    //     $result=$this->Postsmodel->getadminposts();
-    //     if ($result){
-    //         echo json_encode($result);
-    //     } else {
-    //         echo json_encode(['data'=>'error']);
-    //     }
+    public function GetPostsAdmin(){
+        $result=$this->Postsmodel->getadminposts();
+        if ($result){
+            echo json_encode($result);
+        } else {
+            echo json_encode(['data'=>'error']);
+        }
         
-    // }
+    }
 
     public function UpdatePost(){
         $data = [

@@ -7,18 +7,27 @@ class Posts{
         $this->db = new Database;
     }
     public function CreatePost($target_path,$data){
-        
-        $this->db->query("INSERT INTO posts (title,description,photo,id_maker ) VALUES (:title,:description,:photo,:id)");
+        if (empty($data['id'])) {
+            $this->db->query("INSERT INTO posts (title,description,photo,id_admin ) VALUES (:title,:description,:photo,:id_admin)");
+            $this->db->bind(':id_admin',$data['id_admin']);
+        }else{
+            $this->db->query("INSERT INTO posts (title,description,photo,id_maker ) VALUES (:title,:description,:photo,:id)");
+            $this->db->bind(':id',$data['id']);
+        }
         $this->db->bind(':title',$data['title']);
-        $this->db->bind(':id',$data['id']);
         $this->db->bind(':description',$data['description']);
         $this->db->bind(':photo',$target_path);
         return $this->db->execute();
     }
     public function CreatePost_withoutPic($data){
-        $this->db->query("INSERT INTO posts (title,description,id_maker) VALUES (:title,:description,:id)");
+        if (empty($data['id'])) {
+            $this->db->query("INSERT INTO posts (title,description,id_admin) VALUES (:title,:description,:id_admin)");
+            $this->db->bind(':id_admin',$data['id_admin']);
+        } else {
+            $this->db->query("INSERT INTO posts (title,description,id_maker) VALUES (:title,:description,:id)");
+            $this->db->bind(':id',$data['id']);
+        }
         $this->db->bind(':title',$data['title']);
-        $this->db->bind(':id',$data['id']);
         $this->db->bind(':description',$data['description']);
         return $this->db->execute();
     }
@@ -71,4 +80,13 @@ class Posts{
             return $e->getMessage();
         }
     }
+    public function getadminposts(){
+        $this->db->query("SELECT posts.*,admin.name,admin.pic,admin.id FROM posts INNER JOIN admin ON posts.id_admin = admin.id ORDER BY id_post DESC");
+        try{
+            return $this->db->resultSet();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+    
 }

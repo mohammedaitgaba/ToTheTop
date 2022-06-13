@@ -116,8 +116,8 @@ export default {
                 title:this.title,
                 description:this.description,
                 image:this.selectedImg,
-                id_post:this.id_post,
-                id:this.id
+                id:this.id,
+                id_admin:sessionStorage.getItem('id_admin')
             };
             const asformData = new FormData();
             Object.keys(data).forEach((key) => {
@@ -125,7 +125,7 @@ export default {
             });
             axios.post('http://localhost/ToTheTop/backend/Posts/AddNewPosts',
                     asformData
-                ,config).then(res => {this.success = res.data
+                ,config).then(res => { console.log(res); this.success = res.data
                     if (this.success == 'ok') {
                         this.$swal(
                         {

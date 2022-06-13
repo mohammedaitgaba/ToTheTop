@@ -10,7 +10,7 @@
                 <div class="flex flex-col gap-1 text-center items-center">
                     <p class="font-semibold"> {{info_admin.name}} </p>
                     <img class="h-32 w-32 bg-[#F9C784] p-2 rounded-full shadow mb-4"
-                        :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ info_admin.photo"
+                        :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ info_admin.pic"
                         alt="profile pic">
                     <div class="text-sm leading-normal text-gray-400 flex justify-center items-center">
                         {{info_admin.email}}
@@ -146,7 +146,6 @@ export default {
             if (this.admin != "Med gaba") {
                 this.$router.push('/')
             }
-            console.log(this.admin)
         },
         getadmininfo(){
             axios.get('http://localhost/ToTheTop/backend/Admin/GetInfoAdmin')

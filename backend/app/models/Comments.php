@@ -27,7 +27,7 @@ class Comments {
     public function GetComment($data){
             $this->db->query(' (SELECT users.full_name,users.user_photo,users.id_user,comments.* FROM users 
             JOIN comments ON users.id_user = comments.id_maker WHERE comments.id_post = :id_post ORDER BY comments.id_comment DESC)
-            UNION (SELECT admin.name,admin.photo,admin.id,comments.* FROM admin 
+            UNION (SELECT admin.name,admin.pic,admin.id,comments.* FROM admin 
             JOIN comments ON admin.id = comments.id_admin WHERE comments.id_post = :id_post ORDER BY comments.id_comment DESC) ');
         $this->db->bind(':id_post',$data->id_post);
         try{

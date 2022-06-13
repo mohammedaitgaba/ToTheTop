@@ -196,10 +196,6 @@ export default {
 
             this.conn.onmessage = (e) => {
                 let toFriend = JSON.parse(e.data)
-                console.log(toFriend.id_reciver);
-                console.log(toFriend.id_sender);
-                console.log(this.friend_id);
-                console.log(this.idnow);
                 if (toFriend.id_sender == this.friend_id) {
                     this.MessageWs.push(JSON.parse(e.data))
                 }

@@ -1,13 +1,17 @@
 <template> 
     <div class="user_info" >
         <div class="post_head">
-            <div class="profile_pic">
+            <div class="profile_pic" v-if="posts_data.id_admin != 1">
                 <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ posts_data.user_photo" alt="">
+            </div>
+            <div class="profile_pic" v-if="posts_data.id_admin == 1">
+                <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ posts_data.pic" alt="">
             </div>
             <div class="username_time">
                 <div>
-                    <label class="username"> {{posts_data.full_name}} </label>
-                    <label class="username">  </label>
+                    <label class="username" v-if="posts_data.id_admin != 1"> {{posts_data.full_name}} </label>
+                    <label class="username" v-if="posts_data.id_admin == 1"> {{posts_data.name}} </label>
+                    <label class="username_admin" v-if="posts_data.id_admin == 1"> admin </label>
                 </div>
                 <div class="time ">
                     <label > 20h Ago</label>
@@ -70,6 +74,7 @@ export default {
     mounted() {
         this.loggedid = sessionStorage.getItem('ID')
         this.admin = sessionStorage.getItem('id_admin')
+        console.log(this.posts_data.id_admin);
     },
     methods: {
         drop(){
@@ -174,6 +179,13 @@ export default {
                 padding: 5px;
                 .time{
                     color: rgb(100, 99, 99);
+                }
+                .username_admin{
+                    margin-left: 10px;
+                    background-color: #ffc267;
+                    border-radius: 20px;
+                    padding: 5px;
+                    font-size: 13px;
                 }
             }
         }

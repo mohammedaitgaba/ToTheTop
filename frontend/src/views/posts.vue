@@ -3,6 +3,9 @@
     <div class="container">
         <side_bar/> 
         <section class="posts_container">
+            <section class="post" v-for="elements in post_admin">
+                <posts :posts_data="elements" />
+            </section>
             <section class="post" v-for="elements in post">
                 <posts :posts_data="elements" />
             </section>
@@ -30,13 +33,8 @@ export default {
         return {
             
             post:[],
-            // postadmin:[],
-            // Updater: false,
+            post_admin:[],
             post_id:null,
-            // title: "",
-            // description: "",
-            // id_post:"",
-            // selectedFile: "",
             loggedid:"",
             
         }
@@ -44,7 +42,7 @@ export default {
     mounted() {
         this.getallposts()
         this.checkauth()
-        // this.getpostsadmin()
+        this.getpostsadmin()
         this.loggedid = sessionStorage.getItem('ID')
     },
     methods: {
@@ -55,13 +53,12 @@ export default {
                 this.post_id = res.data.id
             })
         },
-        // getpostsadmin(){
-        //     axios.get('http://localhost/ToTheTop/backend/Posts/GetPostsAdmin')
-        //     .then(res=>{
-        //         this.postadmin = res.data
-        //         this.post_id = res.data.id
-        //     })
-        // },
+        getpostsadmin(){
+            axios.get('http://localhost/ToTheTop/backend/Posts/GetPostsAdmin')
+            .then(res=>{
+                this.post_admin=res.data
+            })
+        },
         checkauth(){
             if (!sessionStorage.getItem('ID')&&!sessionStorage.getItem('name')) {
                 this.$router.push('/Login')

@@ -19,7 +19,7 @@ class Admin
         }
     }
     public function get_info(){
-        $this->db->query('SELECT name,photo, email,CIN FROM admin');
+        $this->db->query('SELECT name,pic, email,CIN FROM admin');
         try {
             return $this->db->single();
         } catch (PDOException $e) {
