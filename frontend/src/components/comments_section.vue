@@ -195,9 +195,6 @@ export default {
                 width: 100%;
                  max-height: 55vh;
                 overflow-y: scroll;
-                // padding: 10px 0 10px 0;
-                // border-top: 0.3px solid gray;
-
             }
             .all_cmnts{
                 @include flexRow(flex-start,flex-start);

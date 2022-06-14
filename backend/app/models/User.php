@@ -44,7 +44,7 @@ class User
             union
             select id_reciver 
             from friends 
-            where id_sender = :id ) LIMIT 7");       
+            where id_sender = :id ) ORDER BY RAND() LIMIT 7 ");       
         $this->db->bind(":id",$data->id);
         try {
             return $this->db->resultSet();

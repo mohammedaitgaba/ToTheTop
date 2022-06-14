@@ -4,11 +4,11 @@
     <section class="container">
         <section class="ChatList">
             <div class="search">
-                <input type="search" placeholder="search">
+                <input type="search" placeholder="search" v-model="search">
                 <img src="../assets/images/icons/dashicons_search.png" alt="">
             </div>
             <div class="friends_holder">
-                <div class="friend" v-for="elements in friends" @click="getmyfriend(elements.id_user,elements.full_name,elements.user_photo)">
+                <div class="friend" v-for="elements in filterFriends" @click="getmyfriend(elements.id_user,elements.full_name,elements.user_photo)">
                     <div class="friendinfo">
                         <div class="friendpic">
                             <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/' + elements.user_photo"
@@ -88,7 +88,7 @@ export default {
     },
     data() {
         return {
-            friends: [],
+            friends:[],
             ok:[],
             friend_id:"",
             friend_name:"",
@@ -99,6 +99,7 @@ export default {
             msgsended:[],
             message:"",
             MessageWs:[],
+            search:"",
             
             fullmessage:{
                 id_sender:"",
@@ -119,6 +120,13 @@ export default {
     
     unmounted() {
         this.UserStatusOffline()
+    },
+    computed:{
+        filterFriends:function(){
+            return this.friends.filter((elements)=>{
+                return elements.full_name.match(this.search)
+            })
+        }
     },
 
     methods: {
@@ -199,11 +207,6 @@ export default {
                 if (toFriend.id_sender == this.friend_id) {
                     this.MessageWs.push(JSON.parse(e.data))
                 }
-            // console.log(JSON.parse(e.data));
-            
-            // this.test=JSON.parse(e.data)
-            // console.log(this.test);
-            // console.log(this.MessageWs);
             };
                 
             
