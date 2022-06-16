@@ -5,9 +5,9 @@
         <section class="ChatList">
             <div class="search">
                 <input type="search" placeholder="search" v-model="search">
-                <img src="../assets/images/icons/dashicons_search.png" alt="">
+                <!-- <img src="../assets/images/icons/dashicons_search.png" alt=""> -->
             </div>
-            <div class="friends_holder">
+            <div class="friends_holder" v-if="filterFriends">
                 <div class="friend" v-for="elements in filterFriends" @click="getmyfriend(elements.id_user,elements.full_name,elements.user_photo)">
                     <div class="friendinfo">
                         <div class="friendpic">
@@ -25,7 +25,9 @@
                         <img src="../assets/images/icons/offline.png" alt="">
                     </div>
                 </div>
-
+            </div>
+            <div class="friends_holder" v-if="filterFriends.length == 0">
+                <div> No friends</div>
             </div>
         </section>
         <section class="conversation" v-if="!friend_id">
@@ -244,8 +246,9 @@ export default {
     min-width: 100%;
     .ChatList {
         @include flexColumn(center, flex-start);
-        width: 25%;
+        width: 30%;
         height: 75vh;
+        margin-right: 15px;
         background-color: $white;
         padding-bottom: 12px;
         border-radius: 8px;
@@ -260,9 +263,13 @@ export default {
             input {
                 width: 100%;
                 height: 33px;
-                border: 1px solid;
+                border: 1px solid $orange2;
                 padding: 10px;
                 border-radius: 20px;
+                
+            }
+            input:focus{
+                outline: none;
             }
 
             img {
@@ -446,6 +453,7 @@ export default {
             width: 100%;
             overflow-y: hidden;
             height: 125px;
+            margin: 0;
             margin-bottom: 15px;
 
             .search {

@@ -126,21 +126,27 @@ export default {
 
             input {
                 width: 100%;
-                border: 1px solid $orange2;
-                border-radius: 10px;
+                border: none;
+                border-bottom: 1px solid $orange2;
                 height: 40px;
                 padding: 10px;
                 font-size: 18px;
             }
+            input:focus{
+                outline: none;
+            }
 
             textarea {
-                border: 1px solid $orange2;
-                border-radius: 10px;
+                border: none;
+                border-bottom: 1px solid $orange2;
                 width: 100%;
                 resize: none;
                 height: 70px;
                 font-size: 18px;
                 padding: 10px;
+            }
+            textarea:focus{
+                outline: none;
             }
 
 
@@ -172,11 +178,17 @@ export default {
                 @include button;
                 padding: 8px 30px;
             }
+            .submit:hover{
+                 background-color: $orange1;
+            }
 
             .cancel {
                 @include button;
                 padding: 8px 20px;
                 background-color: black;
+            }
+            .cancel:hover{
+                opacity: 0.8;
             }
 
         }

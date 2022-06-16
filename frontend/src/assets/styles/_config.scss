@@ -38,6 +38,7 @@ $resposive : (
   cursor: pointer;
   transition: 0.3s;
 }
+
 @mixin  phone{
     @media(max-width : map-get($resposive, "phone")){
   

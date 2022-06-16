@@ -39,8 +39,7 @@ export default {
     },
     methods: {
         sendmsg(){
-            // console.log(this.fromstate);
-            console.log();
+            
             axios.post('http://localhost/ToTheTop/backend/Contact/contact_us',{
                 name:this.name,
                 email:this.email,
@@ -102,9 +101,8 @@ export default {
             @include button;
         }
         .contact_send:hover{
-            background-color: $secondary;
-            //  background-color: $orange1;
-            color: black;
+            background-color: $orange1;
+
         }
     
     @include phone{

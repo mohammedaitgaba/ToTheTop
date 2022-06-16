@@ -26,11 +26,10 @@
                 <div class="dropped_item_update">
                     <button @click="update_popup">Update</button>
                 </div>
-                <form @submit.prevent="deletePost(posts_data.id_post)">
-                    <div class="dropped_item_delete">
-                        <button>Delete </button>
-                    </div>
-                </form>
+                <div class="dropped_item_delete">
+                    <button type="button" @click="deletePost(posts_data.id_post)">Delete </button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -131,29 +130,33 @@ export default {
                     width: 25px;
                 }
                  .dropdown_more{
-                    @include flexColumn(center,space-between);
+                    @include flexColumn(center,space-around);
                     box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
                     background-color:#F4F4F4;  
                     position: absolute;
                     border-radius: 5px;
                     right: 0px;
-                    width: 130px;
-                    height: 50px;
+                    width: 150px;
+                    height: 80px;
                     .dropped_item_update{
-                        width:100%;
+                            @include flexColumn(center,space-around);
+                            width:100%;
+                            height: 100%;
                         button{
                             width:100%;
-                            border-radius: 5px;
+                            height: 100%;
                         }
                         button:hover{
-                            background-color: #EAEAEA;
+                            background-color: $orange2;
                         }
                     }
                     .dropped_item_delete{
-                          width:100%;
+                        @include flexColumn(center,space-around);
+                        width:100%;
+                        height: 100%;
                         button{
                             width:100%;
-                            border-radius: 5px;
+                            height: 100%;
                         }
                         button:hover{
                             color: red;
@@ -207,6 +210,7 @@ export default {
             padding: 5px;
             img{
                 width: 100%;
+                max-height: 400px;
             }
         }
 

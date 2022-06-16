@@ -417,10 +417,18 @@ export default {
             padding: 10px;
 
             input {
-                width: 100%;
-                height: 40px;
-                padding: 10px;
-                font-size: 18px;
+                padding:8px;
+                display:block;
+                border:none;
+                background-color:$white ;
+                border-bottom:1px solid $orange1;
+                width:100%;
+                margin-bottom: 10px;
+                font-size: 16px;
+            }
+            input:focus{
+            outline: none;
+            
             }
 
             textarea {
@@ -429,6 +437,17 @@ export default {
                 height: 70px;
                 font-size: 18px;
                 padding: 10px;
+                // padding:8px;
+                display:block;
+                border:none;
+                background-color:$white ;
+                border-bottom:1px solid $orange1;
+                width:100%;
+                margin-bottom: 10px;
+                font-size: 16px;
+            }
+            textarea:focus{
+                outline: none;
             }
 
 
