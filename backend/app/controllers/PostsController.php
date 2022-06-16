@@ -45,6 +45,7 @@ class PostsController extends Controller{
         $result=$this->Postsmodel->getposts();
         if ($result){
             echo json_encode($result);
+
         } else {
             echo json_encode(['data'=>'error']);
         }
@@ -52,8 +53,10 @@ class PostsController extends Controller{
     }  
     public function GetPostsAdmin(){
         $result=$this->Postsmodel->getadminposts();
+        
         if ($result){
             echo json_encode($result);
+
         } else {
             echo json_encode(['data'=>'error']);
         }
@@ -116,6 +119,15 @@ class PostsController extends Controller{
         $result = $this->Postsmodel->DeletPostById($data);
         if ($result){
             echo json_encode(['data'=>'Deleted']);
+        } else {
+            echo json_encode(['data'=>'error']);
+        }
+    }
+    public function GetLastPosts(){
+        $result=$this->Postsmodel->GetLatestposts();
+        if ($result){
+            echo json_encode($result);
+
         } else {
             echo json_encode(['data'=>'error']);
         }

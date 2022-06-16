@@ -88,5 +88,13 @@ class Posts{
             return $e->getMessage();
         }
     }
+    public function GetLatestposts(){
+        $this->db->query('SELECT posts.*,users.full_name,users.user_photo FROM posts INNER JOIN users ON posts.id_maker = users.id_user ORDER BY id_post DESC LIMIT 3');
+        try{
+            return $this->db->resultSet();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
     
 }

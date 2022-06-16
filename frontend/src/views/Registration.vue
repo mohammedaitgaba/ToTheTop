@@ -1,6 +1,5 @@
 <template>
-    <registration>
-
+    <background>
         <section class="registration_container">
             <div class="title">
                 Welcome to the comunity of success
@@ -41,11 +40,11 @@
 
             </form>
         </section>
-    </registration>
+    </background>
 </template>
 
 <script>
-import registration from '@/components/background.vue';
+import background from '@/components/background.vue';
 import axios from 'axios';
 const formState = {
     full_name: "",
@@ -56,7 +55,7 @@ const formState = {
 }
 export default {
     components: {
-        registration
+        background
     },
     data() {
         return {
@@ -109,7 +108,7 @@ export default {
 .registration_container {
     width: 100%;
     height: 100%;
-    @include flexColumn(center, center);
+    @include flexColumn(center, flex-start);
 
     .title {
         font-size: 32px;

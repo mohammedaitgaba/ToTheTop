@@ -14,7 +14,7 @@
                     <label class="username_admin" v-if="posts_data.id_admin == 1"> admin </label>
                 </div>
                 <div class="time ">
-                    <label > 20h Ago</label>
+                    <label > {{posts_data.created_at}}</label>
                     
                 </div>
             </div>
@@ -69,12 +69,13 @@ export default {
             Visibe: false,
             showPop:false,
             admin:""
+
         }
     },
     mounted() {
         this.loggedid = sessionStorage.getItem('ID')
         this.admin = sessionStorage.getItem('id_admin')
-        console.log(this.posts_data.id_admin);
+        // console.log(this.posts_data.created_at.diffForHumans());
     },
     methods: {
         drop(){

@@ -114,8 +114,7 @@ export default {
         this.checkauth()
         this.connected()
         this.getFriends()
-        this.UserStatusOnline()
-        
+        this.UserStatusOnline()        
     },
     
     unmounted() {
@@ -154,6 +153,7 @@ export default {
             this.conn.onmessage = (e) => {
                 if (toFriend.id_sender == this.friend_id) {
                     this.MessageWs.push(JSON.parse(e.data))
+                    
                 }
             // this.MessageWs.push(e.data)
             console.log(JSON.parse(e.data));
@@ -190,6 +190,8 @@ export default {
             id_reciver:this.friend_id
         }).then(res=>console.log(res))
         this.MessageWs.push(this.message)
+            const bodydiv = document.getElementsByClassName('body')[0];
+            bodydiv.scrollTop = bodydiv.scrollHeight;
         this.message = ""
 
         },
@@ -200,6 +202,9 @@ export default {
             }).then(res=>{
                 console.log(res.data)
                 this.msgsended =res.data
+                // this.msgsended.forEach(element => {
+                //     console.log(element.Created_at);
+                // });
                 })
 
             this.conn.onmessage = (e) => {

@@ -20,6 +20,12 @@ class MessangerController extends Controller{
     public function GetConversation(){
         $data = json_decode(file_get_contents("php://input"));
         $result = $this->messagesmodel->GetConversations($data);
+        // $time = $result->Created_at;
+        // foreach ($result as $res) {
+        //    echo ($res->Created_at);
+        // }
+        // var_dump($time);
+        // die;
         if ($result) {
             echo json_encode($result);
         } else {

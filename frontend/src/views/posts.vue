@@ -55,7 +55,7 @@ export default {
         },
         getpostsadmin(){
             axios.get('http://localhost/ToTheTop/backend/Posts/GetPostsAdmin')
-            .then(res=>{
+            .then(res=>{ console.log(res);
                 this.post_admin=res.data
             })
         },

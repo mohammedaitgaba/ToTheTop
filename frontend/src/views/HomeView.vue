@@ -21,7 +21,7 @@
 <!-- about section -->
     <section class="about_home"  >
 
-        <div data-aos="fade-right" class="about_text">
+        <div data-aos="zoom-in-down" class="about_text">
             <h1 class="big_title">
                 You Can Live Life To the Fullest Without Trading Off Any Aspect of Life
             </h1>
@@ -36,7 +36,7 @@
             </p>
        
         </div>
-         <div data-aos="fade-left" class="about_img">
+         <div data-aos="zoom-in-up" class="about_img">
              <img src="../assets/images/others/motivated.jpg" alt="">
         </div>
     </section>
@@ -54,20 +54,10 @@
            Recent posts tackling problems in all areas of life
         </div>
         <div class="blogs_body">
-            <div class="blog">
-                <img src="../assets/images/others/blog1.png" alt="">
-                <p>Here will be the subject of the post</p>
-                <p>Jhon snow</p>
-            </div>
-            <div class="blog">
-                <img src="../assets/images/others/unsplash_U2eUlPEKIgU.png" alt="">
-                <p>Here will be the subject of the post</p>
-                <p>Jhon snow</p>
-            </div>
-            <div class="blog">
-                <img src="../assets/images/others/blog3.png" alt="">
-                <p>Here will be the subject of the post</p>
-                <p>Jhon snow</p>
+            <div class="blog" v-for="elements in Posts">
+                <p> {{elements.full_name}} </p>
+                <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+elements.photo" alt="">
+                <span> {{elements.title}} </span>
             </div>
         </div>
     </section>
@@ -88,23 +78,34 @@ import contact from '@/components/contact.vue';
 import the_footer from '@/components/the_footer.vue';
 import generator from '@/components/generator.vue';
 import home_solutions from '@/components/home_solutions.vue';
-
+import axios from 'axios';
 export default {
     components :{
         the_footer,
         contact,
         Navigation,
         generator,
-        home_solutions
+        home_solutions,
+        
+    },
+    data() {
+        return {
+            Posts:[],
+        }
     },
     mounted() {
         AOS.init();
+        this.GetLatestPosts()
     },
     methods: {
-
-        
-
-        
+        GetLatestPosts(){
+            console.log("ss");
+            axios.get('http://localhost/ToTheTop/backend/Posts/GetLastPosts')
+            .then(res=>{
+                this.Posts = res.data
+                console.log(this.Posts);
+            })
+        }
     },
 }
 </script>
@@ -203,9 +204,10 @@ export default {
         @include flexColumn(center,space-evenly);
         background-color: #EEEEEE;
         margin-top: 40px;
-        height: 75vh;
+        height: 80vh;
         .blogs_head{
            font-size: 32px; 
+           padding: 10px;
         }
         .blogs_body{
             display: grid;
@@ -213,11 +215,25 @@ export default {
             justify-content: space-evenly;
             text-align: center;
             width: 90%;
+            .blog{
+                padding: 15px;
+                margin: 10px;
+                border-radius: 10px;
+                img{
+                    width: 100%;
+                    height: 300px;
+                }
+                p{
+                    font-size: 18px;
+                    font-weight: 600;
+                }
+            }
         }
     @include large-tablet{
         height: auto;
         .blogs_body{
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-wrap: wrap;
             align-items: center;
             .blog{
                 margin: auto;
@@ -225,6 +241,7 @@ export default {
                 width: 45%;
                 img{
                     width: 100%;
+                    
                 }
             }
         }
@@ -249,6 +266,13 @@ export default {
                 img{
                     width: 100%;
                 }
+            }
+        }
+    }
+    @include phone{
+        .blogs_body{
+            .blog{
+                width: 100%;
             }
         }
     }

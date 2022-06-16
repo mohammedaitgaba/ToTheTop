@@ -10,16 +10,17 @@
                 can be a good exercise for journaling prompts.
             </div>
         </div>
+        <transition name="quote_animation">
+            <div class="quote" v-if="quots">
+                <label> {{quots}} </label>
+            </div> 
+        </transition>
 
-        <div class="quote">
-            <label> {{quots}} </label>
-        </div>
-
-        <form class="generator_submit" v-on:submit.prevent="generate" @click="animate">
+        <form class="generator_submit" v-on:submit.prevent="generate">
             <div class="select_holder">
                 <select v-model="category" name="category" class="category" required>
                     <option value="" selected disabled>--choose a type</option>
-                    <option value="Work">Work</option>
+                    <option value="Work" >Work</option>
                     <option value="Confidence">Confidence</option>
                     <option value="Success">Success</option>
                     <option value="Fear">Fear</option>
@@ -42,6 +43,7 @@ export default {
         return {
             category: "",
             quots:"",
+            toggle: false
         }
     },
     methods: {
@@ -50,7 +52,8 @@ export default {
                 type:this.category
             }).then(res => {
                 this.quots =(res.data.corp)
-                console.log(this.quots);
+                this.toggle = true
+                console.log(this.quots); 
             })
         },
     },
@@ -187,6 +190,16 @@ export default {
         .generator_submit {
             width: 100%;
         }
+    }
+    // .quote_animation
+    .quote_animation-enter-active,
+    .quote_animation-leave-active {
+    transition: opacity 0.5s ease;
+    }
+
+    .quote_animation-enter-from,
+    .quote_animation-leave-to {
+    opacity: 0;
     }
 }
 </style>

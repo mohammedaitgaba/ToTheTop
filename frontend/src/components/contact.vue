@@ -66,7 +66,7 @@ export default {
         height: 86vh;
         form{
             @include flexColumn(center,space-evenly);
-            background-color: #fdd5a0;
+            background-color: antiquewhite;
             opacity: 0.8;
             width: 45%;
             height: 80%;

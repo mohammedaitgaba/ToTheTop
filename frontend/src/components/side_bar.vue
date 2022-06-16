@@ -517,19 +517,4 @@ export default {
         }
     }
 }
-
-// .add_popup-enter-active,
-// .add_popup-leave-active{
-//     transition: .4s ease all;
-
-// }
-
-// .add_popup-enter-from{
-//     transform: translate(-50%, -50%);
-//     }
-
-// .add_popup{
-//     transform: translate(0%,0%);
-
-// }
 </style>
