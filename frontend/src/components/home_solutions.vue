@@ -65,23 +65,23 @@ export default {
           
         }
         .solution{
-                width: 80%;
-                height: 100%;
-                position: relative;
-                @include flexColumn(center,space-evenly);
-                img{
-                     width: 85%;
-                     height: 70%;
-                    border-radius: 20px;
-                    opacity: 1;
-                    display: block;
-                    transition: .5s ease;
-                    backface-visibility: hidden;
-                }
-                p{
-                    font-weight: 400;
-                    font-size: 20px;
-                }
+            width: 80%;
+            height: 100%;
+            position: relative;
+            @include flexColumn(center,space-evenly);
+            img{
+                width: 85%;
+                height: 70%;
+                border-radius: 20px;
+                display: block;
+                opacity: 1;
+                transition: .5s ease;
+                backface-visibility: hidden;
+            }
+            p{
+                font-weight: 400;
+                font-size: 20px;
+            }
             .middle{
             transition: .5s ease;
             opacity: 0;
@@ -101,7 +101,7 @@ export default {
                 opacity: 1;
             }
             img {
-            opacity: 0.3;
+                opacity: 0.3;
             }
         }
     

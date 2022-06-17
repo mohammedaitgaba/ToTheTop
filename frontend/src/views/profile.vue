@@ -61,24 +61,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-white shadow mt-6  rounded-lg p-6 ">
-                            <h3 class="text-gray-600 text-lg font-semibold mb-4">Freinds</h3>
-                            <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="friendsCounter != 0" > 
-                                <li class="flex flex-col w-14 min-w-[80px] items-center space-y-2" v-for="elements in friends">
-                                    <img class="w-[80px] h-[80px] rounded-full" :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="freind">
-                                    <span class="text-xs text-gray-500">
-                                        {{elements.full_name}}
-                                    </span>
-                                </li>
-                            </ul>
-                            <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="friendsCounter == 0">
-                                <li>
-                                    You have no friends 
-                                    <img src="" alt="">
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="bg-white shadow mt-6  rounded-lg p-6" >
+                         <div class="bg-white shadow mt-6  rounded-lg p-6" >
                             <h3 class="text-gray-600 text-lg font-semibold mb-4">Freinds Requests {{requests.length}} </h3>
                             <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="requests" > 
                                 <li class="flex flex-col w-14 min-w-[80px] items-center space-y-2" v-for="elements in requests">
@@ -99,6 +82,27 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <div class="bg-white shadow mt-6  rounded-lg p-6 ">
+                            <h3 class="text-gray-600 text-lg font-semibold mb-4">Freinds</h3>
+                            <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="friendsCounter != 0" > 
+                                <li class="flex flex-col w-14 min-w-[80px] items-center space-y-2 friend_holder" v-for="elements in friends">
+                                    <img class="w-[80px] h-[80px] rounded-full friend_pic" :src="'http://localhost/ToTheTop/backend/public/imgUploaded/'+ elements.user_photo" alt="freind">
+                                    <span class="text-xs text-gray-500">
+                                        {{elements.full_name}}
+                                    </span>
+                                    <div class="unfriend" @click="unfriend(elements.id_user)"><img src="../assets/images/icons/unfriended.png" alt="unfriend user"></div>
+
+                                </li>
+                            </ul>
+                            <ul class="flex items-center space-x-2 overflow-x-scroll" v-if="friendsCounter == 0">
+                                <li>
+                                    You have no friends 
+                                    <img src="" alt="">
+                                </li>
+                            </ul>
+                        </div>
+                       
 
                     </aside>
 
@@ -257,6 +261,14 @@ export default {
             if (!sessionStorage.getItem('ID')) {
                 this.$router.push('/Login')
             }
+        },
+        unfriend(id){
+            axios.post('http://localhost/ToTheTop/backend/User/UnfriendUser',{
+                id_friend:id,
+                id_user:sessionStorage.getItem('ID')
+            }).then(res => {console.log(res)
+            this.getFriends()
+            })
         }
     },
 }
@@ -271,6 +283,28 @@ export default {
     ::-webkit-scrollbar-thumb{
           background: rgb(122, 121, 121);
           border-radius: 5px;
+    }
+    .friend_holder{
+        position: relative;
+        .friend_pic{
+            opacity: 1;
+            transition: .5s ease;
+            backface-visibility: hidden;
+        }
+        .unfriend{
+            position: absolute;
+            top:20px;
+            opacity: 0;
+        }
+    }
+    .friend_holder:hover{
+         .unfriend {
+                opacity: 1;
+                cursor: pointer;
+            }
+        .friend_pic{
+                opacity: 0.3;
+            }
     }
 .posts_container {
     @include flexColumn(stretch, flex-start);

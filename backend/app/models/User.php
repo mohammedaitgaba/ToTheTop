@@ -152,5 +152,16 @@ class User
             return $e->getMessage();
         }
     }
+    public function Unfriended($data){
+        $this->db->query('DELETE from friends WHERE 
+        id_sender = :id_friend AND id_reciver = :id_user OR id_reciver = :id_friend AND id_sender = :id_user');
+        $this->db->bind(':id_friend',$data->id_friend);
+        $this->db->bind(':id_user',$data->id_user);
+        try{
+            return $this->db->execute();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
 
 }
