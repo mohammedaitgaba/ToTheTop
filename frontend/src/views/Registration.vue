@@ -21,6 +21,7 @@
                 <div class="inputs">
                     <label for="">Email</label>
                     <input v-model="form.email" type="email" placeholder="Your Email" name="email" required>
+                    <span> {{email_dublicated}} </span>
                 </div>
 
                 <div class="inputs">
@@ -32,6 +33,7 @@
                     <label for="">Confirme password</label>
                     <input v-model="form.passwordConfirmation" type="Password" placeholder="rentre password" name="Confirmation" required>
                     <span> {{errormessage}} </span>
+                    
                 </div>
 
                 <button type="submit" name="submit" class="creat_acc">Create</button>
@@ -61,6 +63,7 @@ export default {
         return {
             form: formState,
             errormessage:"",
+            email_dublicated:""
         }
     },
     mounted() {
@@ -73,14 +76,20 @@ export default {
                 
                 axios.post('http://localhost/ToTheTop/backend/User/add_user', {
                     form: this.form
-                }).then(res => {
-                    this.$swal(
-                    {
-                    title:'Your account has been created!',
-                    icon: 'success'
+                }).then(res => {console.log(res)
+                    if (res == true) {
+                        
+                        this.$swal(
+                        {
+                        title:'Your account has been created!',
+                        icon: 'success'
+                        }
+                        )
+                        this.$router.push("/Login")
+                    }else{
+                        this.email_dublicated = "An account with this info already exists"
+                        console.log(this.email_dublicated)
                     }
-                    )
-                    this.$router.push("/Login")
                 })
             } else {
                 this.errormessage = "Please confirm your password"
@@ -162,6 +171,7 @@ export default {
             }
             span{
                 color: red;
+                font-size: 14px;
             }
         }
 

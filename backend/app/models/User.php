@@ -20,8 +20,12 @@ class User
         // ternary operator
         try {
             return $this->db->execute();
-        } catch (PDOException $e) {
-            return $e->getMessage();
+        } catch(PDOException $e){
+            if(str_contains($e->getMessage(),"Duplicate")){
+                echo "an account with this info already exists";
+            }else{
+                die($e->getMessage());
+            }
         }
     }
     public function checkUser($data)

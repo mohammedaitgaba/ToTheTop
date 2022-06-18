@@ -50,6 +50,7 @@
                     <div class="time">
                         {{elements.Created_at}}
                     </div>
+                    
                 </div>
                 
                 <div v-for="elements in MessageWs" :class="{ 'sender' : (elements.id_sender == idnow ), 'reciver' : (elements.id_reciver == idnow)}" >
@@ -70,9 +71,11 @@
                     </div>
                 </div>
                 </div>
+
+            <div class="down">hh</div>
             </div>
             <form class="send_message" @submit.prevent="sendMessage">
-                <input type="text" v-model="message">
+                <input type="text" v-model="message" required>
                 <button name="submit"><img src="../assets/images/icons/send.png" alt="" ></button>
             </form>
         </section>
@@ -192,8 +195,8 @@ export default {
             id_reciver:this.friend_id
         }).then(res=>console.log(res))
         this.MessageWs.push(this.message)
-            const bodydiv = document.getElementsByClassName('body')[0];
-            bodydiv.scrollTop = bodydiv.scrollHeight;
+            const downdiv = document.getElementsByClassName('down')[0];
+            downdiv.scrollTop = downdiv.scrollHeight;
         this.message = ""
 
         },

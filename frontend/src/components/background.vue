@@ -12,7 +12,7 @@
         background-attachment: fixed;
         z-index: -1;
         width: 100%;
-        height: 100%;
+        height: 105vh;
         position: absolute;
         max-width: 1440px;
 }

@@ -13,12 +13,14 @@ class UserController extends Controller
     public function add_user(){
             $data = json_decode(file_get_contents("php://input"))->form;
             $result = $this->userModel->newUser($data);
+            echo json_encode($result);
 
-            if($result){
-                echo json_encode(["message" => "success"]);
-            }else{
-                echo json_encode(["message" => "error not created"]);
-            }
+            // if($result){
+            //     // echo json_encode(["message" => "success"]);
+            // }else{
+            //     // echo json_encode(["message" => "error not created"]);
+            //     echo json_encode($result);
+            // }
     }
 
     public function check_user(){
@@ -34,7 +36,7 @@ class UserController extends Controller
                     echo json_encode(["message1" => "Password invalid"]);
                 }
             }else{
-                echo json_encode(["message2" => "Invalid Info "]);
+                echo json_encode(["message2" => "Invalid Email "]);
             }
     }
     public function GetRandUsers(){
