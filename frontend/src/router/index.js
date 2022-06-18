@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Messanger from '../views/Messanger.vue'
 import admin_dushboard from '../views/admin_dushboard.vue'
 import profile from '../views/profile.vue'
+import NotFound from '../views/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,7 +48,12 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: profile
-    }
+    },
+    {
+      path:"/:pathMatch()",
+      name:"NotFound",
+      component: NotFound
+  }
     
   ]
 })
