@@ -5,6 +5,8 @@ class React{
     {
         $this->db = new Database;
     }
+    // first of all check if the user has already liked 
+    // the posts if not insert the like else delete it
     public function addLike($data){
 
         if ($this->CheckLike($data)==false) {
@@ -43,7 +45,7 @@ class React{
         
     }
 
-    
+    // count post likes by getting post_id
     public function CountLikes($data){
         $this->db->query("SELECT COUNT(*) AS counter FROM likes WHERE id_post = :id_post");
         $this->db->bind('id_post',$data->id_post);
@@ -53,6 +55,8 @@ class React{
             return $e->getMessage();
         }
     }
+
+    // check post if already liked
     public function CheckLike($data){
         if (empty($data->id_user)) {
             $this->db->query('SELECT * FROM likes WHERE id_admin = :id_admin AND id_post = :id_post');
@@ -70,7 +74,7 @@ class React{
 
     } 
     
-
+    // same functions as likes 
     public function addClaps($data){
         if ($this->CheckClap($data)==false) {
 
@@ -107,6 +111,8 @@ class React{
         }
         
     }
+
+
     public function CheckClap($data){
         if (empty($data->id_user)) {
             $this->db->query('SELECT * FROM claps WHERE id_admin = :id_admin AND id_post = :id_post');
@@ -123,6 +129,8 @@ class React{
         }
 
     }
+
+
     public function CountClpas($data){
         $this->db->query("SELECT COUNT(*) AS counter FROM claps WHERE id_post = :id_post");
         $this->db->bind('id_post',$data->id_post);
@@ -133,15 +141,4 @@ class React{
         }
     }
 
-    
-    // public function DeletPostsLike($data){
-    //     $this->db->query('DELETE FROM likes WHERE id_user = :id_user AND id_post = :id_post');
-    //     $this->db->bind('id_user',$data->id_user);
-    //     $this->db->bind('id_post',$data->id_post);
-    //     try{
-    //         return $this->db->execute();
-    //     }catch(PDOException $e){
-    //         return $e->getMessage();
-    //     }
-    // }
 }

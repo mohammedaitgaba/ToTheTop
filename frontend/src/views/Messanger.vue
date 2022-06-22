@@ -168,7 +168,6 @@ export default {
             this.friend_id = id
             this.friend_name = name
             this.friend_pic = pic
-            console.log(this.friend_id);
             this.getmessages()
         },
         sendMessage(){

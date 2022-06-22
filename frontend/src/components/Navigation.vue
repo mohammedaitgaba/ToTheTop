@@ -91,6 +91,7 @@ export default {
         destroyId(){
             sessionStorage.removeItem('ID');
             sessionStorage.removeItem('name');
+            sessionStorage.removeItem('id_admin');
             this.user = ""
         }
 

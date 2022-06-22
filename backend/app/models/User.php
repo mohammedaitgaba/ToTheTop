@@ -7,6 +7,8 @@ class User
     {
         $this->db = new Database;
     }
+
+    // add new user 
     public function newUser($data)
      {
 
@@ -28,6 +30,8 @@ class User
             }
         }
     }
+
+    // check user data for authentification
     public function checkUser($data)
     {
         // echo($data['email']);die;
@@ -40,6 +44,8 @@ class User
             return $e->getMessage();
         }
     }
+
+    // get randeom users to show them in friends list
     public function getRandomUser($data){
         $this->db->query("SELECT * from users where id_user != :id and id_user not in (
             select id_sender 
@@ -56,6 +62,8 @@ class User
             return $e->getMessage();
         }
     }
+
+    // add friend by id_friend and id_user
     public function NewFreind($data){
         $this->db->query("INSERT INTO friends (id_sender,id_reciver,request)VALUES(:id_sender,:id_reciver,0)");
         $this->db->bind(":id_sender",$data->id_sender);
@@ -68,6 +76,7 @@ class User
         }
     }
 
+    // get all user friends 
     public function GetFriends($data){
         $this->db->query("SELECT users.id_user,user_photo,full_name,status FROM users JOIN friends ON friends.id_reciver = users.id_user WHERE id_sender = :id AND friends.request = 1
         UNION
@@ -79,6 +88,8 @@ class User
             return $e->getMessage();
         }
     } 
+
+    // get friends requests by id sender and id_user
     public function GetRequests($data){
         $this->db->query("SELECT users.id_user,user_photo,full_name,status,friends.request 
         FROM users JOIN friends ON friends.id_sender = users.id_user WHERE id_reciver = :id AND friends.request = 0");
@@ -89,6 +100,8 @@ class User
             return $e->getMessage();
         }
     }
+
+    // accept users requests by changing value from 0 to 1
     public function AcceptRequests($data){
         $this->db->query("UPDATE friends SET request = 1 WHERE id_sender =:id_user AND id_reciver=:id");
         $this->db->bind(":id_user",$data->id_user);
@@ -99,6 +112,8 @@ class User
             return $e->getMessage();
         }
     }
+
+    // delete pending requests 
     public function RejectRequests($data){
         $this->db->query("DELETE FROM friends WHERE id_sender =:id_user AND id_reciver=:id");
         $this->db->bind(":id_user",$data->id_user);
@@ -109,6 +124,8 @@ class User
             return $e->getMessage();
         }
     }
+
+    // get friend selected for chat 
     public function GetUser($data){
         $this->db->query('SELECT users.full_name,users.email,users.user_photo FROM users WHERE id_user = :id');
         $this->db->bind(':id',$data->id);
@@ -118,6 +135,9 @@ class User
             return $e->getMessage();
         }
     }
+
+    // show all friends in messanger page 
+
     public function GetUserFriends($data){
         $this->db->query('SELECT COUNT(*) AS COUNTER FROM friends WHERE id_sender = :id OR id_reciver = :id');
         $this->db->bind(':id',$data->id);
@@ -127,6 +147,8 @@ class User
             return $e->getMessage();
         }
     }
+
+    // update users info 
     public function UpdateUser($target_path,$data){
         
         $this->db->query('UPDATE users SET full_name=:fullName,email=:email,user_photo=:photo WHERE id_user = :id');
@@ -136,6 +158,8 @@ class User
         $this->db->bind(':photo',$target_path);
         $this->db->execute();
     }
+
+    // set user status to online 
     public function UpdateStatusOnline($data){
         
         $this->db->query('UPDATE users SET status = 1 WHERE id_user = :id');
@@ -146,6 +170,8 @@ class User
             return $e->getMessage();
         }
     }
+
+    // set user status to offline 
     public function UpdateStatusOffline($data){
         
         $this->db->query('UPDATE users SET status = 0 WHERE id_user = :id');
@@ -156,6 +182,8 @@ class User
             return $e->getMessage();
         }
     }
+
+    // delete users from friends list
     public function Unfriended($data){
         $this->db->query('DELETE from friends WHERE 
         id_sender = :id_friend AND id_reciver = :id_user OR id_reciver = :id_friend AND id_sender = :id_user');

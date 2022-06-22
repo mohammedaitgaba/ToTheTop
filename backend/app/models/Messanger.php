@@ -5,6 +5,8 @@ class Messanger {
     {
         $this->db = new Database;
     }
+
+    // add new message 
     public function Newmessage($data){
         $this->db->query('INSERT INTO conversation (id_sender,id_reciver,message)VALUES(:id_sender,:id_reciver,:message)');
         $this->db->bind(':id_sender',$data->id_sender);
@@ -12,6 +14,8 @@ class Messanger {
         $this->db->bind(':message',$data->message);
         return $this->db->execute();
     }
+
+    // get data of conversation by id sender and reciver
     public function GetConversations($data){
         // var_dump($data);die;
         $this->db->query('

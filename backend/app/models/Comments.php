@@ -24,6 +24,8 @@ class Comments {
         }
 
     }
+
+
     public function GetComment($data){
             $this->db->query(' (SELECT users.full_name,users.user_photo,users.id_user,comments.* FROM users 
             JOIN comments ON users.id_user = comments.id_maker WHERE comments.id_post = :id_post ORDER BY comments.id_comment DESC)
@@ -36,6 +38,8 @@ class Comments {
             return $e->getMessage();
         }
     }
+
+    
     public function DeleteCommentById($data){
         if (empty($data->id_maker)) {
             $this->db->query("DELETE FROM comments WHERE  id_post =:id_post AND id_comment =:id ");

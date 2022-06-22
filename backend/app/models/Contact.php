@@ -16,6 +16,8 @@ class Contact{
             return $e->getMessage();
         }
     }
+
+
     public function get_num_contacts(){
         $this->db->query('SELECT COUNT(*) as counter FROM contact');
         try {
@@ -24,6 +26,8 @@ class Contact{
             return $e->getMessage();
         }
     }
+
+    
     public function get_all_contacts(){
         $this->db->query('SELECT * FROM contact');
         try {
