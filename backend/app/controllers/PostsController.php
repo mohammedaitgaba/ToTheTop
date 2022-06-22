@@ -5,6 +5,8 @@ class PostsController extends Controller{
     {
         $this->Postsmodel = $this->model('Posts');
     }
+
+
     public function AddNewPosts(){   
             $data = [
                 'title' => $_POST['title'],
@@ -41,6 +43,7 @@ class PostsController extends Controller{
 
     }
 
+
     public function GetAllPosts(){
         $result=$this->Postsmodel->getposts();
         if ($result){
@@ -51,6 +54,8 @@ class PostsController extends Controller{
         }
         
     }  
+
+
     public function GetPostsAdmin(){
         $result=$this->Postsmodel->getadminposts();
         
@@ -96,6 +101,8 @@ class PostsController extends Controller{
             }
         }
     }
+
+
     public function GetPostsByIdMaker(){
         $data = json_decode(file_get_contents("php://input"));
         $result=$this->Postsmodel->GetpostsById($data);
@@ -105,6 +112,8 @@ class PostsController extends Controller{
             echo json_encode(['data'=>'error']);
         }
     }
+
+
     public function CountPostsByIdUser(){
         $data = json_decode(file_get_contents("php://input"));
         $result=$this->Postsmodel->CountUserPosts($data);
@@ -114,6 +123,8 @@ class PostsController extends Controller{
             echo json_encode(['data'=>'error']);
         }
     }
+
+
     public function DeletPost(){
         $data = json_decode(file_get_contents("php://input"));
         $result = $this->Postsmodel->DeletPostById($data);
@@ -123,6 +134,8 @@ class PostsController extends Controller{
             echo json_encode(['data'=>'error']);
         }
     }
+
+
     public function GetLastPosts(){
         $result=$this->Postsmodel->GetLatestposts();
         if ($result){
@@ -132,4 +145,6 @@ class PostsController extends Controller{
             echo json_encode(['data'=>'error']);
         }
     }
+
+    
 }

@@ -7,9 +7,9 @@ class CommentsController extends Controller
     {
         $this->CommentsModel = $this->model('Comments');
     }
+    // Create a new comment by user or admin
     public function NewComment(){
         $data = json_decode(file_get_contents("php://input")); 
-        // var_dump($data);die;
         $result = $this->CommentsModel->AddComment($data);
         
         if ($result) {
@@ -18,6 +18,8 @@ class CommentsController extends Controller
             echo json_encode('error');
         } 
     }
+
+    // get all comments of users and admin
     public function GetComment(){
         $data = json_decode(file_get_contents("php://input"));
         $result =  $this->CommentsModel->GetComment($data);
@@ -26,6 +28,8 @@ class CommentsController extends Controller
         }
         
     }
+
+    //delete comment by id user and id post
     public function DeleteComment(){
         $data = json_decode(file_get_contents("php://input"));
         $result =  $this->CommentsModel->DeleteCommentById($data);

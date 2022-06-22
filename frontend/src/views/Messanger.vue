@@ -5,7 +5,6 @@
         <section class="ChatList">
             <div class="search">
                 <input type="search" placeholder="search" v-model="search">
-                <!-- <img src="../assets/images/icons/dashicons_search.png" alt=""> -->
             </div>
             <div class="friends_holder" v-if="filterFriends">
                 <div class="friend" v-for="elements in filterFriends" @click="getmyfriend(elements.id_user,elements.full_name,elements.user_photo)">
@@ -71,8 +70,7 @@
                     </div>
                 </div>
                 </div>
-
-            <div class="down">hh</div>
+                
             </div>
             <form class="send_message" @submit.prevent="sendMessage">
                 <input type="text" v-model="message" required>
@@ -111,15 +109,14 @@ export default {
                 id_reciver:"",
                 message:"",
                 Created_at:""
-            }
-
+            },
         }
     },
     mounted() {
         this.checkauth()
         this.connected()
         this.getFriends()
-        this.UserStatusOnline()        
+        this.UserStatusOnline()
     },
     
     unmounted() {
@@ -176,28 +173,33 @@ export default {
         },
         sendMessage(){
 
+            let today = new Date();
+            let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            let dateTime = date+' '+time;
+
         this.fullmessage.message = this.message
         this.fullmessage.id_sender = this.idnow
         this.fullmessage.id_reciver = this.friend_id
-        this.fullmessage.Created_at = Date.now()
+        this.fullmessage.Created_at = dateTime
 
             let msg = {
                 message : this.message,
                 id_sender : this.idnow,
                 id_reciver :this.friend_id,
-                Created_at : Date.now()
+                Created_at : dateTime
                 }
         this.MessageWs.push(msg)
         this.conn.send(JSON.stringify(this.fullmessage))
+            const downdiv = document.getElementsByClassName('body')[0];
+            downdiv.scrollTop = downdiv.scrollHeight;
         axios.post('http://localhost/ToTheTop/backend/Messanger/AddMessage',{
             message:this.message,
             id_sender:sessionStorage.getItem('ID'),
             id_reciver:this.friend_id
         }).then(res=>console.log(res))
-        this.MessageWs.push(this.message)
-            const downdiv = document.getElementsByClassName('down')[0];
-            downdiv.scrollTop = downdiv.scrollHeight;
-        this.message = ""
+            this.MessageWs.push(this.message)
+            this.message = ""
 
         },
         getmessages(){
@@ -205,11 +207,7 @@ export default {
                 id_sender:sessionStorage.getItem('ID'),
                 id_reciver:this.friend_id
             }).then(res=>{
-                console.log(res.data)
                 this.msgsended =res.data
-                // this.msgsended.forEach(element => {
-                //     console.log(element.Created_at);
-                // });
                 })
 
             this.conn.onmessage = (e) => {

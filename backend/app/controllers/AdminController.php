@@ -1,13 +1,13 @@
 <?php
 class AdminController extends Controller
 {
-    // public $data = [];
     private $adminModel;
 
     public function __construct()
     {
         $this->adminModel = $this->model('Admin');
     }
+// check data of admin if exist
     public function check_admin()
     {
         $data = json_decode(file_get_contents("php://input"));
@@ -23,20 +23,7 @@ class AdminController extends Controller
             echo json_encode(["message2" => "Invalid Info "]);
         }
     }
-    public function updateinfo(){
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $data = json_decode(file_get_contents("php://input"),true);
-
-            if($this->adminModel->updateInfo($data)){
-                echo json_encode(array(
-                    "message"=>"done"
-                ));
-            }else{
-                echo json_encode(["message" => "error"]);
-            }
-
-        }
-    }
+// get admin info 
     public function GetInfoAdmin(){
         $result= $this->adminModel->get_info();
         if($result){
@@ -45,6 +32,8 @@ class AdminController extends Controller
             echo json_encode(["message" => "error"]);
         }
     }
+
+// get the number of users for statistics
     public function getNumberUser(){
         $result= $this->adminModel->get_users_num();
         if($result){
@@ -53,6 +42,8 @@ class AdminController extends Controller
             echo json_encode(["message" => "error"]);
         }
     }
+
+// get the number of Posts for statistics
     public function getNumberPosts(){
         $result= $this->adminModel->get_Posts_num();
         if($result){
@@ -61,6 +52,8 @@ class AdminController extends Controller
             echo json_encode(["message" => "error"]);
         }
     }
+
+// get the number of Comments for statistics
     public function getNumberComments(){
         $result= $this->adminModel->get_comments_num();
         if($result){
@@ -69,6 +62,8 @@ class AdminController extends Controller
             echo json_encode(["message" => "error"]);
         }
     }
+
+// get all users 
     public function getAllUsers(){
         $result= $this->adminModel->getUsers();
         if($result){
@@ -77,6 +72,8 @@ class AdminController extends Controller
             echo json_encode(["message" => "error"]);
         }
     }
+
+//delete a user in dushboard By id
     public function DeleteUserById(){
         $data = json_decode(file_get_contents("php://input"));
         $result = $this->adminModel->DeleteUser($data);
@@ -86,6 +83,8 @@ class AdminController extends Controller
             echo json_encode(["message" => "error"]);
         }
     }
+
+// Delete contact messages 
     public function DeleteMessageById(){
         $data = json_decode(file_get_contents("php://input"));
         $result = $this->adminModel->DeleteMessage($data);

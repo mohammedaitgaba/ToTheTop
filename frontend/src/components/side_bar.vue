@@ -6,12 +6,15 @@
                 <div class="add" @click="reload"><img src="../assets/images/icons/home.png" alt=""></div>
             </div>
             <div class="search">
+                <input type="search" placeholder="search" v-model="search">
+            </div>
+            <div class="search">
                 People You May Know
             </div>
         </div>
         <div for=""> </div>
         <div class="friends_holder" v-if="user">
-                <div class="friend" v-for="elements in friends">
+                <div class="friend" v-for="elements in filterUsers">
                     <div class="friendinfo">
                         <div class="friendpic">
                             <img :src="'http://localhost/ToTheTop/backend/public/imgUploaded/' + elements.user_photo" alt="">
@@ -27,6 +30,9 @@
                             <img src="../assets/images/icons/addFriend.png" alt="">
                         </button>
                     </form>
+                </div>
+                <div class="friend" v-if="filterUsers.length == 0 ">
+                    <label for="">Oups user not found</label>
                 </div>
         </div>
 
@@ -89,13 +95,21 @@ export default {
             friends:[],
             added:[],
             user:"",
-            success:""
+            success:"",
+            search:"",
         }
     },
     mounted() {
       this.checkregistration();
       this.RandomFriends();
       this.user = sessionStorage.getItem('ID')
+    },
+    computed:{
+        filterUsers:function(){
+            return this.friends.filter((elements)=>{
+                return elements.full_name.match(this.search)
+            })
+        }
     },
     methods: {
         show(){
@@ -152,6 +166,7 @@ export default {
             )
             .then(res => {
                 this.friends = res.data
+                console.log(this.friends);
             })
         },
         add_friend(id){
@@ -222,12 +237,16 @@ export default {
         font-size: 15px;
 
         input {
-            width: 100%;
-            height: 33px;
-            border: 1px solid;
-            padding: 10px;
-            border-radius: 20px;
-        }
+                width: 100%;
+                height: 33px;
+                border: 1px solid $orange2;
+                padding: 10px;
+                border-radius: 20px;
+                
+            }
+            input:focus{
+                outline: none;
+            }
 
         img {
             position: absolute;

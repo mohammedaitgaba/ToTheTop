@@ -52,7 +52,7 @@
                             <img src="../assets/images/icons/commentss.png" alt="">
                             Contacts :
                             <div class="number">
-                                {{contacts_num}}
+                                {{contacts.length}}
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,6 @@ export default {
         this.getNumberPosts()
         this.getNumberComments()
         this.getAllUsers()
-        this.getNumberContacts()
         this.getAllContacts()
     },
     methods: {
@@ -177,23 +176,16 @@ export default {
                 this.users = res.data
             })
         },
-        getNumberContacts(){
-            axios.get('http://localhost/ToTheTop/backend/Contact/getNumberContact')
-            .then(res => {
-                this.contacts_num = res.data.counter
-            })
-        },
         getAllContacts(){
             axios.get('http://localhost/ToTheTop/backend/Contact/getAllContacts')
             .then(res => {
                 this.contacts = res.data
-                console.log(this.contacts);
             })
         },
         DeletUser(id,name){
             this.$swal(
                 {
-                title: 'Are you sure?',
+                title:'Are you sure?',
                 text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,

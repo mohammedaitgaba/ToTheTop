@@ -26,7 +26,7 @@
 
                 <div class="inputs">
                     <label for="">Password</label>
-                    <input v-model="form.password" type="Password" placeholder="Password" name="Password" required>
+                    <input v-model="form.password" type="Password" placeholder="Password" name="Password" minlength="8" required>
                 </div>
 
                 <div class="inputs">

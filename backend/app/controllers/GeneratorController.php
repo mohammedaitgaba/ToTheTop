@@ -9,6 +9,8 @@ class GeneratorController extends Controller
     {
         $this->GeneratorModel = $this->model('Generators');
     }
+
+    // get one Quote randomly
     public function generateQuote(){
         $data = json_decode(file_get_contents("php://input"), true);
         $result = $this->GeneratorModel->generate($data);
